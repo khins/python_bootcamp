@@ -28,11 +28,7 @@ print(same_first_and_last_letter("q") )
 # three_number_sum("444")    => 12
 # three_number_sum("000")    => 0
 def three_number_sum(val):
-    total = 0
-    for w in val:
-        total += int(w)
-
-    return total
+    return int(val[0]) + int(val[1]) + int(val[2])
 
 print(three_number_sum("123"))
 print(three_number_sum("567"))
