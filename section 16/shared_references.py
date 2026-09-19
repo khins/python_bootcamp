@@ -149,9 +149,9 @@ print(second_name)
 # Optional challenge — Equal contents vs. the same object
 # == compares values; is checks whether references point to the same object.
 # Predict each output. Use is for identity checks, not general value checks.
-# left = [1, 2]
-# right = [1, 2]
-# alias = left
-# print(left == right)
-# print(left is right)
-# print(left is alias)
+left = [1, 2]
+right = [1, 2]
+alias = left
+print(left == right)
+print(left is right)
+print(left is alias)
