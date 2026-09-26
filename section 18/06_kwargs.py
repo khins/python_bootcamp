@@ -72,9 +72,6 @@ def describe_song(title, **details):
     print(title)
     print(details)
 
-
-
-
 describe_song(title="YYZ", artist="Rush", year=1981)
 # Expected:
 # YYZ
@@ -151,60 +148,84 @@ argument_totals(1, 2)
 
 # Exercise 1 — Collect keywords
 # Predict both outputs. What type of object is options?
-# def collect_options(**options):
-#     return options
-#
-# print(collect_options(volume=9, subtitles=True))
-# print(collect_options())
+def collect_options(**options):
+    return options
+
+print(collect_options(volume=9, subtitles=True))
+print(collect_options())
+print(type(collect_options))
 # ANSWER:
+# Outputs:
+# {'volume': 9, 'subtitles': True}
+# {}
+# What type of object is options?: <class 'function'>
 
 
 # Exercise 2 — Named parameter vs. extra keywords
 # Predict all three output lines. Why is name absent from extras?
-# def show_profile(name, **extras):
-#     print(name)
-#     print(extras)
-#     print(len(extras))
-#
-# show_profile(name="Kevin", city="Chicago", hobby="guitar")
-# ANSWER:
+def show_profile(name, **extras):
+    print(name)
+    print(extras)
+    print(len(extras))
 
+show_profile(name="Kevin", city="Chicago", hobby="guitar")
+# ANSWER:
+# Outputs:
+# Kevin
+# {'city': 'Chicago', 'hobby': 'guitar'}
+# 2
+# Why is name absent from extras?: because name is positional not a key word arg
 
 # Exercise 3 — Separate positional and keyword extras
 # Predict all four output lines. State the types of args and kwargs.
-# def inspect_arguments(first, *args, **kwargs):
-#     print(first)
-#     print(args)
-#     print(kwargs)
-#     print(len(args) + len(kwargs))
-#
-# inspect_arguments("start", 10, 20, volume=5, mode="demo")
+def inspect_arguments(first, *args, **kwargs):
+    print(first)
+    print(args)
+    print(kwargs)
+    print(len(args) + len(kwargs))
+
+inspect_arguments("start", 10, 20, volume=5, mode="demo")
 # ANSWER:
+# Outputs:
+# start
+# (10, 20)
+# {'volume': 5, 'mode': 'demo'}
+#  4
+# State the types of args and kwargs: args is positional and returns a tuple; kwargs is key word and
+# returns a dict
 
 
 # Exercise 4 — Empty collections and keyword binding
 # Predict all three outputs. Explain why a and b do not appear in kwargs.
-# def inspect_groups(a, b, *args, **kwargs):
-#     print(a + b)
-#     print(args)
-#     print(kwargs)
-#
-# inspect_groups(b=4, a=3)
-# ANSWER:
+def inspect_groups(a, b, *args, **kwargs):
+    print(a + b)
+    print(args)
+    print(kwargs)
 
+inspect_groups(b=4, a=3)
+# ANSWER:
+#  7
+# ()
+# {}
+# Explain why a and b do not appear in kwargs: no kwargs were passed
 
 # Exercise 5 — Diagnose the calls
 # For each call, say whether it succeeds or raises TypeError, and explain why.
 # For successful calls, predict the returned dictionary.
 # Uncomment the function and only the successful calls when checking your work.
-# def make_record(title, **details):
-#     return details
+def make_record(title, **details):
+    return details
 #
-# A: make_record("YYZ", artist="Rush")
-# B: make_record(artist="Rush")
-# C: make_record("YYZ", "Rush")
-# D: make_record("YYZ", title="Roundabout")
-# E: make_record(title="YYZ")
+# A:
+make_record("YYZ", artist="Rush") # {'artist': 'Rush'} - prints only the kwargs details given
+# B: 
+# make_record(artist="Rush") # TypeError,  missing 1 required positional argument: 'title'
+# C: 
+# make_record("YYZ", "Rush") # TypeError, takes 1 positional argument but 2 were given
+# D: 
+# make_record("YYZ", title="Roundabout") # TypeError, got multiple values for argument 'title'
+# E: 
+make_record(title="YYZ") # {} positional arg was given but function returns the kwargs details
 # ANSWER:
 
 
@@ -216,6 +237,13 @@ argument_totals(1, 2)
 # 5. Call it again with only an album title.
 # 6. Predict both calls' output and explain why title is not counted in details.
 # Write your code below:
+def show_album(title, **details):
+    print(title)
+    for key, value in details.items():
+        print(key, value)
+
+print(show_album(title="YYZ", artist="Rush", year=1981))
+# explain why title is not counted in details: title is not in the key word args dict
 
 
 # Optional challenge — Total all three argument groups
@@ -224,8 +252,15 @@ argument_totals(1, 2)
 # Assume base, all numbers, and all extras values are integers.
 # Return the sum of base, the positional extras, and the keyword extras values.
 # Use sum() and values(). Return the result rather than printing inside the function.
-# combined_total(10, 2, 3, bonus=4, adjustment=-1) => 18
-# combined_total(10) => 10
-# combined_total(base=5, bonus=2) => 7
+
 # Explain which arguments fill base, numbers, and extras in the first call.
 # Write your code below:
+def combined_total(base, *numbers, **extras):
+    total = base
+    total += sum(numbers)
+    total += sum(extras.values())
+    return total
+   
+print(combined_total(10, 2, 3, bonus=4, adjustment=-1)) # => 18
+print(combined_total(10)) # => 10
+print(combined_total(base=5, bonus=2)) # => 7
