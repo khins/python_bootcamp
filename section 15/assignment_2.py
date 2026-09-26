@@ -4,6 +4,7 @@
 employee = ("Bob", "Johnson", "Manager", 50)
 
 first_name, last_name, position, age = employee
+print(first_name)
 
 # So the general pattern is:
 # variable1, variable2, variable3 = tuple
