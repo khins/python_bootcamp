@@ -131,47 +131,64 @@ show_arguments(**settings)
 
 # Exercise 1 — Match names to parameters
 # Predict both outputs. Why do they match despite the dictionary's order?
-# def subtract(first, second):
-#     return first - second
-#
-# numbers = {"second": 3, "first": 10}
-# print(subtract(**numbers))
-# print(subtract(first=10, second=3))
+def subtract(first, second):
+    return first - second
+
+numbers = {"second": 3, "first": 10}
+print(subtract(**numbers))
+print(subtract(first=10, second=3))
 # ANSWER:
+# Outputs:
+# 7
+# 7
+# Arguments match parameters by name, not by dictionary insertion order.
 
 
 # Exercise 2 — Use a default
 # Predict both outputs. Explain which call uses the default artist.
-# print(describe_track(**{"title": "Roundabout"}))
-# print(describe_track(**{"artist": "Yes", "title": "Roundabout"}))
+print(describe_track(**{"title": "Roundabout"}))
+print(describe_track(**{"artist": "Yes", "title": "Roundabout"}))
 # ANSWER:
+# Roundabout by Unknown, first call uses default artist
+# Roundabout by Yes
 
 
 # Exercise 3 — Unpack, then collect extras
 # Predict both output lines. Why is title absent from details?
-# data = {"artist": "Rush", "title": "Limelight", "year": 1981}
-# show_track(**data)
+data = {"artist": "Rush", "title": "Limelight", "year": 1981}
+show_track(**data)
 # ANSWER:
+# Limelight
+# {'artist': 'Rush', 'year': 1981}
 
 
 # Exercise 4 — One star vs. two stars
 # Predict all four output lines using show_arguments from section 6.
 # Explain which call supplies keys as positional arguments.
-# data = {"name": "Kevin", "city": "Chicago"}
-# show_arguments(*data)
-# show_arguments(**data)
+data = {"name": "Kevin", "city": "Chicago"}
+show_arguments(*data)
+show_arguments(**data)
 # ANSWER:
+# ()
+# {'name': 'Kevin', 'city': 'Chicago'}
+# Explain which call supplies keys as positional arguments: the second supplies
+# kwargs as a dict
 
 
 # Exercise 5 — Diagnose each call
 # For each call, say whether it succeeds or raises TypeError, and explain why.
 # For successful calls, state the values received by feet and inches.
 # Leave failing calls commented out.
-# A: height_to_meters(**{"feet": 5, "inches": 11})
-# B: height_to_meters({"feet": 5, "inches": 11})
-# C: height_to_meters(**{"feet": 5, "Inches": 11})
-# D: height_to_meters(5, **{"inches": 11})
-# E: height_to_meters(5, **{"feet": 6, "inches": 11})
+# A:
+# height_to_meters(**{"feet": 5, "inches": 11})
+# # B: 
+# height_to_meters({"feet": 5, "inches": 11}) # TypeError missing 1 required positional argument: 'inches'
+# # C: 
+# height_to_meters(**{"feet": 5, "Inches": 11}) # TypeError  got an unexpected keyword argument 'Inches'
+# # D: 
+# height_to_meters(5, **{"inches": 11})
+# # E: 
+# height_to_meters(5, **{"feet": 6, "inches": 11}) # TypeError: height_to_meters() got multiple values for argument 'feet'
 # ANSWER:
 
 
@@ -184,6 +201,18 @@ show_arguments(**settings)
 # 4. Print album afterward to show its entries remain unchanged.
 # 5. Explain why passing album without ** would behave differently.
 # Write your code below:
+def album_label(title, artist, year):
+
+    return f'{title} {artist} {year}'
+
+labels = []
+album = {
+    "title": "Hemispheres",
+    "artist": "Rush",
+    "year": 1978
+}
+labels.append(album_label(**album))
+print(labels)
 
 
 # Optional challenge — Unpack each record in a list
@@ -195,3 +224,17 @@ show_arguments(**settings)
 # Leave the original records unchanged.
 # Explain what your loop variable contains and what ** does in each call.
 # Write your code below:
+labels = []
+albums = [
+    {"title": "Hemispheres", "artist": "Rush", "year": 1978},
+    {"title": "Moving Pictures", "artist": "Rush", "year": 1981},
+    {"title": "Tarkus", "artist": "Emerson, Lake & Palmer", "year": 1971},
+]
+
+for album in albums:
+    labels.append(album_label(**album))
+
+print(labels)
+# album holds one dictionary from albums during each iteration.
+# **album passes that dictionary's entries as keyword arguments,
+# matching its keys to the function's parameter names.
