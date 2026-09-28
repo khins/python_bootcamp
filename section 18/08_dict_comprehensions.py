@@ -98,52 +98,79 @@ print(empty_lengths)  # {}
 
 # Exercise 1 — Map words to lengths
 # Predict both outputs. Explain what goes on each side of the colon.
-# bands = ["Rush", "Yes", "Genesis"]
-# lengths = {band: len(band) for band in bands}
-# print(lengths)
-# print(bands)
+bands = ["Rush", "Yes", "Genesis"]
+lengths = {band: len(band) for band in bands}
+print(lengths)
+print(bands)
 # ANSWER:
-
+# {'Rush': 4, 'Yes': 3, 'Genesis': 7}
+# ["Rush", "Yes", "Genesis"]
+# Explain what goes on each side of the colon: band is a str variable , and the comprehension is looping
+# over the bands list while the len function is determining the length of the word looped by band
 
 # Exercise 2 — Filter by length
 # Predict both outputs. Which input names are excluded, and why?
-# bands = ["Rush", "Yes", "Genesis"]
-# selected = {band: len(band) for band in bands if len(band) >= 4}
-# print(selected)
-# print(len(selected))
+bands = ["Rush", "Yes", "Genesis"]
+selected = {band: len(band) for band in bands if len(band) >= 4}
+print(selected)
+print(len(selected))
 # ANSWER:
-
+# {'Rush': 4, 'Genesis': 7}
+# 2
+# Which input names are excluded, and why?: Yes is excluded because the loop has an if condition
+# that is checking the band variable lenth >= 4
 
 # Exercise 3 — Count repeated characters
 # Predict both outputs. Explain why the dictionary has fewer entries than
 # the word has characters.
-# word = "level"
-# counts = {letter: word.count(letter) for letter in word}
-# print(counts)
-# print(len(counts))
+word = "level"
+counts = {letter: word.count(letter) for letter in word}
+print(counts)
+print(len(counts))
 # ANSWER:
+# {'l': 2, 'e': 2, 'v': 1}
+# 3
+# Explain why the dictionary has fewer entries than the word has characters: because the count function
+# is counting the number of letter that is being looped over in the comprehension
+# For "level", the loop visits l, e, v, e, l. A dictionary can hold only one entry per
+#  distinct key. Visiting e again replaces its existing value with 2; it does not create
+#  another entry. That leaves three keys: 'l', 'e', and 'v'.
 
 
 # Exercise 4 — Dynamic key vs. literal key
 # Predict both outputs. Explain why these comprehensions produce different
 # numbers of entries and why one value replaces another.
-# words = ["tea", "coffee"]
-# dynamic = {word: len(word) for word in words}
-# literal = {"word": len(word) for word in words}
-# print(dynamic)
-# print(literal)
+words = ["tea", "coffee"]
+dynamic = {word: len(word) for word in words}
+literal = {"word": len(word) for word in words}
+print(dynamic)
+print(literal)
 # ANSWER:
+# {"tea": 3, "coffee": 6}
+# {'word': 6}
+# Explain why these comprehensions produce different
+# numbers of entries and why one value replaces another: Need help on this one to understand literal
+# Both assignments use the same key, so 6 replaces 3, leaving {'word': 6}.
+# The dynamic comprehension uses two different keys: That is why it retains two entries.
 
 
 # Exercise 5 — Rewrite a loop
 # Rewrite this loop as a dictionary comprehension with the same result.
 # Predict the resulting dictionary and explain your filter.
-# numbers = [1, 2, 3, 4, 5]
-# squares = {}
-# for number in numbers:
-#     if number % 2 == 0:
-#         squares[number] = number ** 2
+numbers = [1, 2, 3, 4, 5]
+squares = {}
+for number in numbers:
+    if number % 2 == 0:
+        squares[number] = number ** 2
+print(squares)
 # ANSWER:
+# {2: 4, 4: 16}
+# 
+numbers = [1, 2, 3, 4, 5]
+squares = {number: number ** 2 for number in numbers if number % 2 == 0}
+print(squares)
+# {2: 4, 4: 16} same output as loop, the filter read loops over numbers list checking if it is even
+# and then squaring the result
 
 
 # Exercise 6 — Build your own song-title dictionary
@@ -155,7 +182,18 @@ print(empty_lengths)  # {}
 # 5. Print the filtered dictionary and the original titles list.
 # 6. Explain your key expression, value expression, and filter condition.
 # Write your code below:
+titles = [
+    "Bad Moon Rising",
+    "Fortunate Son",
+    "Have You Ever Seen the Rain?",
+    "Mary",
+]
 
+title_character_count = {letter: letter.count(letter) for letter in titles}
+print(title_character_count)
+other_titles = {word: len(word) for word in titles if len(word) > 10 }
+print(other_titles)
+# Explain your key expression, value expression, and filter condition: lets discuss this
 
 # Optional challenge — Count only repeated letters
 # Work through this one together when you are ready.
@@ -163,9 +201,17 @@ print(empty_lengths)  # {}
 # English letters, or is an empty string.
 # Use a dictionary comprehension and count() to return each letter occurring
 # MORE than once, mapped to its total count in the original word.
-# repeated_letter_counts("banana") => {'a': 3, 'n': 2}
-# repeated_letter_counts("level") => {'l': 2, 'e': 2}
-# repeated_letter_counts("cat") => {}
-# repeated_letter_counts("") => {}
+def repeated_letter_counts(word):
+    repeated_count = {letter: word.count(letter) for letter in word if word.count(letter) > 1}
+    return repeated_count
+
+
+print(repeated_letter_counts("banana")) # => {'a': 3, 'n': 2}
+print(repeated_letter_counts("level")) # => {'l': 2, 'e': 2}
+print(repeated_letter_counts("cat")) # => {}
+print(repeated_letter_counts("")) # => {}
 # Explain why repeated visits to a letter do not increase the dictionary's length.
 # Write your code below:
+# One final understanding check: when the loop visits "a" three times in "banana",
+#  why does the dictionary still have only one "a" entry: because the dict key already
+# exists and thus gets updated with a new value instead of duplicating it
