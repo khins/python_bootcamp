@@ -100,45 +100,64 @@ print({value: key for key, value in empty.items()})  # {}
 
 # Exercise 1 — Reverse the mapping
 # Predict both outputs. What becomes the key in reversed_codes?
-# codes = {"Illinois": "IL", "Texas": "TX", "Ohio": "OH"}
-# reversed_codes = {code: state for state, code in codes.items()}
-# print(reversed_codes)
-# print(reversed_codes["IL"])
-# ANSWER:
+codes = {"Illinois": "IL", "Texas": "TX", "Ohio": "OH"}
+reversed_codes = {code: state for state, code in codes.items()}
 
+print(reversed_codes)
+print(reversed_codes["IL"])
+
+# ANSWER:
+# outputs:
+# {'IL': 'Illinois', 'TX': 'Texas', 'OH': 'Ohio'}
+# Illinois
+# What becomes the key in reversed_codes?: The value becomes the key
+# note: That key: value ordering is what actually causes the inversion—not .items() and not the for loop.
+# The key is that the dictionary isn't being automatically reversed by Python. 
+# Your assignment inside the loop deliberately swaps the original key and value.
 
 # Exercise 2 — Filter while inverting
 # Predict both outputs. Explain which pair is excluded and why.
-# words = {"cat": "feline", "dog": "pup", "bird": "avian"}
-# selected = {
-#     description: animal
-#     for animal, description in words.items()
-#     if len(animal) != len(description)
-# }
-# print(selected)
-# print(words)
+words = {"cat": "feline", "dog": "pup", "bird": "avian"}
+selected = {
+    description: animal
+    for animal, description in words.items()
+    if len(animal) != len(description)
+}
+print(selected)
+print(words)
 # ANSWER:
+# OUtputs:
+# {'feline': 'cat', 'avian': 'bird'}
+# {"cat": "feline", "dog": "pup", "bird": "avian"}
+# Explain which pair is excluded and why: "dog" and "pup" because their len is equal
 
 
 # Exercise 3 — Duplicate output keys
 # Predict both outputs. Why does one original name disappear from the result?
-# scores = {"Kevin": 10, "Alex": 8, "Sam": 10}
-# names_by_score = {score: name for name, score in scores.items()}
-# print(names_by_score)
-# print(len(names_by_score))
+scores = {"Kevin": 10, "Alex": 8, "Sam": 10}
+names_by_score = {score: name for name, score in scores.items()}
+print(names_by_score)
+print(len(names_by_score))
 # ANSWER:
+# Outputs
+# {10: 'Sam', 8: 'Alex'}
+# 2 
+# Why does one original name disappear from the result?: I think it is because the is value is score and 
+# it takes the last instance of the value 10 and returns Sam
 
 
 # Exercise 4 — Names vs. positions
 # Predict both outputs. Does the second comprehension actually invert codes?
-# codes = {"Illinois": "IL", "Texas": "TX"}
-# first = {value: key for key, value in codes.items()}
-# second = {value: key for value, key in codes.items()}
-# print(first)
-# print(second)
+codes = {"Illinois": "IL", "Texas": "TX"}
+first = {value: key for key, value in codes.items()}
+second = {value: key for value, key in codes.items()}
+print(first)
+print(second)
 # Explain what value and key receive in the SECOND comprehension.
 # ANSWER:
-
+# {"IL": "Illinois":  "TX": "Texas": }
+# {"Illinois": "IL", "Texas": "TX"}
+# Does the second comprehension actually invert codes?: the second comprehension does not invert
 
 # Exercise 5 — Diagnose an invalid inversion
 # Identify the error and explain why it occurs, even though the source
@@ -146,7 +165,11 @@ print({value: key for key, value in empty.items()})  # {}
 # albums = {"Rush": ["Moving Pictures", "Permanent Waves"]}
 # inverted = {titles: artist for artist, titles in albums.items()}
 # ANSWER:
-
+# Notes: The important distinction: a list can be a dictionary value, but it cannot be a dictionary key.
+# Dictionary keys must be hashable, and lists are not hashable, so Python raises: TypeError
+# The comprehension fails because it tries to use a list as a new dictionary
+# key, and lists are not hashable. The original dictionary is valid because
+# the list is a value, which does not need to be hashable.
 
 # Exercise 6 — Build your own reverse lookup
 # 1. Create a dictionary named song_codes containing three song titles as keys
@@ -158,6 +181,25 @@ print({value: key for key, value in empty.items()})  # {}
 # 5. Print the filtered result and the original song_codes dictionary.
 # 6. Explain why your codes must be distinct to preserve all three associations.
 # Write your code below:
+song_codes = {
+    "Tom Sawyer": "R01",
+    "YYZ": "R02",
+    "Limelight": "R03",
+}
+
+titles_by_code = {code: title for title, code in song_codes.items()}
+print(titles_by_code)
+long_titles = {
+    code: title
+    for title, code in song_codes.items()
+    if len(title) > 5}
+print(long_titles)
+print(titles_by_code["R02"])
+print(song_codes)
+# Explain why your codes must be distinct to preserve all three associations: the codes must be
+# distinct because if there was a duplicate it would take the last one
+# Your explanation can be more precise: duplicate codes become duplicate keys in the 
+# inverted dictionary, so the later title replaces the earlier title.
 
 
 # Optional challenge — Reverse only qualifying entries
@@ -168,9 +210,16 @@ print({value: key for key, value in empty.items()})  # {}
 # values have lengths greater than or equal to minimum.
 # Use a dictionary comprehension with items() and an if condition.
 # Leave data unchanged.
-# invert_long_values({"a": "Rush", "b": "Yes", "c": "Genesis"}, 4)
-# => {'Rush': 'a', 'Genesis': 'c'}
-# invert_long_values({"a": "Rush"}, 10) => {}
-# invert_long_values({}, 0) => {}
+
 # Explain whether your filter checks the original keys or the original values.
 # Write your code below:
+def invert_long_values(data, minimum):
+    return {title: key
+            for key, title in data.items()
+            if len(title) >= minimum}
+
+print(invert_long_values({"a": "Rush", "b": "Yes", "c": "Genesis"}, 4)) # => {'Rush': 'a', 'Genesis': 'c'}
+print(invert_long_values({"a": "Rush"}, 10)) #=> {}
+print(invert_long_values({}, 0)) #=> {}
+# Explain whether your filter checks the original keys or the original values:
+# title: key is how it should traverse
