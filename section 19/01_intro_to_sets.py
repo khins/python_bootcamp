@@ -117,57 +117,81 @@ print(sorted(positive_squares))  # [9, 16, 25]
 # Exercise 1 — Count unique elements
 # Predict all three outputs. Explain why the length differs from the number
 # of strings written inside the braces.
-# artists = {"Rush", "Yes", "Rush", "Genesis", "Yes"}
-# print(len(artists))
-# print(sorted(artists))
-# print(type(artists))
+artists = {"Rush", "Yes", "Rush", "Genesis", "Yes"}
+print(len(artists))
+print(sorted(artists))
+print(type(artists))
 # ANSWER:
+# Outputs:
+# 3
+# {"Genesis", "Rush", "Yes"}
+# <class 'set'>
+# Explain why the length differs from the number
+# of strings written inside the braces: the number of strings are the sets words vs. each word in the set has a length
 
 
 # Exercise 2 — Empty set or dictionary?
 # Predict all four outputs. Explain how to create an empty set.
-# first = {}
-# second = set()
-# print(type(first))
-# print(type(second))
-# print(len(first))
-# print(len(second))
+first = {}
+second = set()
+print(type(first))
+print(type(second))
+print(len(first))
+print(len(second))
 # ANSWER:
+# <class 'dict'>
+# <class 'set'>
+# 0
+# 0
+# Explain how to create an empty set: use the set() function call
 
 
 # Exercise 3 — Membership and case
 # Predict all four outputs. Explain whether these checks change the set.
-# songs = {"YYZ", "Limelight", "YYZ"}
-# print("YYZ" in songs)
-# print("yyz" in songs)
-# print("Roundabout" not in songs)
-# print(len(songs))
+songs = {"YYZ", "Limelight", "YYZ"}
+print("YYZ" in songs)
+print("yyz" in songs)
+print("Roundabout" not in songs)
+print(len(songs))
 # ANSWER:
-
+# True
+# False
+# True
+# 2
+# Explain whether these checks change the set: these checks do not change the set 
 
 # Exercise 4 — Tuples and ordering
 # Predict the first two outputs. State the error the last line would raise.
 # Explain why the set has two elements and why its tuples cannot be
 # retrieved by a set index, even though each tuple supports indexing.
-# groups = {(1, 2), (3, 4), (1, 2)}
-# print(len(groups))
-# print(sorted(groups))
+groups = {(1, 2), (3, 4), (1, 2)}
+print(len(groups))
+print(sorted(groups))
 # print(groups[0])  # Intentional error: keep commented out.
 # ANSWER:
+# outputs
+# 2
+# [(1, 2), (3, 4)]
+# # Explain why the set has two elements and why its tuples cannot be
+# retrieved by a set index, even though each tuple supports indexing: Lets Q&A on this one
 
 
 # Exercise 5 — Comprehension results
 # Predict all four outputs. Explain why the two new collections have
 # different lengths and whether the original list changes.
-# numbers = [-2, -1, 1, 2]
-# squares_list = [number ** 2 for number in numbers]
-# squares_set = {number ** 2 for number in numbers}
-# print(squares_list)
-# print(sorted(squares_set))
-# print(len(squares_set))
-# print(numbers)
+numbers = [-2, -1, 1, 2]
+squares_list = [number ** 2 for number in numbers]
+squares_set = {number ** 2 for number in numbers}
+print(squares_list)
+print(sorted(squares_set))
+print(len(squares_set))
+print(numbers)
 # ANSWER:
-
+# outputs
+# [4, 1, 1, 4]
+# [1, 4]
+# 2
+# [-2, -1, 1, 2]
 
 # Exercise 6 — Write your own unique artist summary
 # 1. Create an artist set literal containing at least five strings, with
@@ -179,6 +203,27 @@ print(sorted(positive_squares))  # [9, 16, 25]
 # 6. Explain why the direct loop's order is not guaranteed and why sorted()
 #    does not turn your original set into a list.
 # Write your code below:
+artists = {
+    "John Williams",
+    "Andrés Segovia",
+    "John Williams",
+    "Andrés Segovia",
+    "Julian Bream",
+}
+
+print(type(artists))
+print(sorted(artists))
+print(len(sorted(artists)))
+for artist in sorted(artists):
+    print(artist)
+for artist in artists:
+    print(artist)
+
+
+# Outputs
+# <class 'set'>
+# ['Andrés Segovia', 'John Williams', 'Julian Bream']
+# 3
 
 
 # Optional challenge — Unique positive squares
