@@ -121,53 +121,71 @@ print(sorted(set([(1, 2), (1, 2), (3, 4)])))  # [(1, 2), (3, 4)]
 
 # Exercise 1 — Empty and duplicate inputs
 # Predict all four outputs. Explain why the duplicate numbers count once.
-# print(set())
-# print(type({}))
-# print(sorted(set([4, 2, 4, 1, 2])))
-# print(len(set((7, 7, 7))))
+print(set())
+print(type({}))
+print(sorted(set([4, 2, 4, 1, 2])))
+print(len(set((7, 7, 7))))
 # ANSWER:
-
+# ()
+# <class 'dict'>
+# [1, 2, 4]
+# 1
+#  Explain why the duplicate numbers count once: because duplicate elements appear once.
 
 # Exercise 2 — Characters or a whole string?
 # Predict all three outputs. Explain how set(word) differs from {word}.
-# word = "level"
-# print(sorted(set(word)))
-# print(len(set(word)))
-# print(sorted({word}))
+word = "level"
+print(sorted(set(word)))
+print(len(set(word)))
+print(sorted({word}))
 # ANSWER:
+# ['e', 'l', 'v']
+# 3
+# ['level']
+# Explain how set(word) differs from {word}: set returns the sorted letters non dupe whereas {}
+# returns a list with the string
 
 
 # Exercise 3 — Keys or values?
 # Predict all three outputs. Explain why the first two lengths differ.
-# songs = {"YYZ": "Rush", "Limelight": "Rush", "Roundabout": "Yes"}
-# print(len(set(songs)))
-# print(len(set(songs.values())))
-# print(sorted(set(songs.values())))
+songs = {"YYZ": "Rush", "Limelight": "Rush", "Roundabout": "Yes"}
+print(len(set(songs)))
+print(len(set(songs.values())))
+print(sorted(set(songs.values())))
 # ANSWER:
-
+# 3
+# 2
+# ['Rush', 'Yes']
+# Explain why the first two lengths differ: the first instance is based on unique keys and second is values
 
 # Exercise 4 — A new list
 # Predict all four outputs. Explain whether source changes and whether
 # unique itself is guaranteed to preserve the original order.
-# source = [3, 1, 3, 2, 1]
-# unique = list(set(source))
-# print(sorted(unique))
-# print(source)
-# print(unique is source)
-# print(type(unique))
+source = [3, 1, 3, 2, 1]
+unique = list(set(source))
+print(sorted(unique))
+print(source)
+print(unique is source)
+print(type(unique))
 # ANSWER:
-
+# [1, 2, 3]
+# [3, 1, 3, 2, 1]
+# False
+# <class 'list'>
 
 # Exercise 5 — Diagnose the conversion
 # Each line below is independent. State which succeeds and give its set
 # contents; for each failing line, name the error and explain its cause.
-# A. set(42)
-# B. set([[1, 2], [1, 2]])
-# C. set([(1, 2), (1, 2)])
+# A. 
+# set(42)
+# B. 
+# set([[1, 2], [1, 2]])
+# C. 
+# set([(1, 2), (1, 2)])
 # Keep the failing calls commented out.
-# ANSWER A:
-# ANSWER B:
-# ANSWER C:
+# ANSWER A: TypeError 
+# ANSWER B:TypeError: 'int' object is not iterable
+# ANSWER C:TypeError: unhashable type: 'li
 
 
 # Exercise 6 — Write your own unique artist report
@@ -180,6 +198,25 @@ print(sorted(set([(1, 2), (1, 2), (3, 4)])))  # [(1, 2), (3, 4)]
 # 6. Explain why list() alone does not remove duplicates, and why converting
 #    a set back to a list does not restore the original order.
 # Write your code below:
+artists = [
+    "Bob Welch",
+    "Neil Diamond",
+    "Eagles",
+    "Steely Dan",
+    "Dan Fogelberg",
+    "Eagles",
+    "Steely Dan",
+]
+
+unique_artists = set(artists)
+print(len(artists))
+print(len(unique_artists))
+print(sorted(set(artists)))
+print(artists)
+# Explain why list() alone does not remove duplicates, and why converting
+#    a set back to a list does not restore the original order: a list is not hashable so the dupes are 
+# not removed 
+# Lists allow duplicates by design. Converting a set back to a list cannot restore the original order because the set did not preserve that ordering.
 
 
 # Optional challenge — Unique artists from song entries
@@ -195,3 +232,9 @@ print(sorted(set([(1, 2), (1, 2), (3, 4)])))  # [(1, 2), (3, 4)]
 # unique_artists({}) => []
 # Explain the type of result produced by each step of your expression.
 # Write your code below:
+def unique_artists(song_artists):
+    return sorted(set(song_artists.values()))
+    
+print(unique_artists({"YYZ": "Rush", "Roundabout": "Yes", "Limelight": "Rush"}))
+print(unique_artists({"Track A": "rush", "Track B": "Rush"}))
+print(unique_artists({}))
