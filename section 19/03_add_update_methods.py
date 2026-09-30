@@ -115,58 +115,77 @@ print(sorted(numbers))  # [1, 2, 3]
 
 # Exercise 1 — New and duplicate elements
 # Predict all three outputs. Explain why the second add() does not grow the set.
-# artists = {"Rush", "Yes"}
-# artists.add("Genesis")
-# artists.add("Rush")
-# print(sorted(artists))
-# print(len(artists))
-# print("Genesis" in artists)
+artists = {"Rush", "Yes"}
+artists.add("Genesis")
+artists.add("Rush")
+print(sorted(artists))
+print(len(artists))
+print("Genesis" in artists)
 # ANSWER:
-
+# {'Genesis', 'Rush', 'Yes'}
+# 3
+# True
+# Explain why the second add() does not grow the set: Existing elements are not added 
+# again; duplicates do not increase length.
 
 # Exercise 2 — Update from an iterable
 # Predict all three outputs. Explain what update() does with each list element.
-# numbers = {1, 3}
-# incoming = [3, 4, 4, 5]
-# numbers.update(incoming)
-# print(sorted(numbers))
-# print(len(numbers))
-# print(incoming)
+numbers = {1, 3}
+incoming = [3, 4, 4, 5]
+numbers.update(incoming)
+print(sorted(numbers))
+print(len(numbers))
+print(incoming)
 # ANSWER:
-
+# [1, 3, 4, 5]
+# 4
+# [3, 4, 4, 5]
 
 # Exercise 3 — A string is iterable
 # Predict all three outputs. Explain why the two sets contain different elements.
-# first = set()
-# second = set()
-# first.add("Yes")
-# second.update("Yes")
-# print(sorted(first))
-# print(sorted(second))
-# print(len(first), len(second))
+first = set()
+second = set()
+first.add("Yes")
+second.update("Yes")
+print(sorted(first))
+print(sorted(second))
+print(len(first), len(second))
 # ANSWER:
-
+# ['Yes']
+# ['Y', 'e', 's']
+# 1 3
 
 # Exercise 4 — Shared set and returned value
 # Predict all four outputs. Explain why shared changes and result is not a set.
-# artists = {"Rush"}
-# shared = artists
-# result = artists.update(("Yes", "Rush"))
-# print(sorted(artists))
-# print(sorted(shared))
-# print(shared is artists)
-# print(result)
+artists = {"Rush"}
+shared = artists
+result = artists.update(("Yes", "Rush"))
+print(sorted(artists))
+print(sorted(shared))
+print(shared is artists)
+print(result)
 # ANSWER:
-
+# ['Rush', 'Yes']
+# ['Rush', 'Yes']
+# True 
+# None
+# Explain why shared changes and result is not a set: Think of result
+#  as “what the method returned,” rather than “the collection the method changed.”
 
 # Exercise 5 — Diagnose add() versus update()
 # The goal is to add the individual integers 2 and 3 to numbers.
 # Explain why the attempted call raises TypeError. Write a corrected call
 # using update(), then predict sorted(numbers) after your correction.
-# numbers = {1}
+numbers = {1}
 # numbers.add([2, 3])  # Intentional error: keep commented out.
+numbers.update([2, 3])
+print(numbers)
+print(sorted(numbers))
 # ANSWER:
-
+# {1, 2, 3}
+# [1, 2, 3]
+# The TypeError is because it is an unhashable type since it is a list, therefore update
+# adds the elements supplied by an iterable.
 
 # Exercise 6 — Write your own growing artist set
 # 1. Create a set containing three distinct artist names.
@@ -178,7 +197,22 @@ print(sorted(numbers))  # [1, 2, 3]
 # 6. Explain why duplicates do not increase the count and why the stored
 #    return value differs from the set you changed.
 # Write your code below:
-
+artists = {
+    "Deep Purple",
+    "Led Zeppelin",
+    "Black Sabbath",
+}
+incoming = ['Bob Marley', 'Eric Clapton', 'Led Zeppelin']
+artists.add("Jimi Hendrix")
+artists.add("The Doors")
+artists.update(incoming)
+print(sorted(artists))
+print(len(artists))
+stored = artists.add("Fleetwood Mac")
+print(stored)
+# Explain why duplicates do not increase the count and why the stored
+#    return value differs from the set you changed: the stored value is None because that is the 
+# function return of add  Existing elements are not added again; duplicates do not increase length.
 
 # Optional challenge — Extend a copied collection
 # Work through this one together when you are ready.
@@ -187,8 +221,17 @@ print(sorted(numbers))  # [1, 2, 3]
 # Return a NEW SET containing the original artists and all additions.
 # Use set() to make a separate set, then update() to add the new artists.
 # Leave both inputs unchanged; duplicates should appear only once.
-# expanded_artists({'Rush'}, ['Yes', 'Rush']) => {'Rush', 'Yes'} (order unspecified)
-# expanded_artists(set(), []) => set()
-# expanded_artists({'Rush'}, []) => {'Rush'} (a different set object)
+def expanded_artists(original, additions):
+    expanded = set(original)
+    expanded.update(additions)
+    # expanded.add("Yes")
+    # print("Yes" in original)
+    # print("Yes" in expanded)
+    return expanded
+
+
+print(expanded_artists({'Rush'}, ['Yes', 'Rush'])) # => {'Rush', 'Yes'} (order unspecified)
+print(expanded_artists(set(), [])) #=> set()
+print(expanded_artists({'Rush'}, [])) # => {'Rush'} (a different set object)
 # Explain why returning the result of update() directly would be incorrect.
 # Write your code below:
