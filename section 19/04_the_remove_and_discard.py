@@ -102,59 +102,97 @@ print(sorted(numbers))  # [10, 20, 30]
 
 # Exercise 1 — Remove a present element
 # Predict all three outputs. Explain whether result contains the removed name.
-# artists = {"Rush", "Yes", "Genesis"}
-# result = artists.remove("Yes")
-# print(sorted(artists))
-# print(len(artists))
-# print(result)
+artists = {"Rush", "Yes", "Genesis"}
+result = artists.remove("Yes")
+print(sorted(artists))
+print(len(artists))
+print(result)
 # ANSWER:
+# outputs
+# ['Genesis', 'Rush']
+# 2
+# None
+# Explain whether result contains the removed name: result does not the method returns None
 
 
 # Exercise 2 — Discard twice
 # Predict all three outputs. Explain why the second discard() does not fail.
-# songs = {"YYZ", "Limelight"}
-# songs.discard("YYZ")
-# result = songs.discard("YYZ")
-# print(sorted(songs))
-# print("YYZ" in songs)
-# print(result)
+songs = {"YYZ", "Limelight"}
+songs.discard("YYZ")
+result = songs.discard("YYZ")
+print(sorted(songs))
+print("YYZ" in songs)
+print(result)
 # ANSWER:
-
+# outputs
+# ['Limelight']
+# False
+# None
+# Explain why the second discard() does not fail: the discard() method does not raise an exception when an element is missing from the set.
 
 # Exercise 3 — Trace an error
 # If this complete snippet ran, what would print before the error?
 # Name the error, identify its line, and explain whether "Finished" prints.
 # Keep the snippet commented out.
-# agents = {"Mulder", "Scully"}
+agents = {"Mulder", "Scully"}
+agents.remove("Mulder")
+print(sorted(agents))
 # agents.remove("Mulder")
-# print(sorted(agents))
-# agents.remove("Mulder")
-# print("Finished")
+print("Finished")
 # ANSWER:
-
+# output
+# ['Scully']
+# KeyError: If the element is not a member, raise a KeyError.
+# Finished
+# explain whether "Finished" prints: yes because next line of execution
 
 # Exercise 4 — Shared or independent?
 # Predict all four outputs. Explain why only one of the other variables
 # sees the removal performed through original.
-# original = {"Rush", "Yes"}
-# alias = original
-# copied = set(original)
-# original.discard("Rush")
-# print(sorted(original))
-# print(sorted(alias))
-# print(sorted(copied))
-# print(alias is original)
+# VARIABLE                     OBJECT
+# original ─────────┐
+#                   ├────────► {"Yes"}
+# alias ────────────┘
+# copied ────────────────────► {"Rush", "Yes"}
+original = {"Rush", "Yes"}
+alias = original
+copied = set(original)
+original.discard("Rush")
+print(sorted(original))
+print(sorted(alias))
+print(sorted(copied))
+print(alias is original)
 # ANSWER:
+# output
+# ['Yes']
+# ['Yes']
+# ['Rush', 'Yes']
+# True
+# Explain why only one of the other variables sees the removal performed through original:
+# Because alias references the same set object as original. Therefore, when the set is
+# modified through original, the change is also visible through alias.
 
 
 # Exercise 5 — Diagnose the assignment
 # Predict both outputs. Explain the mistake and rewrite the code so artists
 # remains a set with "Yes" removed, even if "Yes" was already absent.
-# artists = {"Rush", "Yes"}
-# artists = artists.discard("Yes")
-# print(artists)
-# print(type(artists))
+artists = {"Rush", "Yes"}
+art_set = set(artists)
+artists = artists.discard("Yes")
+art_set.remove('Yes')
+print(art_set)
+print(artists)
+print(type(artists))
 # ANSWER:
+# {'Rush'}
+# None
+# <class 'NoneType'>
+# Explain the mistake and rewrite the code so artists remains a set
+# with "Yes" removed, even if "Yes" was already absent:
+#
+# The mistake is assigning the result of discard() back to artists.
+# discard() modifies the set in place and returns None.
+# Therefore, artists becomes None. 
 
 
 # Exercise 6 — Write your own guest list cleanup
@@ -165,7 +203,31 @@ print(sorted(numbers))  # [10, 20, 30]
 # 5. Print the remaining guests with sorted() and print the set's length.
 # 6. Explain what would happen if step 4 used remove() instead, and why.
 # Write your code below:
+guests = {
+    "David Gilmour",
+    "Roger Waters",
+    "Nick Mason",
+    "Richard Wright",
+}
 
+guests.remove("Roger Waters")
+
+guests.discard("Richard Wright")
+
+result = guests.discard("Richard Wright")
+print(result)
+
+print(sorted(guests))
+print(len(guests))
+# Explain what would happen if step 4 used remove() instead, and why: KeyError: 'Richard Wright' because it must be a member.
+# discard("Richard Wright")
+#         ↓
+# Missing? That's okay.
+# Returns None.
+
+# remove("Richard Wright")
+#         ↓
+# Missing? KeyError.
 
 # Optional challenge — Remove unwanted artists from a copy
 # Work through this one together when you are ready.
@@ -174,8 +236,111 @@ print(sorted(numbers))  # [10, 20, 30]
 # Return a NEW SET with all unwanted artists absent. Use set() to copy the
 # original, then a for loop and discard(). Leave both inputs unchanged.
 # Repeated or missing names in unwanted must not cause an error.
-# without_artists({'Rush', 'Yes'}, ['Yes', 'Yes', 'Genesis']) => {'Rush'}
-# without_artists(set(), ['Rush']) => set()
-# without_artists({'Rush'}, []) => {'Rush'} (a different set object)
+
 # Explain why discard() is appropriate for this function.
 # Write your code below:
+def without_artists(original, unwanted) -> set[str]:
+    new_set = set(original)
+
+    for artist in unwanted:
+        new_set.discard(artist)
+
+    return new_set
+
+
+print(without_artists({'Rush', 'Yes'}, ['Yes', 'Yes', 'Genesis'])) #=> {'Rush'}
+print(without_artists(set(), ['Rush'])) #=> set()
+print(without_artists({'Rush'}, [])) #=> {'Rush'} (a different set object)
+# Explain why discard() is appropriate for this function:
+# discard() safely handles repeated or missing names because
+# it does not raise KeyError when an artist is already absent.
+
+
+
+
+
+# See Exercise 4 — Shared or independent?
+# ============================================================
+# SET REFERENCES vs COPIES
+# ============================================================
+#
+# original = {"Rush", "Yes"}
+#
+#       original
+#          |
+#          v
+#     +----------------+
+#     | {"Rush", "Yes"}|     <-- SET OBJECT #1
+#     +----------------+
+#
+#
+# alias = original
+#
+#       original -------+
+#                       |
+#                       v
+#                 +----------------+
+#                 | {"Rush", "Yes"}|     <-- SAME SET OBJECT
+#                 +----------------+
+#                       ^
+#                       |
+#       alias -----------+
+#
+# IMPORTANT:
+# alias = original does NOT create another set.
+# Both variables reference the SAME set object.
+#
+#
+# copied = set(original)
+#
+#       original -------+
+#                       |
+#       alias ----------+----> {"Rush", "Yes"}   SET OBJECT #1
+#
+#
+#       copied --------------> {"Rush", "Yes"}   SET OBJECT #2
+#
+# copied has the same VALUES, but it is a DIFFERENT set object.
+#
+#
+# original.discard("Rush")
+#
+# Because original and alias reference the SAME object:
+#
+#       original -------+
+#                       |
+#       alias ----------+----> {"Yes"}
+#
+#
+#       copied --------------> {"Rush", "Yes"}
+#
+# Changing the original set also appears through alias.
+# copied is unaffected because it references a different object.
+#
+# ============================================================
+# MEMORY RULE:
+#
+# alias = original
+#     SAME OBJECT
+#
+# copied = set(original)
+#     NEW OBJECT with copied values
+#
+# ==  asks: "Do these objects have the same VALUE?"
+# is  asks: "Are these variables referencing the SAME OBJECT?"
+# ============================================================
+
+
+original = {"Rush", "Yes"}
+
+alias = original
+
+copied = set(original)
+
+original.discard("Rush")
+
+print(sorted(original))
+print(sorted(alias))
+print(sorted(copied))
+
+print(alias is original)
