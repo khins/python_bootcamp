@@ -47,6 +47,7 @@ print((first or second) is first)  # True — first is nonempty
 
 # --- 3. Empty inputs, identical inputs, and independent results ---
 artists = {"Rush", "Yes"}
+# union() Return a new set with elements from the set and all others.
 print(sorted(artists.union(set())))  # ['Rush', 'Yes']
 print(set().union(set()))            # set()
 print(sorted(artists | artists))     # ['Rush', 'Yes']
@@ -123,14 +124,51 @@ print(result)            # None
 # Exercise 1 — Combine unique elements
 # Predict all three outputs. Explain why the result has fewer elements than
 # the sum of the two input lengths.
-# first = {"Rush", "Yes", "Genesis"}
-# second = {"Rush", "Kansas", "Yes"}
-# combined = first.union(second)
-# print(sorted(combined))
-# print(len(combined))
-# print("Kansas" in combined)
+first = {"Rush", "Yes", "Genesis"}
+second = {"Rush", "Kansas", "Yes"}
+combined = first.union(second)
+print(sorted(combined))
+print(len(combined))
+print("Kansas" in combined)
 # ANSWER:
+# output
+# ['Genesis', 'Kansas', 'Rush', 'Yes']
+# 4
+# True
+# Explain why the result has fewer elements than the sum of the two input lengths:
+# # union() combines all unique elements from both sets.
+# "Rush" and "Yes" appear in both sets, but a set cannot contain
+# duplicate elements, so each appears only once in combined.
+# first:
+# {"Rush", "Yes", "Genesis"}
+#      ↓      ↓
+#     shared shared
 
+# second:
+# {"Rush", "Kansas", "Yes"}
+#      ↓               ↓
+#     shared          shared
+
+
+#               UNION
+#                 ↓
+
+# {"Genesis", "Kansas", "Rush", "Yes"}
+# INTERSECTION  &
+# "What exists in BOTH?"
+#        ↓
+# {"Rush", "Yes"}
+
+
+# UNION         |
+# "What exists in EITHER/ALL combined?"
+#        ↓
+# {"Rush", "Yes", "Genesis", "Kansas"}
+
+# ! IMPORTANT:
+# A simple way to remember it:
+# Intersection gets smaller by keeping only what's shared.
+# Union gets larger by combining everything, but removes duplicates.
 
 # Exercise 2 — Union versus intersection
 # Predict all three outputs. Explain which operation includes elements
