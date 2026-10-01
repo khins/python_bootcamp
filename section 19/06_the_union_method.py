@@ -173,73 +173,205 @@ print("Kansas" in combined)
 # Exercise 2 — Union versus intersection
 # Predict all three outputs. Explain which operation includes elements
 # found in only one input.
-# first = {1, 2, 3}
-# second = {3, 4, 5}
-# print(sorted(first | second))
-# print(sorted(first & second))
-# print((first | second) == (second | first))
+first = {1, 2, 3}
+second = {3, 4, 5}
+print(sorted(first | second))
+print(sorted(first & second))
+print((first | second) == (second | first)) # Both produce the same set of unique elements.
 # ANSWER:
+# [1, 2, 3, 4, 5]
+# [3]
+# True
+# Explain which operation includes elements
+# found in only one input:
+# The union operation | includes elements found in either set,
+# including elements found in only one of the sets.
+# The intersection operation & only includes elements found in BOTH sets.
+
+# ! IMPORTANT
+# * UNION        |  = EVERYTHING unique from both sets
+# * INTERSECTION &  = ONLY what both sets share
 
 
 # Exercise 3 — A separate result
-# Predict all four outputs. Explain why removing from combined does not
-# remove anything from artists.
-# artists = {"Rush", "Yes"}
-# combined = artists.union(set())
-# print(combined == artists)
-# print(combined is artists)
-# combined.remove("Rush")
-# print(sorted(combined))
-# print(sorted(artists))
+# Predict all four outputs. 
+artists = {"Rush", "Yes"}
+combined = artists.union(set())
+print(combined == artists)
+print(combined is artists) # asks: Are these variables pointing to the exact same object?
+combined.remove("Rush")
+print(sorted(combined))
+print(sorted(artists))
 # ANSWER:
+# output
+# True
+# False
+# artists  ──────────► {"Rush", "Yes"}
+
+# combined ──────────► {"Rush", "Yes"}
+
+#                       ↑
+#                 same CONTENT
+#                 different OBJECTS
+# {'Yes'}
+# {"Rush", "Yes"}
+
+# Explain why removing from combined does not remove anything from artists:
+# union() returns a new set object. combined and artists contain the same
+# values initially, but they reference different set objects. Therefore,
+# modifying combined does not modify artists.
 
 
 # Exercise 4 — Method inputs and operator inputs
-# Predict the first two outputs. Name the error the final expression would
-# raise and rewrite it using | with a converted set. Keep the error commented.
-# numbers = {1, 2}
-# additions = [2, 3, 3]
-# print(sorted(numbers.union(additions)))
-# print(additions)
+# Predict the first two outputs. 
+numbers = {1, 2}
+additions = [2, 3, 3]
+print(sorted(numbers.union(additions)))
+print(additions)
 # print(numbers | additions)  # Intentional error
 # ANSWER:
+# outputs
+# [1, 2, 3]
+# [2, 3, 3]
+# TypeError: unsupported operand type(s) for |: 'set' and 'list'
+
+# Name the error the final expression would
+# raise and rewrite it using | with a converted set. Keep the error commented:
+print(numbers | set(additions))
+
+# union() didn't modify the original list. It used its values to construct a new set result.
 
 
 # Exercise 5 — Diagnose an unused return value
-# Predict both outputs. Explain why the first call does not change artists.
-# Then write a correction that saves a new combined set in a separate variable
-# while leaving artists unchanged. Start with a fresh {"Rush"}.
-# artists = {"Rush"}
-# artists.union({"Yes"})
-# print(sorted(artists))
-# result = artists.update({"Genesis"})
-# print(result)
+# Predict both outputs. 
+artists = {"Rush"}
+artists.union({"Yes"})
+print(sorted(artists))
+result = artists.update({"Genesis"}) # method return is None
+print(result)
 # ANSWER:
+# outputs
+# artists ─────────► {"Rush"}
+
+#                    {"Rush", "Yes"}
+#                          ↑
+#                     NEW SET
+#                  but not saved
+# print(sorted(artists)) => ['Rush']
+# None
+
+# !IMPORTANT
+# | Method | Changes original? | Returns new set? |
+# |---|---:|---:|
+# | `union()` | ❌ No | ✅ Yes |
+# | `intersection()` | ❌ No | ✅ Yes |
+# | `update()` | ✅ Yes | ❌ No (`None`) |
+
+# Explain why the first call does not change artists.
+# Then write a correction that saves a new combined set in a separate variable
+# while leaving artists unchanged. Start with a fresh {"Rush"}:
+artists = {"Rush"}
+
+combined = artists.union({"Yes"})
+
+print(sorted(combined))
+print(sorted(artists))
+# And visually
+# artists
+#    │
+#    └────────────► {"Rush"}
+
+# combined
+#    │
+#    └────────────► {"Rush", "Yes"}
+
+# ! IMPORTANT
+# * KEY CONCEPT:
+# union()        -> returns a NEW set; original is unchanged
+# intersection() -> returns a NEW set; original is unchanged
+# update()       -> CHANGES the original set; returns None
 
 
 # Exercise 6 — Write your own combined favorites report
+
+# Write your code below:
+
 # 1. Create two sets of artist names with at least three names each.
 #    Include at least one shared artist and one artist unique to each set.
+set_a = {"Don Henley", "Glenn Frey", "Joe Walsh"}
+set_b = {"Don Henley", "Timothy B. Schmit", "Vince Gill"}
+
 # 2. Use union() to store their combined artists in a new variable.
+combined = set_a.union(set_b)
+
 # 3. Print a sorted list of the combined artists and their count.
+print(sorted(combined))
+print(len(combined))
+
 # 4. Use | and print whether its result equals your union() result.
+result = set_a | set_b
+print(result == set_a.union(set_b))
+
 # 5. Print the intersection too, followed by both unchanged original sets.
 #    Use sorted() for each display.
+print(sorted(set_a & set_b))
+print(sorted(set_a))
+print(sorted(set_b))
+
+# outputs:
+# ["Don Henley", "Glenn Frey", "Joe Walsh", "Timothy B. Schmit", "Vince Gill"]
+# 5
+# True
+# ["Don Henley"]
+
 # 6. Explain why the union includes more artists than the intersection for
 #    your inputs, and how union() differs from update().
-# Write your code below:
+# The union includes all unique artists from both sets, whereas the
+# intersection includes only artists common to both sets.
+#
+# union() returns a NEW set and leaves the original sets unchanged.
+# update() modifies the original set and returns None.
+
 
 
 # Optional challenge — Combine three artist lists
 # Work through this one together when you are ready.
-# Define combined_artists(first, second, third), accepting three lists of
-# artist strings. Return a NEW alphabetically sorted LIST containing every
-# distinct artist found in any of the inputs.
-# Use set(), union(), and sorted(). Leave all input lists unchanged.
-# Matching is case-sensitive; repeated names appear once.
-# combined_artists(['Rush', 'Yes'], ['Rush', 'Genesis'], ['Kansas'])
-# => ['Genesis', 'Kansas', 'Rush', 'Yes']
-# combined_artists([], ['Rush', 'Rush'], []) => ['Rush']
-# combined_artists([], [], []) => []
-# Explain why an empty input list does not force an empty union result.
+
 # Write your code below:
+# Define combined_artists(first, second, third), accepting three lists of artist strings.
+#  Return a NEW alphabetically sorted LIST containing every
+# distinct artist found in any of the inputs.
+def combined_artists(first, second, third) -> list:
+    # Use set(), union(), and sorted(). Leave all input lists unchanged.
+    # Matching is case-sensitive; repeated names appear once.
+    new_set = set(first)
+    new_set = new_set.union(second, third)
+    return sorted(new_set)
+
+
+print(combined_artists(['Rush', 'Yes'], ['Rush', 'Genesis'], ['Kansas'])) #=> ['Genesis', 'Kansas', 'Rush', 'Yes']
+print(combined_artists([], ['Rush', 'Rush'], [])) #=> ['Rush']
+print(combined_artists([], [], [])) #=> []
+
+# Explain why an empty input list does not force an empty union result:
+# An empty input list does not force an empty union result because
+# union includes every unique element found in ANY of the inputs.
+# An empty list contributes no elements, but it does not remove
+# elements contributed by the other inputs.
+
+
+# ! IMPORTANT
+# first
+# ['Rush', 'Yes']
+
+#        ↓ set()
+
+# {'Rush', 'Yes'}
+# then union with
+# second
+# ['Rush', 'Genesis']
+
+# third
+# ['Kansas']
+# Union says:
+# Give me every unique artist found in any of them.
