@@ -65,6 +65,18 @@ print({1} < {2})  # False — this does not compare 1 numerically with 2
 
 
 # --- 5. Empty sets ---
+# Think of a subset as asking:
+# "Are ALL the elements on the left also contained in the set on the right?"
+# Is every item in empty also in artists?
+# There are no items to check.
+# * The empty set is a subset of EVERY set.
+# The < operator means proper subset.
+# 1. Everything in LEFT exists in RIGHT.
+#              AND
+# 2. LEFT and RIGHT are NOT equal.
+# <=  subset, equality allowed
+# <   proper subset, must be smaller
+# >= means superset.
 empty = set()
 artists = {"Rush", "Yes"}
 print(empty <= artists)  # True — an empty set is a subset of every set
@@ -73,6 +85,53 @@ print(artists >= empty)  # True — every set is a superset of the empty set
 print(artists <= empty)  # False
 print(empty <= set())  # True
 print(empty < set())  # False — the two empty sets are equal
+
+# {}  <=  {"Rush", "Yes"}
+#  ↑          ↑
+# subset    superset
+
+# {"Rush", "Yes"}  >=  {}
+#        ↑              ↑
+#    superset         subset
+
+# <= means:
+# "subset OR equal"
+
+# {} is equal to {}
+
+# → True
+
+# < means PROPER subset
+
+# LEFT must be a subset of RIGHT
+# AND
+# LEFT must NOT equal RIGHT.
+
+# ! IMPORTANT - The main operators to remember
+# * SET RELATIONSHIP OPERATORS
+
+# <=  SUBSET
+# Every element on the LEFT exists on the RIGHT.
+# Equality is allowed.
+
+# <   PROPER SUBSET
+# Every element on the LEFT exists on the RIGHT,
+# AND the two sets cannot be equal.
+
+# >=  SUPERSET
+# The LEFT contains every element from the RIGHT.
+# Equality is allowed.
+
+# >   PROPER SUPERSET
+# The LEFT contains every element from the RIGHT,
+# AND the two sets cannot be equal.
+
+# The mental shortcut:
+# <=   "Does RIGHT contain everything from LEFT?"
+
+# <    "Does RIGHT contain everything from LEFT,
+#       AND have something extra?"
+
 
 
 # --- 6. Supply iterables to the methods ---
@@ -91,51 +150,171 @@ print(required <= set(granted))  # True
 # Keep intentional-error examples commented out.
 
 # Exercise 1 — Read the direction
-# Predict all four outputs. Explain which set contains all of the other.
-# favorites = {"Rush", "Yes"}
-# library = {"Rush", "Yes", "Genesis"}
-# print(favorites.issubset(library))
-# print(library.issuperset(favorites))
-# print(library <= favorites)
-# print(favorites >= library)
+# Predict all four outputs. 
+favorites = {"Rush", "Yes"}
+library = {"Rush", "Yes", "Genesis"}
+print(favorites.issubset(library))
+print(library.issuperset(favorites)) # Asks: "Is everything in favorites also in library?" Yes.
+print(library <= favorites) # This asks whether everything in library exists in favorites.
+print(favorites >= library) # This asks whether favorites is a superset of library—whether favorites contains everything from library
 # ANSWER:
+# output
+# True
+# True
+# False
+# False
+# Explain which set contains all of the other:
+# favorites all in library ;
+# Every element in favorites is contained in library.
+# Therefore, favorites is a subset of library,
+# and library is a superset of favorites.
+# relationship visually:
+# favorites = {"Rush", "Yes"}
+#                  ↓    ↓
+# library   = {"Rush", "Yes", "Genesis"}
+#                                ↑
+#                          extra element
+# SUBSET
+# A <= B
+# # "Does B contain everything from A?"
+
+# # SUPERSET
+# A >= B
+# # "Does A contain everything from B?"
+
+# ! IMPORTANT
+# SUBset   → smaller/equal collection fits inside the other
+# SUPERset → larger/equal collection contains the other
 
 
 # Exercise 2 — Equal sets
-# Predict all four outputs. Explain why the strict comparisons differ.
-# first = {2, 4, 6}
-# second = {6, 4, 2}
-# print(first <= second)
-# print(first < second)
-# print(first >= second)
-# print(first > second)
+# Predict all four outputs. 
+first = {2, 4, 6}
+second = {6, 4, 2}
+print(first <= second)
+print(first < second) # Is every element of first in second AND does second have something extra?
+print(first >= second)
+print(first > second) # "Does one set have something extra?"
 # ANSWER:
+# outputs
+# True
+# False
+# True
+# False
 
+# Explain why the strict comparisons differ:
+# The reason < and > are False is that they are strict comparisons—proper subset and proper superset.
+
+# The sets contain exactly the same elements, so they are equal.
+# <= and >= allow equal sets, so they return True.
+# < and > require a proper subset or proper superset, meaning one set
+# must contain additional elements, so they return False.
 
 # Exercise 3 — Size versus containment
-# Predict all three outputs. Identify the element that prevents containment.
-# first = {1, 7}
-# second = {1, 2, 3, 4}
-# print(len(first) < len(second))
-# print(first.issubset(second))
-# print(second.issuperset(first))
+# Predict all three outputs. 
+first = {1, 7}
+second = {1, 2, 3, 4}
+print(len(first) < len(second))
+# 1 → Is 1 in second?  YES ✓
+# 7 → Is 7 in second?  NO  ✗
+print(first.issubset(second))
+print(second.issuperset(first))
 # ANSWER:
+# outputs
+# True
+# False
+# False
+# Identify the element that prevents containment:
+# first prevents containment because of value 7 ;
+# The value 7 prevents first from being a subset of second
+# because 7 does not exist in second.
+
+# * SIZE DOES NOT DETERMINE SUBSET/SUPERSET
+
+# len(A) < len(B)
+# only tells us A has fewer elements.
+
+# A.issubset(B)
+# asks whether EVERY element of A exists in B.
+
+# len()       → "HOW MANY?"
+# subset      → "ARE THEY ALL IN THERE?"
+# superset    → "DO I CONTAIN THEM ALL?"
 
 
 # Exercise 4 — Empty inputs
-# Predict all four outputs and explain the difference between <= and <.
-# print(set() <= {"YYZ"})
-# print(set() < {"YYZ"})
-# print(set() <= set())
-# print(set() < set())
+# Predict all four outputs 
+print(set() <= {"YYZ"})
+print(set() < {"YYZ"})
+print(set() <= set())
+print(set() < set())
 # ANSWER:
+# outputs
+# True
+# True
+# True
+# False
 
+# explain the difference between <= and <:
+# <= asks does left have everything from right, < asks the same but adds does it have extras
+
+# <= asks: Does the RIGHT contain everything from the LEFT?
+#     Equality is allowed.
+#
+# <  asks: Does the RIGHT contain everything from the LEFT,
+#     AND does the RIGHT have something extra?
 
 # Exercise 5 — Write your own permissions check
 # 1. Create a set of required permissions and a set of granted permissions.
-# 2. Use issubset() to check whether all required permissions are granted.
-# 3. Repeat the check using <=, then reverse the inputs and use issuperset().
-# 4. Add an unrelated permission to granted. Check whether the result changes.
-# 5. Remove one required permission from granted and repeat the check.
-# 6. Explain why having more permissions is not enough if a required one is absent.
 # Write your code below:
+required_permissions = {
+    "read_data",
+    "write_data",
+    "delete_data",
+    "execute_job",
+}
+
+granted_permissions = {
+    "read_data",
+    "write_data",
+    "view_logs",
+}
+
+# 2. Use issubset() to check whether all required permissions are granted.
+print(required_permissions.issubset(granted_permissions)) # => False
+
+# 3. Repeat the check using <=, then reverse the inputs and use issuperset().
+print(required_permissions <= granted_permissions) # => False
+
+# 4. Add an unrelated permission to granted. Check whether the result changes.
+granted_permissions.add("grant execute")
+
+print(required_permissions <= granted_permissions) # => False
+
+# 5. Remove one required permission from granted and repeat the check.
+granted_permissions.remove("read data")
+print(required_permissions <= granted_permissions)
+
+# 6. Explain why having more permissions is not enough if a required one is absent:
+# having more permissions is not enough if they dont equal to at required ;
+# Having more permissions is not enough because every required
+# permission must exist in granted_permissions. Extra unrelated
+# permissions do not make up for a missing required permission.
+
+# required_permissions     granted_permissions
+
+# read_data          ✓     read_data
+# write_data         ✓     write_data
+# delete_data        ✗
+# execute_job        ✗
+#                          view_logs  ← unrelated extra
+
+# SUBSET/SUPERSET IS NOT:
+
+# "Which set has MORE?"
+
+
+# SUBSET/SUPERSET IS:
+
+# "Are ALL the required elements THERE?"
+
