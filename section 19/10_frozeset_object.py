@@ -103,43 +103,173 @@ print(sorted(original))  # [1, 2, 3]
 
 # Exercise 1 — Distinct elements
 # Predict all three outputs.
-# artists = frozenset(["Rush", "Yes", "Rush"])
-# print(sorted(artists))
-# print(len(artists))
-# print("Genesis" in artists)
+artists = frozenset(["Rush", "Yes", "Rush"])
+print(sorted(artists))
+print(len(artists))
+print("Genesis" in artists)
 # ANSWER:
+# outputs
+# ['Rush', 'Yes']
+# 2
+# False
 
 
 # Exercise 2 — Diagnose a mutation
 # Explain the error and write code that stores a new frozen set containing
 # the original elements plus "Genesis" in a variable called expanded.
-# artists = frozenset(["Rush", "Yes"])
+artists = frozenset(["Rush", "Yes"])
 # artists.add("Genesis")  # Intentional AttributeError; keep commented out.
 # ANSWER:
+# outputs
+# frozenset is an immutable set so there is no methods that would cause mutation of the set
+expanded = artists | {"Genesis"}
+print(expanded)
+print(type(expanded))
+print(artists)
+
+# frozenset is an immutable set, so it has no methods
+# such as add() that would mutate the frozenset.
+
+# artists
+#    │
+#    └────► frozenset({"Rush", "Yes"})
+#                  IMMUTABLE
+#                       │
+#                       │  | {"Genesis"}
+#                       ▼
+#                creates NEW object
+#                       │
+# expanded ─────────────┘
+#    │
+#    ▼
+# frozenset({"Rush", "Yes", "Genesis"})
 
 
 # Exercise 3 — Dictionary lookup
-# Predict the output. Explain why the second frozen set finds the same key.
-# groups = {frozenset(["Rush", "Yes"]): "progressive rock"}
-# print(groups[frozenset(["Yes", "Rush", "Yes"])])
+# Predict the output. 
+groups = {frozenset(["Rush", "Yes"]): "progressive rock"}
+print(groups[frozenset(["Yes", "Rush", "Yes"])])
 # ANSWER:
+# outputs
+# progressive rock
+
+# Explain why the second frozen set finds the same key.
+# The second frozenset finds the same dictionary key because
+# frozensets are unordered collections of unique elements.
+# Order does not matter and duplicate values are removed.
+# Therefore, both frozensets contain the same elements:
+# "Rush" and "Yes".
+
+# Original dictionary key:
+
+# frozenset(["Rush", "Yes"])
+#               ↓
+#        {"Rush", "Yes"}
+
+
+# Lookup key:
+
+# frozenset(["Yes", "Rush", "Yes"])
+#               ↓
+#        {"Yes", "Rush"}
+
+# set
+# - unordered
+# - unique elements
+# - mutable
+# - cannot be a dictionary key
+
+# frozenset
+# - unordered
+# - unique elements
+# - immutable
+# - CAN be a dictionary key
 
 
 # Exercise 4 — A separate mutable collection
-# Predict both outputs. Explain why frozen does not lose an element.
-# frozen = frozenset([1, 2, 3])
-# editable = set(frozen)
-# editable.remove(2)
-# print(sorted(editable))
-# print(sorted(frozen))
+# Predict both outputs. 
+frozen = frozenset([1, 2, 3])
+editable = set(frozen)
+editable.remove(2)
+print(sorted(editable))
+print(sorted(frozen))
 # ANSWER:
+# outputs
+# [1, 3]
+# [1, 2, 3]
+#  
+# Explain why frozen does not lose an element:
+# frozen does not lose an element because it is immutable ;
+# frozen does not lose an element because set(frozen) creates a
+# NEW separate mutable set. editable can therefore be changed
+# without changing frozen. The original frozenset is immutable.
+
+# frozen
+#    │
+#    └────────► frozenset({1, 2, 3})
+#                          IMMUTABLE
+
+
+# editable
+#    │
+#    └────────► set({1, 2, 3})
+#                        MUTABLE
+
+# * frozen is immutable.
+#   It cannot be changed.
+
+# * editable is a separate object.
+#   Changing editable does not change frozen.
 
 
 # Exercise 5 — Write your own frozen playlist
-# 1. Create a frozenset from a list of song titles containing a duplicate.
-# 2. Print its sorted titles, its length, and a membership test.
-# 3. Create a second frozenset with one shared title and one new title.
-# 4. Print their intersection and union using sorted().
-# 5. Use the first frozenset as a dictionary key with a playlist name as its value.
-# 6. Retrieve the name using an equal frozenset built from a different title order.
 # Write your code below:
+# 1. Create a frozenset from a list of song titles containing a duplicate.
+titles_list = [
+    "Flirtin' with Disaster",
+    "Gator Country",
+    "Whiskey Man",
+    "Flirtin' with Disaster",
+]
+
+unique_titles = frozenset(titles_list)
+
+# 2. Print its sorted titles, its length, and a membership test.
+print(sorted(unique_titles)) # => ["Flirtin' with Disaster", 'Gator Country', 'Whiskey Man']
+print(len(unique_titles)) # => 3
+print('Whiskey Man' in unique_titles) # => True
+
+# 3. Create a second frozenset with one shared title and one new title.
+second_titles_list = [
+    "Flirtin' with Disaster",
+    "Bounty Hunter",
+]
+
+second_titles = frozenset(second_titles_list)
+
+# 4. Print their intersection and union using sorted().
+print(sorted(unique_titles.intersection(second_titles)))
+print(sorted(unique_titles.union(second_titles)))
+
+# 5. Use the first frozenset as a dictionary key with a playlist name as its value.
+playlist = {unique_titles: "rock"}
+
+# 6. Retrieve the name using an equal frozenset built from a different title order.
+lookup_titles = frozenset([
+    "Whiskey Man",
+    "Flirtin' with Disaster",
+    "Gator Country",
+])
+
+print(playlist[lookup_titles])  # => rock
+
+# * KEY CONCEPT:
+# frozensets are unordered and contain unique elements.
+# Two frozensets are equal when they contain the same elements,
+# regardless of the order used to create them.
+
+# * A frozenset is immutable and hashable,
+# so it can be used as a dictionary key.
+
+# several concepts: duplicate removal, membership, intersection, union, immutability, equality, and using a frozenset as a dictionary key.
+
