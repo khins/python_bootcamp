@@ -128,7 +128,7 @@ if __name__ == "__main__":
 # Exercise 1 — Use the module's attributes
 # Predict all three outputs.
 # import calculator
-#
+
 # print(calculator.add(8, 2))
 # print(calculator.subtract(8, 2))
 # print(calculator.area(1))
@@ -142,6 +142,8 @@ if __name__ == "__main__":
 #
 # print(add(3, 5))  # Intentional NameError; keep commented out.
 # ANSWER:
+# This is not referencing the calculator object correctly in the print statement hence error;
+# The function exists as an attribute of the calculator module, so you access it with dot notation:
 
 
 # Exercise 3 — Definitions versus calls
@@ -152,6 +154,11 @@ if __name__ == "__main__":
 #
 # print("Ready")
 # ANSWER:
+# simply prints the word Ready and even though it imports calculator if you dont call add()
+# it doesn't do anything ;
+# Importing calculator loads the module and defines add(), subtract(),
+# and area(), but defining a function does not execute its body.
+# The function body only runs when the function is called.
 
 
 # Exercise 4 — Predict import timing
