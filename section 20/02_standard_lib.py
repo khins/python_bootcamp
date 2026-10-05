@@ -85,7 +85,7 @@ print(round(circle_area, 2))  # 12.57
 
 # --- 5. Import a module that prints during import ---
 # Uncomment the next line to display The Zen of Python:
-# import this
+import this
 #
 # No print() call is needed here because the module prints during import.
 # Repeating a normal import in the same interpreter reuses the cached module
@@ -100,43 +100,65 @@ print(round(circle_area, 2))  # 12.57
 
 # Exercise 1 — Character collections
 # Predict all four outputs and explain why the digit is written as a string.
-# print(len(string.ascii_lowercase))
-# print(len(string.ascii_letters))
-# print("5" in string.digits)
-# print("z" in string.ascii_uppercase)
+
+print(len(string.ascii_lowercase))
+print(len(string.ascii_letters))
+print("5" in string.digits)
+print("z" in string.ascii_uppercase)
 # ANSWER:
+# outputs
+# 26
+# True
+# False
 
 
 # Exercise 2 — Capitalization and whitespace
 # Predict both outputs. Explain how capwords() handles extra whitespace.
-# text = "  pYTHON   standard LIBRARY  "
-# print(string.capwords(text))
-# print(text)
+text = "  pYTHON   standard LIBRARY  "
+print(string.capwords(text))
+print(text)
 # ANSWER:
+# Python Standard Library
+#   pYTHON   standard LIBRARY  
 
 
 # Exercise 3 — Negative numbers
 # Predict all four outputs using positions on the number line.
-# print(math.ceil(2.1))
-# print(math.floor(2.9))
-# print(math.ceil(-2.1))
-# print(math.floor(-2.9))
+print(math.ceil(2.1))
+print(math.floor(2.9))
+print(math.ceil(-2.1))
+print(math.floor(-2.9))
 # ANSWER:
+# 3
+# 2
+# -2
+# -3
 
 
 # Exercise 4 — Access a module attribute
 # Explain why the last line fails when sqrt has not been separately defined
 # or imported. Rewrite it using dot notation.
-# import math
+import math
 # print(sqrt(16))  # Intentional NameError; keep commented out.
 # ANSWER:
-
+print(math.sqrt(16))
 
 # Exercise 5 — Write your own circle report
 # 1. Choose a positive radius and store it in a variable.
+radius = 6
 # 2. Use math.pi to calculate the circle's area and circumference.
 #    Area = pi * radius ** 2; circumference = 2 * pi * radius.
+radius = 6
+
+area = math.pi * radius ** 2
+circumference = 2 * math.pi * radius
+
+print(area)
+print(circumference)
 # 3. Print both results rounded to two decimal places with round().
 # 4. Print math.ceil() and math.floor() of the area.
+print(math.ceil(area))
+print(math.floor(area))
 # 5. Create a lowercase report title and print it using string.capwords().
+print(string.capwords("lowercase report title").lower())
 # Write your code below:
