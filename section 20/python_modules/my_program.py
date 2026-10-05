@@ -38,3 +38,8 @@ print(calculator.area)
 # In my_program.py, the name calculator is bound to the imported
 # calculator module. We use calculator.name to access names that
 # belong to the calculator module.
+
+import example
+
+print("Imported")
+example.main()

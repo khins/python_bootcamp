@@ -120,18 +120,32 @@ if __name__ == "__main__":
 # 2. You run playground.py, which imports name_demo.
 # What is __name__ inside playground.py in the second situation?
 # ANSWER:
-
+# outputs
+# __main__
+# name_demo
+# name_demo
+# __main_
+# The Python file you directly run gets __name__ == "__main__". An imported module gets its module name.
 
 # Exercise 2 — Guarded versus unguarded output
 # Suppose example.py contains the following code:
-# print("A")
-# if __name__ == "__main__":
-#     print("B")
-# print("C")
+print("A")
+if __name__ == "__main__":
+    print("B")
+print("C")
 # Predict the output when example.py runs directly, then when another script
 # first imports example. Explain which lines the guard controls.
 # ANSWER:
+# A
+# B
+# C
+# Importing example from another script:
+# A
+# C
 
+# The __name__ == "__main__" guard controls only print("B").
+# A and C are outside the guard, so they execute whether the
+# file is run directly or imported.
 
 # Exercise 3 — Defining a function does not call it
 # Suppose example.py contains only this code:
@@ -139,7 +153,9 @@ if __name__ == "__main__":
 #     print("Hello")
 # Predict the output when the file runs directly. Add a guard that calls main().
 # ANSWER:
-
+# nothing happens when file runs directly
+#  # Nothing happens when the file runs directly because defining
+# main() does not call it.
 
 # Exercise 4 — An explicit call after import
 # Suppose example.py defines main() to print "Hello" and calls it under a guard.
@@ -150,7 +166,12 @@ if __name__ == "__main__":
 # example.main()
 # Explain why main() can still be called explicitly after import.
 # ANSWER:
-
+# When example is imported, the guard prevents main() from being
+# called automatically because __name__ is "example", not "__main__".
+#
+# However, importing example still defines main() in the example
+# module's namespace. Therefore, we can explicitly call the function
+# afterward using example.main().
 
 # Exercise 5 — Write your own reusable module
 # 1. Create greetings.py and define greet(name) to return a greeting string.

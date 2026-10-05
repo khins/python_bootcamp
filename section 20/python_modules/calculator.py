@@ -16,3 +16,7 @@ def multiply(a, b):
 
 
 area = 100
+
+if __name__ == "__main__":
+    print("Calculator demo")
+    print(subtract(3, 5))
