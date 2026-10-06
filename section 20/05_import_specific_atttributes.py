@@ -54,6 +54,7 @@ print(floor(4.8))  # 4
 # These names are directly available in the importing script.
 # The import does not bind the name calculator there.
 # Names must match the module's attributes exactly, including capitalization.
+# see section 20\python_modules\import-selected-calculator-attributes.py
 
 
 # --- 4. Compare module imports and direct imports ---
@@ -121,29 +122,59 @@ print(round(circle_pi * radius ** 2, 2))  # 12.57
 
 # Exercise 1 — Direct function calls
 # Predict all three outputs using the imports at the top of this lesson.
-# print(sqrt(25))
-# print(ceil(7.1))
-# print(floor(7.9))
+print(sqrt(25))
+print(ceil(7.1))
+print(floor(7.9))
 # ANSWER:
+# 5
+# 8
+# 7
 
 
 # Exercise 2 — Which names are available?
-# In a fresh script containing only from math import sqrt, identify which
-# expression succeeds and which raises NameError. Explain why.
-# A: sqrt(16)
-# B: math.sqrt(16)
+# In a fresh script containing only from math import sqrt, 
+from math import sqrt
+# A: 
+sqrt(16)
+# B: 
+# math.sqrt(16) # NameError: name 'math' is not defined. Did you forget to import 'math'
 # ANSWER:
+# identify which expression succeeds and which raises NameError. Explain why.
+# math.sqrt raises a NameError because it was only importing a specific function in math
+# A succeeds and returns 4.0.
+# B raises a NameError.
+#
+# "from math import sqrt" imports sqrt directly into the
+# script's namespace, but it does not bind the name "math"
+# in the script. Therefore, sqrt() is available directly,
+# but math.sqrt() is not.
 
 
 # Exercise 3 — Alias a specific attribute
 # Predict the successful call's output and explain why the other call fails
 # in a fresh script.
-# from math import sqrt as root
 #
-# A: print(root(49))
-# B: print(sqrt(49))
+from math import sqrt as root
+#
+# A: 
+print(root(49)) # "Get sqrt from math, but in my program I want to call it root."
+# B: 
+print(sqrt(49))
 # ANSWER:
+# A succeeds and outputs 7.0.
+# B raises a NameError.
+#
+# "from math import sqrt as root" imports the sqrt function
+# but binds it to the alias "root" in this script.
+# Therefore, root() is available, but sqrt() is not.
+# from math import sqrt as root
 
+# Our script's namespace:
+
+# root ─────► math's sqrt function
+
+# sqrt ─────► NOT DEFINED
+# math ─────► NOT DEFINED
 
 # Exercise 4 — Trace a name collision
 # Assume calculator.creator is "Boris" and other_tools.creator is "Alex".
@@ -169,6 +200,13 @@ print(round(circle_pi * radius ** 2, 2))  # 12.57
 # print(greet("Kevin"))
 # Explain why importing only greet does not skip the top-level print.
 # ANSWER:
+# reference file section 20\python_modules\importing-still-executes-module-code.py
+# Even though we are importing only greet, Python must execute the
+# top-level code in greeting_tools.py when the module is first imported.
+# Therefore, print("Loading greetings") runs during the import.
+#
+# After the import finishes, greet is available in this script and
+# print(greet("Kevin")) executes.
 
 
 # Exercise 6 — Write your own selected imports
