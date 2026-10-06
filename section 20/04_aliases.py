@@ -52,7 +52,7 @@ print(lesson_date.day)  # 26
 # Place the following code in a separate script alongside calculator.py:
 #
 # import calculator as calc
-#
+
 # print(calc.add(3, 5))  # 8
 # print(calc.subtract(10, 4))  # 6
 # print(calc.creator)  # Boris — with the original lesson's definition
@@ -84,11 +84,13 @@ print(lesson_date.day)  # 26
 
 # Exercise 1 — Use the alias
 # Predict all three outputs.
-# print(maths.floor(8.9))
-# print(maths.sqrt(25))
-# print(maths.__name__)
+print(maths.floor(8.9))
+print(maths.sqrt(25))
+print(maths.__name__)
 # ANSWER:
-
+# 8
+# 5
+# math
 
 # Exercise 2 — Diagnose a missing name
 # In a fresh script, explain why the last line fails and correct it.
@@ -96,14 +98,18 @@ print(lesson_date.day)  # 26
 #
 # print(datetime.date(2025, 1, 2))  # Intentional NameError; keep commented out.
 # ANSWER:
+#  see section 20\python_modules\exercise_2.py
 
 
 # Exercise 3 — Alias versus attribute
 # Predict both outputs. Identify the module alias and the class name used below.
-# birthday = dt.date(2000, 7, 15)
-# print(birthday.month)
-# print(dt.__name__)
+birthday = dt.date(2000, 7, 15)
+print(birthday.month)
+print(dt.__name__)
 # ANSWER:
+# 7
+# datetime
+#  Identify the module alias and the class name: datetime the date class
 
 
 # Exercise 4 — Choose a clear name
@@ -112,6 +118,9 @@ print(lesson_date.day)  # 26
 # import calculator as c
 # import calculator as calc
 # ANSWER:
+# an alias of just c has no direct meaning and will force the developer to have to look it up
+# rather than just making a more meaningful name
+# why aliases should still be descriptive.
 
 
 # Exercise 5 — Write your own aliased imports
@@ -121,3 +130,4 @@ print(lesson_date.day)  # 26
 # 4. Print both modules' __name__ attributes.
 # 5. Explain why the printed module names differ from your aliases.
 # Write your code below, or in the separate script:
+# see section 20\python_modules\exercise_5.py
