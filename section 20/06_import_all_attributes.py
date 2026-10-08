@@ -126,13 +126,16 @@ print(ceil(4.2))  # 5
 # Write predictions in ANSWER comments before trying each exercise.
 # Use fresh scripts for import experiments so existing names do not hide errors.
 # Keep intentional-error lines commented out.
+from math import *
 
 # Exercise 1 — Use directly imported names
 # Predict both outputs using the star import at the top of this lesson.
-# print(sqrt(64))
-# print(floor(3.9))
+
 # Rewrite the import to request only the two functions used here.
 # ANSWER:
+from math import sqrt, floor
+print(sqrt(64))
+print(floor(3.9))
 
 
 # Exercise 2 — Default public names
@@ -143,7 +146,17 @@ print(ceil(4.2))  # 5
 #
 # Which names become available after from settings_demo import * in a fresh
 # script? Explain why _debug is treated differently.
+
 # ANSWER:
+# volume and subtitles are imported.
+# _debug is not imported because its name starts with an underscore.
+#
+# When a module does not define __all__, Python's star import
+# imports names that do not begin with an underscore.
+#
+# _debug can still be accessed through settings_demo._debug
+# or explicitly imported using:
+# from settings_demo import _debug
 
 
 # Exercise 3 — An explicit export list
@@ -153,6 +166,16 @@ print(ceil(4.2))  # 5
 # Which of volume, subtitles, and _debug become available through its star import?
 # Does subtitles still exist as an attribute of settings_demo? Explain.
 # ANSWER:
+# only volume and debug, sub titles would not exist;
+# ANSWER:
+# Only volume and _debug are imported because they are
+# explicitly listed in __all__.
+#
+# subtitles is not imported by the star import, but it
+# still exists as an attribute of settings_demo.
+#
+# It can be accessed using settings_demo.subtitles
+# after importing the module itself.
 
 
 # Exercise 4 — Trace a collision
@@ -165,7 +188,17 @@ print(ceil(4.2))  # 5
 # print(creator)
 # Does the final assignment change either original module's creator attribute?
 # ANSWER:
-
+# I dont think it changes the creator attribute in the original files but prints the creator change
+# ANSWER:
+# Alex
+# Kevin
+#
+# The second star import replaces the local creator
+# binding from "Boris" with "Alex".
+#
+# Then creator = "Kevin" reassigns the local name.
+#
+# Neither original module's creator attribute changes.
 
 # Exercise 5 — Explain the underscore
 # A classmate says, "A name starting with an underscore cannot be imported."
@@ -173,7 +206,10 @@ print(ceil(4.2))  # 5
 # _year from calculator and a module-prefixed way to access the same attribute.
 # Assume calculator.py defines _year = 2020.
 # ANSWER:
+# use of import * is a way to access the same attribute even though it the variable has an underscore
 
+# A star import normally excludes underscore-prefixed names
+# unless they are explicitly included in __all__.
 
 # Exercise 6 — Replace a star import
 # Rewrite this separate script with explicit imports for only the names it uses:
@@ -184,7 +220,14 @@ print(ceil(4.2))  # 5
 # print(floor(2.8))
 # Predict the three outputs. Then write an alternative using import math and
 # module prefixes instead. Explain how both versions clarify the names' origin.
-# Write your code below:
+# Explicit imports identify exactly which functions are
+# being imported from the math module.
+#
+# Using import math with module prefixes makes the origin
+# of each function clear at the point where it is called.
+#
+# Both approaches avoid importing unnecessary names
+# into the current namespace through a star import.
 
 
 # Optional challenge — Design a small module's public exports
@@ -199,3 +242,5 @@ print(ceil(4.2))  # 5
 # 6. Explain whether __all__ would prevent someone explicitly importing _year.
 # Keep intentional-error demonstrations commented out.
 # Write your code in the two files described above:
+
+# a leading underscore is a Python naming convention indicating internal use, not a security or access restriction.

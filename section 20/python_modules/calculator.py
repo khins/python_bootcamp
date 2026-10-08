@@ -1,6 +1,7 @@
 # calculator.py
 creator = "Kevin"
 PI = 3.14159
+_year = 2026
 
 def add(a, b):
     return a + b
