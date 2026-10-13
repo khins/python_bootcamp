@@ -18,9 +18,13 @@
 # print(difference(10, 5))
 # --- 6. Parent initialization is reused ---
 # In a fresh main.py process:
+# import feature.sub_feature.calculator
+# import feature.copyright
+# import feature.sub_feature.calculator
+# #
+# print(feature.sub_feature.calculator.subtract(10, 5))
+# print(feature.copyright.date_of_copyright)
+
 import feature.sub_feature.calculator
-import feature.copyright
-import feature.sub_feature.calculator
-#
-print(feature.sub_feature.calculator.subtract(10, 5))
-print(feature.copyright.date_of_copyright)
+
+print(feature.sub_feature.calculator.subtract(20, 9))  # 11
