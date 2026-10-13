@@ -25,6 +25,31 @@
 # print(feature.sub_feature.calculator.subtract(10, 5))
 # print(feature.copyright.date_of_copyright)
 
-import feature.sub_feature.calculator
+# import feature.sub_feature.calculator
 
-print(feature.sub_feature.calculator.subtract(20, 9))  # 11
+# print(feature.sub_feature.calculator.subtract(20, 9))  # 11
+# import feature.sub_feature
+
+# print(feature.sub_feature.subtract(20, 9))  # 11
+# print(feature.sub_feature.add(3, 5))  # 8
+# print(feature.sub_feature.creator)  # Boris
+# print(feature.sub_feature.PI)  # 3.14159
+# from feature.sub_feature import subtract
+
+# print(subtract(20, 9))  # 11
+# import feature
+
+# print(feature.subtract(20, 9))  # 11
+# print(feature.add(3, 5))  # 8
+# from feature.sub_feature import add, album_label
+
+# print(add(3, 5))  # 8
+# print(album_label("Hemispheres", "Rush")) 
+
+# import feature.sub_feature.calculator
+# print(feature.sub_feature.calculator.subtract(12, 5))
+from feature.sub_feature import add, area, subtract
+
+print(add(10, 4))
+print(area(2))
+print(subtract(10, 4))

@@ -170,6 +170,7 @@
 # refers to in from .calculator import add.
 # Write the equivalent absolute import.
 # ANSWER:
+# The dot refers to the package, not the terminal’s working directory.
 
 
 # Exercise 3 — Selected names only
@@ -177,9 +178,10 @@
 # from .calculator import add
 #
 # Which expressions succeed after import feature.subfeature in main.py?
-# A: feature.subfeature.add(2, 3)
-# B: feature.subfeature.subtract(8, 2)
-# C: feature.subfeature.calculator.subtract(8, 2)
+# A: feature.subfeature.add(2, 3) #imported into the package’s namespace.
+# B: feature.subfeature.subtract(8, 2) # AttributeError
+# C: feature.subfeature.calculator.subtract(8, 2) loads the calculator module, which Python 
+#       makes available as an attribute of its parent package.
 # Explain why the original module remains accessible, even though only add
 # was explicitly re-exported. Keep the failing expression commented out.
 # ANSWER:
@@ -193,7 +195,7 @@
 # print(feature.subtract(15, 6))
 # Explain the initialization path that makes feature.subtract available.
 # ANSWER:
-
+# The key takeaway is that __init__.py can expose functions from deeper packages, allowing callers to use shorter import paths.
 
 # Exercise 5 — One function, two access paths
 # Assume subfeature/__init__.py re-exports subtract from calculator.
@@ -202,6 +204,12 @@
 # print(subtract is calculator.subtract)
 # print(subtract(9, 4))
 # ANSWER:
+# subtract ────────────────┐
+#                          ├──► subtract() function
+# calculator.subtract ─────┘
+
+# Re-exporting does not create another copy of a function. It creates another name 
+# that references the same function object.
 
 
 # Exercise 6 — Design a small package interface
@@ -212,7 +220,7 @@
 # 5. Explain why no calculator prefix is needed in main.py.
 # 6. Explain whether an __all__ declaration is required for these explicit imports.
 # Write your code in the separate files described above:
-
+# A function must be accessible through the package and bound in your script's namespace before you can call it directly.
 
 # Optional challenge — A music package with a simple public interface
 # Work through this one together when you are ready.
