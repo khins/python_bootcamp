@@ -1,17 +1,2 @@
- Vanilla cupcake
- Chocolate cupcake
-Strawberry cupcake
-Strawberry cupcake
-Strawberry cupcake
-Strawberry cupcake
-Strawberry cupcake
-Strawberry cupcake
-Strawberry cupcake
-Strawberry cupcake
-Strawberry cupcake
-Strawberry cupcake
-Strawberry cupcake
-Strawberry cupcake
-Strawberry cupcake
-Strawberry cupcake
-Strawberry cupcake
+Vanilla cupcake
+Chocolate cupcake

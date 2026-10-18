@@ -37,7 +37,16 @@ SAMPLE_PATH = Path(__file__).resolve().parent / "cupcakes.txt"
 # Chocolate cupcake
 #
 # The demo reads whatever text is already in that file; it does not overwrite it.
+from pathlib import Path
 
+# --- 1. Prepare the sample file ---
+
+SAMPLE_PATH = Path(__file__).resolve().parent / "cupcakes.txt"
+
+if not SAMPLE_PATH.exists():
+    with open(SAMPLE_PATH, "w", encoding="utf-8") as file:
+        file.write("Vanilla cupcake\n")
+        file.write("Chocolate cupcake\n")
 
 # --- 2. Iterate over the open file ---
 def display_lines(path):
@@ -62,9 +71,9 @@ if __name__ == "__main__":
 
 # --- 3. See why print(line) adds gaps ---
 # Uncomment after preparing the sample file:
-# with open(SAMPLE_PATH, encoding="utf-8") as file_object:
-#     for line in file_object:
-#         print(repr(line))
+with open(SAMPLE_PATH, encoding="utf-8") as file_object:
+    for line in file_object:
+        print(repr(line))
 #
 # Expected:
 # 'Vanilla cupcake\n'
@@ -78,10 +87,10 @@ if __name__ == "__main__":
 # --- 4. Compare whitespace handling ---
 example_line = "  Vanilla cupcake  \n"
 # Uncomment to compare the results:
-# print(repr(example_line.strip()))  # 'Vanilla cupcake'
-# print(repr(example_line.rstrip()))  # '  Vanilla cupcake'
-# print(repr(example_line.rstrip("\n")))  # '  Vanilla cupcake  '
-# print(repr(example_line))  # '  Vanilla cupcake  \n'
+print(repr(example_line.strip()))  # 'Vanilla cupcake'
+print(repr(example_line.rstrip()))  # '  Vanilla cupcake'
+print(repr(example_line.rstrip("\n")))  # '  Vanilla cupcake  '
+print(repr(example_line))  # '  Vanilla cupcake  \n'
 #
 # These methods return new strings; example_line itself is unchanged.
 # Choose a method based on which whitespace you intend to remove.
@@ -89,9 +98,9 @@ example_line = "  Vanilla cupcake  \n"
 
 
 # --- 5. Print one line at a time with a new output newline ---
-# with open(SAMPLE_PATH, encoding="utf-8") as file_object:
-#     for line in file_object:
-#         print(line.rstrip("\n"))
+with open(SAMPLE_PATH, encoding="utf-8") as file_object:
+    for line in file_object:
+        print(line.rstrip("\n"))
 #
 # This removes an existing newline, then print() adds one back.
 # Unlike print(line, end=""), it also adds a newline after a final line that
@@ -108,7 +117,7 @@ def count_lines(path):
     return count
 
 
-# print(count_lines(SAMPLE_PATH))  # 2 for the sample in section 1
+print(count_lines(SAMPLE_PATH))  # 2 for the sample in section 1
 # An empty file gives 0 iterations and returns 0.
 # A blank line still counts: it is typically the string "\n".
 # A final nonempty line without a newline also counts.
@@ -116,10 +125,10 @@ def count_lines(path):
 
 
 # --- 7. Iteration uses the current file position ---
-# with open(SAMPLE_PATH, encoding="utf-8") as file_object:
-#     for line in file_object:
-#         print(line, end="")
-#     print(repr(file_object.read()))  # '' — the loop reached the end
+with open(SAMPLE_PATH, encoding="utf-8") as file_object:
+    for line in file_object:
+        print(line, end="")
+    print(repr(file_object.read()))  # '' — the loop reached the end
 #
 # A second loop over the same exhausted file object would have no iterations.
 # Reopening the file starts a new stream at the beginning.
@@ -133,72 +142,118 @@ def count_lines(path):
 
 # Exercise 1 — Identify the loop variable
 # Predict both printed types. What does line contain in each iteration?
-# with open(SAMPLE_PATH, encoding="utf-8") as file_object:
-#     for line in file_object:
-#         print(type(line))
+with open(SAMPLE_PATH, encoding="utf-8") as file_object:
+    for line in file_object:
+        print(type(line))
 # ANSWER:
-
+# <class 'str'>
+# <class 'str'>
+# line contains each individual line of data in the file
 
 # Exercise 2 — Explain the extra spacing
 # Why does this code produce an extra blank line after each sample line?
 # Rewrite only the print call to preserve the text without adding extra newlines.
-# with open(SAMPLE_PATH, encoding="utf-8") as file_object:
-#     for line in file_object:
-#         print(line)
+with open(SAMPLE_PATH, encoding="utf-8") as file_object:
+    for line in file_object:
+        # print(line)
+        print(line, end="")
 # ANSWER:
-
+# When Python reads a line from a text file, it normally includes the newline character (\n) at the end of that line.
 
 # Exercise 3 — Choose the right string method
 # Predict all three outputs, including spaces inside the quotes.
-# text = "  Rush  \n"
-# print(repr(text.strip()))
-# print(repr(text.rstrip()))
-# print(repr(text.rstrip("\n")))
+text = "  Rush  \n"
+print(repr(text.strip()))
+print(repr(text.rstrip()))
+print(repr(text.rstrip("\n")))
 # Which option removes the newline while preserving both surrounding spaces?
 # ANSWER:
-
+# 'Rush' 
+# '  Rush' 
+# '  Rush  ' - method that removes the newline while preserving both surrounding spaces
 
 # Exercise 4 — Blank lines still count
 # Suppose a file contains exactly "Rush\n\nYes".
-# How many iterations does a for loop over that file perform?
-# Write the repr() of each yielded string in order.
+
 # Explain whether the lack of a final newline prevents "Yes" from being read.
 # ANSWER:
+SAMPLE_PATH = Path(__file__).resolve().parent / "favorite_albums.txt"
+with open(SAMPLE_PATH, encoding="utf-8") as file_object:
+    for line in file_object:
+        # Write the repr() of each yielded string in order.
+        print(repr(line.strip("\n")))
+
+# How many iterations does a for loop over that file perform? 2 
+# Python reads the final line even when it doesn't end with a newline character.
+# Key takeaway: A blank line counts as an iteration, and the final line doesn't need a
+#  newline character to be read.
 
 
 # Exercise 5 — An exhausted stream
 # Predict the last printed value. Why is no text returned by read() here?
-# with open(SAMPLE_PATH, encoding="utf-8") as file_object:
-#     for line in file_object:
-#         pass
-#     print(repr(file_object.read()))
+with open(SAMPLE_PATH, encoding="utf-8") as file_object:
+    for line in file_object:
+        pass
+    print(repr(file_object.read()))
 # ANSWER:
-
+# No text is printed because the for loop just passes 
+#
+# The for loop consumes every line in the file,
+# even though pass performs no operation.
+#
+# When read() executes, the file cursor is already
+# at the end of the file, so it returns an empty string.
 
 # Exercise 6 — Write your own numbered display
+# Write your code below:
 # 1. Create a small UTF-8 favorite_albums.txt beside this script with three
 #    album titles, one per line.
+SAMPLE_PATH = Path(__file__).resolve().parent / "favorite_albums.txt"
 # 2. Build its path using SAMPLE_PATH.parent / "favorite_albums.txt".
 # 3. Open it with a with block and iterate directly over the file.
+with open(SAMPLE_PATH, encoding="utf-8") as file_object:
+    count = 0
+    for line in file_object:
+        count += 1
+        print(f'{count}: {line.rstrip("\n")}')
+        
+print(f'\nTotal Rows Processed: {count}')
 # 4. Print each title preceded by its line number, starting at 1.
 #    Example: 1: Hemispheres
 # 5. Avoid extra blank lines. Preserve any spaces in the title itself.
 # 6. After the with block, print the total number of lines processed.
 #    Make sure an empty file would report 0.
-# Write your code below:
+
 
 
 # Optional challenge — Count nonempty lines containing a word
+# Write your code below:
 # Work through this one together when you are ready.
 # Define count_matching_lines(path, word).
-# Assume word is a nonempty string. Open the UTF-8 file using a with block
-# and process it one line at a time, without read() or collecting all lines.
-# Return the number of nonempty lines containing word as a case-insensitive
-# substring. Use strip() to identify whitespace-only lines and lower() to
-# compare text. Count each matching line once, even if word appears twice.
+def count_matching_lines(path, word) -> int:
+    count = 0
+    # Assume word is a nonempty string. Open the UTF-8 file using a with block
+    # and process it one line at a time, without read() or collecting all lines.
+    # Return the number of nonempty lines containing word as a case-insensitive
+    # substring. Use strip() to identify whitespace-only lines and lower() to
+    # compare text. Count each matching line once, even if word appears twice.  
+    with open(path, encoding="utf-8") as file_object:    
+        for line in file_object:
+            cleaned = line.strip()
+            if len(cleaned) > 0:
+                if word.lower() in cleaned.lower():
+                    count += 1
+
+    return count
+
+print(count_matching_lines(SAMPLE_PATH, 'Rush'))
+
 # For a file containing "Rush\n\nRUSH and Rush\nYes\n   \n":
 # count_matching_lines(path, "rush") returns 2.
 # An empty file returns 0. Leave the file unchanged and return after closing it.
 # Let FileNotFoundError propagate if the file does not exist.
 # Explain what each iteration supplies and why you do not need an inner loop.
-# Write your code below:
+# count is a local variable belonging to the function.
+# The with statement does not create a separate scope.
+# Closing the file does not affect the count variable.
+# Therefore, count remains available after the with block.
