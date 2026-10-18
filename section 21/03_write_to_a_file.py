@@ -40,7 +40,7 @@ def write_greeting(path):
 
 # To try it, uncomment the call below. Each call replaces writing_demo.txt's
 # contents, so use this dedicated practice file rather than a file you need.
-# write_greeting(OUTPUT_PATH)
+write_greeting(OUTPUT_PATH)
 #
 # Expected file contents:
 # Hello file!
@@ -52,10 +52,10 @@ def write_greeting(path):
 
 # --- 2. Read back the saved text ---
 # After calling write_greeting(), uncomment:
-# with open(OUTPUT_PATH, "r", encoding="utf-8") as file_object:
-#     content = file_object.read()
-#
-# print(repr(content))  # "Hello file!\nYou're my favorite file.\n"
+with open(OUTPUT_PATH, "r", encoding="utf-8") as file_object:
+    content = file_object.read()
+
+print(repr(content))  # "Hello file!\nYou're my favorite file.\n"
 #
 # The write block has closed before the read block opens the same path.
 # The default text-reading behavior normalizes standard line endings to "\n".
@@ -63,9 +63,9 @@ def write_greeting(path):
 
 # --- 3. Consecutive writes do not insert separators ---
 # This replaces the practice file with a different example:
-# with open(OUTPUT_PATH, "w", encoding="utf-8") as file_object:
-#     file_object.write("Hello")
-#     file_object.write("file")
+with open(OUTPUT_PATH, "w", encoding="utf-8") as file_object:
+    file_object.write("Hello")
+    file_object.write("file")
 #
 # Exact text content: Hellofile
 # There is no space or newline unless one is included in a string.
@@ -73,10 +73,10 @@ def write_greeting(path):
 
 
 # --- 4. Inspect the return value of write() ---
-# with open(OUTPUT_PATH, "w", encoding="utf-8") as file_object:
-#     characters_written = file_object.write("Rush\n")
-#
-# print(characters_written)  # 5 — four letters plus one newline character
+with open(OUTPUT_PATH, "w", encoding="utf-8") as file_object:
+    characters_written = file_object.write("Rush\n")
+
+print(characters_written)  # 5 — four letters plus one newline character
 #
 # This count is characters, not necessarily the number of bytes stored on disk.
 # Text encoding and platform newline translation can affect the byte count.
@@ -84,11 +84,12 @@ def write_greeting(path):
 
 # --- 5. Opening in write mode is what erases earlier contents ---
 # Run these blocks in order using only the dedicated practice file:
-# with open(OUTPUT_PATH, "w", encoding="utf-8") as file_object:
-#     file_object.write("First version\n")
-#
-# with open(OUTPUT_PATH, "w", encoding="utf-8") as file_object:
-#     file_object.write("Second version\n")
+print("--- 5. Opening in write mode is what erases earlier contents ---")
+with open(OUTPUT_PATH, "w", encoding="utf-8") as file_object:
+    file_object.write("First version\n")
+
+with open(OUTPUT_PATH, "w", encoding="utf-8") as file_object:
+    file_object.write("Second version\n")
 #
 # Final file contents: "Second version\n"
 # The first version is gone; the second open truncated the file.
@@ -97,13 +98,13 @@ def write_greeting(path):
 # with open(OUTPUT_PATH, "w", encoding="utf-8") as file_object:
 #     pass
 
-
+print('-' * 3, '6. Convert other values to strings before writing')
 # --- 6. Convert other values to strings before writing ---
-# with open(OUTPUT_PATH, "w", encoding="utf-8") as file_object:
-#     year = 1978
-#     file_object.write(str(year))
-#     file_object.write("\n")
-#     file_object.write(f"Album year: {year}\n")
+with open(OUTPUT_PATH, "w", encoding="utf-8") as file_object:
+    year = 1978
+    file_object.write(str(year))
+    file_object.write("\n")
+    file_object.write(f"Album year: {year}\n")
 #
 # Expected file contents:
 # 1978
@@ -113,7 +114,7 @@ def write_greeting(path):
 # file_object.write(1978)  # Intentional error when open; keep commented out.
 # A closed stream cannot be written to, even if the variable still exists.
 
-
+print('-' * 3, '7. Write several lines with a loop')
 # --- 7. Write several lines with a loop ---
 def write_album_titles(path, titles):
     with open(path, "w", encoding="utf-8") as file_object:
@@ -123,7 +124,7 @@ def write_album_titles(path, titles):
 
 # Assume each title is a string without embedded newlines.
 # To try the function:
-# write_album_titles(OUTPUT_PATH, ["Hemispheres", "Moving Pictures", "Tarkus"])
+write_album_titles(OUTPUT_PATH, ["Hemispheres", "Moving Pictures", "Tarkus"])
 #
 # Expected file contents:
 # Hemispheres
@@ -141,47 +142,67 @@ def write_album_titles(path, titles):
 # Distinguish terminal output from file contents, and show newlines with \n
 # when writing exact string predictions. Keep intentional errors commented out.
 
+print("Exercise 1 — Adjacent writes")
 # Exercise 1 — Adjacent writes
 # Predict the exact file contents. Does this code print anything in the terminal?
-# with open(OUTPUT_PATH, "w", encoding="utf-8") as file_object:
-#     file_object.write("Rush")
-#     file_object.write("Yes")
+with open(OUTPUT_PATH, "w", encoding="utf-8") as file_object:
+    file_object.write("Rush")
+    file_object.write("Yes")
 # ANSWER:
+# RushYes
+# does not print anything to terminal only writes to the file
 
 
-# Exercise 2 — Include newlines
+print('Exercise 2 — Include newlines')
 # Predict the exact file contents and the value printed in the terminal.
-# with open(OUTPUT_PATH, "w", encoding="utf-8") as file_object:
-#     count = file_object.write("Rush\n")
-#     file_object.write("Yes\n")
-# print(count)
+with open(OUTPUT_PATH, "w", encoding="utf-8") as file_object:
+    count = file_object.write("Rush\n")
+    file_object.write("Yes\n")
+print(count)
 # ANSWER:
+# 5 because the value is Rush with a newline character
 
-
-# Exercise 3 — Reopen the same file
+print('Exercise 3 — Reopen the same file')
 # Predict the final file contents. Explain what happens to "Old text".
-# with open(OUTPUT_PATH, "w", encoding="utf-8") as file_object:
-#     file_object.write("Old text")
-# with open(OUTPUT_PATH, "w", encoding="utf-8") as file_object:
-#     file_object.write("New text")
+with open(OUTPUT_PATH, "w", encoding="utf-8") as file_object:
+    file_object.write("Old text")
+with open(OUTPUT_PATH, "w", encoding="utf-8") as file_object:
+    file_object.write("New text")
 # ANSWER:
-
+# Explain what happens to "Old text" is truncated because mode was w and thus the file is erased
 
 # Exercise 4 — No write call
 # Assume OUTPUT_PATH already contains "Keep this text".
 # What does it contain after this block? Which operation causes the change?
-# with open(OUTPUT_PATH, "w", encoding="utf-8") as file_object:
-#     pass
+with open(OUTPUT_PATH, "w", encoding="utf-8") as file_object:
+    pass
 # ANSWER:
-
+# the with block is defined as mode w which is the write mode and erases content by default, so the file '
+# contains no data
+# The file becomes empty.
+# Opening an existing file in "w" mode immediately
+# truncates it to zero bytes.
+# The pass statement does nothing.
+# The with statement automatically closes the file.
 
 # Exercise 5 — Diagnose the value type
 # Explain why this write call raises TypeError and show two ways to convert
 # the number into suitable text. What happens to old contents before the error?
-# with open(OUTPUT_PATH, "w", encoding="utf-8") as file_object:
-#     file_object.write(1981)  # Intentional TypeError; keep commented out.
+year = 1981
+with open(OUTPUT_PATH, "w", encoding="utf-8") as file_object:
+    file_object.write(str(year))  # Intentional TypeError; keep commented out.
 # ANSWER:
-
+# text needs to be a string so changed it to "1981"
+# write() requires a string in text mode.
+# Passing the integer 1981 raises TypeError.
+#
+# Two conversions:
+# str(1981)
+# f"{1981}"
+#
+# Opening an existing file in "w" mode erases its
+# previous contents before write() is executed.
+# Therefore, the file is empty when TypeError occurs.
 
 # Exercise 6 — Write and verify your own file
 # 1. Build a path beside this script named favorite_artists_demo.txt.
