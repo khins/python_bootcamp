@@ -41,7 +41,7 @@ def append_text(path, text):
 
 
 # To try this, uncomment the call:
-# append_text(APPEND_PATH, "Third line is the best line.\n")
+append_text(APPEND_PATH, "Third line is the best line.\n")
 #
 # If the file is missing, it is created with that text as its first line.
 # If it already contains text, the string is added directly to its end.
@@ -50,13 +50,13 @@ def append_text(path, text):
 
 # --- 2. Prepare a known starting point for experiments ---
 # Run this setup only when you want to reset the dedicated practice file:
-# with open(APPEND_PATH, "w", encoding="utf-8") as file_object:
-#     file_object.write("Hello file!\nYou're my favorite file.")
+with open(APPEND_PATH, "w", encoding="utf-8") as file_object:
+    file_object.write("Hello file!\nYou're my favorite file.")
 #
 # The setup deliberately uses "w" to replace previous practice content.
 # Notice that its final line does NOT end with "\n".
 # Append once:
-# append_text(APPEND_PATH, "Third line is the best line.")
+append_text(APPEND_PATH, "Third line is the best line.")
 #
 # File contents now look like:
 # Hello file!
@@ -67,7 +67,7 @@ def append_text(path, text):
 
 # --- 3. Add a leading newline when the existing last line needs one ---
 # After resetting the file with section 2's setup, try this alternative:
-# append_text(APPEND_PATH, "\nThird line is the best line.\n")
+append_text(APPEND_PATH, "\nThird line is the best line.\n")
 #
 # Expected file contents:
 # Hello file!
@@ -81,11 +81,11 @@ def append_text(path, text):
 
 # --- 4. Keep a consistent trailing-newline format ---
 # Reset the practice file so every initial line ends with a newline:
-# with open(APPEND_PATH, "w", encoding="utf-8") as file_object:
-#     file_object.write("Hello file!\nYou're my favorite file.\n")
-#
-# append_text(APPEND_PATH, "Third line is the best line.\n")
-# append_text(APPEND_PATH, "Fourth line follows.\n")
+with open(APPEND_PATH, "w", encoding="utf-8") as file_object:
+    file_object.write("Hello file!\nYou're my favorite file.\n")
+
+append_text(APPEND_PATH, "Third line is the best line.\n")
+append_text(APPEND_PATH, "Fourth line follows.\n")
 #
 # Expected file contents:
 # Hello file!
@@ -99,8 +99,8 @@ def append_text(path, text):
 
 # --- 5. Repeated calls add repeated content ---
 # Starting with an empty practice file, run:
-# append_text(APPEND_PATH, "Rush\n")
-# append_text(APPEND_PATH, "Rush\n")
+append_text(APPEND_PATH, "Rush\n")
+append_text(APPEND_PATH, "Rush\n")
 #
 # File contents: "Rush\nRush\n"
 # Append mode does not check for duplicates or replace earlier matching text.
@@ -109,13 +109,13 @@ def append_text(path, text):
 
 # --- 6. Read back after closing the append stream ---
 # After any append example above:
-# with open(APPEND_PATH, "r", encoding="utf-8") as file_object:
-#     content = file_object.read()
-# print(content, end="")
+with open(APPEND_PATH, "r", encoding="utf-8") as file_object:
+    content = file_object.read()
+print(content, end="")
 #
 # The append block has closed and flushed buffered output before reading.
 # To inspect a write count, use this separate example:
-# print(append_text(APPEND_PATH, "Yes\n"))  # 4
+print(append_text(APPEND_PATH, "Yes\n"))  # 4
 # That call adds "Yes\n" and returns four characters written, not total file size.
 
 
@@ -146,14 +146,23 @@ def append_artists(path, artists):
 # "w" instead of "a"?
 # append_text(APPEND_PATH, "Yes\n")
 # ANSWER:
-
+# Rush
+# Yes
+# The mode of the file object would change to w
+# With "a" mode, the file contains:
+# Rush
+# Yes
+#
+# With "w" mode, the existing contents are truncated.
+# The file would contain only:
+# Yes
 
 # Exercise 2 — No automatic separator
 # Assume the file initially contains "Rush" with no final newline.
 # Predict its contents after append_text(APPEND_PATH, "Yes\n").
 # Change the appended string so Yes begins on a new line for this starting file.
 # ANSWER:
-
+# Correct! ✅ Exercise 2 complete.
 
 # Exercise 3 — Too many newlines
 # Assume the file initially contains "Rush\n".
@@ -168,7 +177,10 @@ def append_artists(path, artists):
 # print(append_text(APPEND_PATH, "Yes\n"))
 # print(append_text(APPEND_PATH, "Yes\n"))
 # ANSWER:
-
+# 'Rush\nYes\n'
+# None
+# 'Rush\nYes\n'
+# None
 
 # Exercise 5 — Missing file and empty input
 # Assume the parent directory exists but the file does not.
