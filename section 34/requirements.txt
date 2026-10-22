@@ -1,0 +1,5 @@
+# Starter dependencies; intentionally unpinned.
+# Use section 33 to record the versions installed in your environment.
+requests
+beautifulsoup4
+
