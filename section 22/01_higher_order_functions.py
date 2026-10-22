@@ -122,29 +122,34 @@ print(calculate_without_return(add, 3, 5))  # None
 
 # Exercise 1 — Function or result?
 # Predict all three outputs. Which expression calls one()?
-# print(type(one))
+print(type(one))
+print(type(one()))
+print(one())
+# ANSWER:
+# both call the one function 
 # print(type(one()))
 # print(one())
-# ANSWER:
 
 
 # Exercise 2 — Trace the supplied operation
 # Predict both outputs. For each call, identify what func, a, and b hold
 # inside calculate and name the function called by func(a, b).
-# print(calculate(add, 7, 2))
-# print(calculate(subtract, 7, 2))
+print(calculate(add, 7, 2))
+print(calculate(subtract, 7, 2))
 # ANSWER:
 
 
 # Exercise 3 — Rebind a function variable
 # Predict all three outputs. Explain whether assigning selected changes add.
-# selected = add
-# print(selected is add)
-# selected = subtract
-# print(selected(9, 4))
-# print(add(9, 4))
+selected = add
+print(selected is add)
+selected = subtract
+print(selected(9, 4))
+print(add(9, 4))
 # ANSWER:
-
+# True
+# 5
+# 13
 
 # Exercise 4 — Diagnose an early call
 # Explain why this fails. What value would be assigned to func?
@@ -156,34 +161,81 @@ print(calculate_without_return(add, 3, 5))  # None
 # Exercise 5 — Return a function, then call it
 # Predict both outputs and identify which line selects the function and
 # which line executes the selected function with numeric arguments.
-# selected = choose_operation(False)
-# print(selected is subtract)
-# print(selected(20, 8))
+selected = choose_operation(False)
+print(selected is subtract)
+print(selected(20, 8))
 # ANSWER:
-
+# True
+# 12
 
 # Exercise 6 — Add your own operation
+# # Write your code below:
 # 1. Define multiply(a, b) to return the product of a and b.
+def multiply(a, b) -> int:
+    return a * b
 # 2. Pass multiply to calculate with the numbers 6 and 7; print the result.
+print(multiply(6, 7))
 # 3. Store multiply in a variable called selected and use calculate again
 #    with selected and two different numbers.
+selected = multiply
 # 4. Predict both results and explain why multiply has no parentheses when
 #    passed as the first argument to calculate.
-# Write your code below:
+print(selected(3, 5))
+print(calculate(multiply, 6, 7))  # 42
+
+selected = multiply
+print(calculate(selected, 3, 5))  # 15
+# Answer
+# 42
+# 15
 
 
 # Optional challenge — Apply a function to each album
+# Write your code below:
 # Work through this one together when you are ready.
 # Define transform_records(func, records).
+def transform_records(func, records):
+    results = []
+
+    for record in records:
+        # Call func with the current record.
+        select = func(record)
+        # Append the returned value to results.
+        results.append(select)
+        
+    return results
 # records is a list of album dictionaries, and func accepts one dictionary
 # and returns a transformed value. Assume func does not mutate its argument.
 # Use a loop and append() to return a NEW list of func(record) results in order.
 # Do not print inside transform_records or modify the input records.
 # Define a separate album_label(record) that returns a string like:
+def album_label(record) -> str:
+    return f'{record["title"]} by {record["artist"]} ({record["year"]})'
 # "Hemispheres by Rush (1978)"
 # Use the record's "title", "artist", and "year" keys.
 # Pass album_label itself and a list of three album dictionaries to
+albums = [
+    {
+        "title": "Aqualung",
+        "artist": "Jethro Tull",
+        "year": 1971,
+    },
+    {
+        "title": "Machine Head",
+        "artist": "Deep Purple",
+        "year": 1972,
+    },
+    {
+        "title": "Hotel California",
+        "artist": "Eagles",
+        "year": 1976,
+    },
+]
+
 # transform_records, then print the returned list outside the function.
+print(transform_records(album_label, albums))
+print(transform_records(album_label, []))
 # An empty records list must return [].
 # Explain what func and record hold and where album_label is actually called.
-# Write your code below:
+
+
