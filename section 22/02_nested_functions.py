@@ -142,76 +142,172 @@ print(gallons_to_cups_quiet(3))  # 48
 # Distinguish function definitions, function calls, printed output, and returns.
 # Keep intentional-error examples commented out.
 
+print('-' * 32)
 # Exercise 1 — Trace the conversion
 # Predict every printed line in order, including the outer print's output.
-# print(convert_gallons_to_cups(2))
+print(convert_gallons_to_cups(2))
 # State the intermediate quarts and pints values.
 # ANSWER:
+# 8 quarts
+# 16 pints
+# 32 cups
 
 
 # Exercise 2 — Definition versus execution
 # Predict the output. Does the inner function run? Explain why.
-# def outer():
-#     def inner():
-#         print("Inside")
-#     print("Outside")
-#
-# outer()
-# ANSWER:
+def outer():
+    def inner():
+        print("Inside")
+    print("Outside")
 
+outer()
+# ANSWER:
+# Outside
+
+def outer():
+    def inner():
+        print("Inside")
+
+    print("Outside")
+    inner()
+
+outer()
+# Key concept: The order in which functions are defined doesn't determine
+#  when they execute. The order of function calls does.
 
 # Exercise 3 — Return to the caller
 # Predict every output line in order. Explain why "After" still prints.
-# def outer():
-#     def inner():
-#         return 7
-#     print("Before")
-#     result = inner()
-#     print("After")
-#     return result + 1
-#
-# print(outer())
-# ANSWER:
+def outer():
+    def inner():
+        return 7
+    print("Before")
+    result = inner()
+    print("After")
+    return result + 1
 
+print(outer())
+# ANSWER:
+# Before
+# After
+# 8
 
 # Exercise 4 — Diagnose the scope
 # Explain why the last line raises NameError even after the outer call succeeds.
-# print(gallons_to_cups_quiet(1))
+print(gallons_to_cups_quiet(1))
 # print(pints_to_cups(2))  # Intentional NameError; keep commented out.
 # Where would a call to that helper by its local name need to appear?
 # ANSWER:
 
+def outer():
+    def inner():
+        return 10
+
+    return inner
+
+selected = outer()
+print(selected())
+# Here's what happens:
+# 1. outer() defines the nested function inner().
+# 2. return inner returns a reference to the function, without executing it.
+# 3. selected = outer() stores that function reference.
+# 4. selected() executes the returned function.
+# 5. The function returns 10, which gets printed.
+# This is an important foundation for two advanced Python concepts:
+# - Higher-order functions: Functions that accept or return other functions.
+# - Closures: Inner functions that retain access to variables from their enclosing scope.
 
 # Exercise 5 — A returned helper
 # Predict both outputs. Explain what operation holds after the first line.
-# operation = make_doubler()
-# print(type(operation))
-# print(operation(9))
+operation = make_doubler()
+print(type(operation))
+print(operation(9))
 # Does the outer function need to remain running for operation(9) to work?
 # ANSWER:
-
+# <class 'function'>
+# 18
+# the outer function need not to remain running because operation has a reference to the function
+# Here's what happens:
+# 1. make_doubler() executes.
+# 2. Python creates the nested function double().
+# 3. return double returns a reference to that function.
+# 4. operation now references the returned function.
+# 5. operation(9) calls it and returns 18.
+# This is an important foundation for understanding closures in Python.
 
 # Exercise 6 — Write your own nested conversion
-# 1. Define hours_to_seconds(hours).
-# 2. Inside it, define hours_to_minutes(amount), returning amount * 60.
-# 3. Also inside it, define minutes_to_seconds(amount), returning amount * 60.
-# 4. Call the helpers in sequence and return the final number of seconds.
-# 5. Outside the function, print results for 2, 0, and 0.5 hours.
-# 6. Predict the outputs and explain why the helpers' names are local.
 # Write your code below:
+# 1. Define hours_to_seconds(hours).
+def hours_to_seconds(hours) -> int:
+    # 2. Inside it, define hours_to_minutes(amount), returning amount * 60.
+    def hours_to_minutes(amount):
+        return amount * 60
+    # 3. Also inside it, define minutes_to_seconds(amount), returning amount * 60.
+    def minutes_to_seconds(amount):
+        return amount * 60
+    # 4. Call the helpers in sequence and return the final number of seconds.
+    hour_min = hours_to_minutes(hours)
+    min_sec = minutes_to_seconds(hour_min)
+    return min_sec
+
+# 5. Outside the function, print results for 2, 0, and 0.5 hours.
+print(hours_to_seconds(2))
+print(hours_to_seconds(0))
+print(hours_to_seconds(0.5))
+
+# 6. Predict the outputs and explain why the helpers' names are local.
+# The helper function names are local because they are
+# defined inside the hours_to_seconds() function.
+# They can be called by name within that enclosing function,
+# but not directly from outside it.
 
 
 # Optional challenge — Build an album report with a nested helper
+# Write your code below:
 # Work through this one together when you are ready.
 # Define build_album_report(albums).
+def build_album_report(albums) -> list:
+    results = []
+    # Inside build_album_report, define format_album(album) to return a string such as:
+    # "Hemispheres by Rush (1978)"
+    # Still inside the outer function, loop over albums and call format_album on
+    # each dictionary. Append each returned string to a NEW list, then return it.
+    # Preserve album order and leave the input list and dictionaries unchanged.
+    def format_album(album):
+        return f'{album["title"]} by {album["artist"]} ({album["year"]})'
+
+    for album in albums:
+        results.append(format_album(album))
+
+    return results
+
 # albums is a list of dictionaries with "title", "artist", and "year" keys.
-# Inside build_album_report, define format_album(album) to return a string such as:
-# "Hemispheres by Rush (1978)"
-# Still inside the outer function, loop over albums and call format_album on
-# each dictionary. Append each returned string to a NEW list, then return it.
-# Preserve album order and leave the input list and dictionaries unchanged.
+albums = [
+    {
+        "title": "Hemispheres",
+        "artist": "Rush",
+        "year": 1978,
+    },
+    {
+        "title": "Going for the One",
+        "artist": "Yes",
+        "year": 1977,
+    },
+    {
+        "title": "Wish You Were Here",
+        "artist": "Pink Floyd",
+        "year": 1975,
+    },
+]
+
+print(build_album_report(albums))
+print(build_album_report([]))
+selected = build_album_report(albums)
+
+print(type(selected))
+print(selected(albums[0]))
+
 # An empty input list should return []. Do not print inside either function.
 # Test by printing build_album_report's result for three album dictionaries.
 # Explain what each function returns and why format_album cannot be called
 # directly by that name at module level.
-# Write your code below:
+
