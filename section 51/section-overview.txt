@@ -1,0 +1,6 @@
+Section 51: Asynchronous Python
+
+Coroutines, async/await, tasks, structured concurrency with TaskGroup, cancellation, timeouts, semaphores, asynchronous context managers, and asynchronous iteration.
+
+Practice project: Build an asynchronous data-fetching pipeline with bounded concurrency and cancellation.
+

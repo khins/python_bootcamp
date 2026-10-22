@@ -1,0 +1,6 @@
+Section 58: PostgreSQL and asynchronous database access
+
+PostgreSQL connections and configuration, parameterized queries, transactions and rollback, relationships, constraints, schema migrations, connection pools, asynchronous queries, connection lifetimes, and database testing.
+
+Practice project: Extend the FastAPI music catalog with PostgreSQL storage and asynchronous database access.
+

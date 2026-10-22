@@ -1,0 +1,6 @@
+Section 52: Interfaces and advanced typing
+
+Abstract base classes, Protocol, structural typing, TypeVar, Generic, generic interfaces, and dependency injection.
+
+Practice project: Define a storage interface and swap between in-memory and database implementations.
+

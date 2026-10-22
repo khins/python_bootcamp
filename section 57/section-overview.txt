@@ -1,0 +1,6 @@
+Section 57: Advanced exception handling
+
+Explicit exception chaining with raise ... from ..., preserving tracebacks with bare raise, exception context, exception notes with add_note(), ExceptionGroup, except*, concurrent failures, and application error boundaries.
+
+Practice project: Build a batch-processing example that reports multiple failures while preserving useful error context.
+

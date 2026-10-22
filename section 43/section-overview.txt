@@ -1,0 +1,6 @@
+Section 43: HTTP and consuming APIs
+
+Requests and responses, status codes, headers, query parameters, JSON responses, timeouts, pagination, authentication, rate limits, and bounded retries.
+
+Practice project: Build an API client that retrieves and validates music-related records.
+

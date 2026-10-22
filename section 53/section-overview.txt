@@ -1,0 +1,6 @@
+Section 53: Advanced object model
+
+Descriptors, attribute lookup, __getattr__, __getattribute__, __slots__, and the relationship between equality and hashing.
+
+Practice project: Build a validating descriptor and explore the behavior of custom data objects.
+

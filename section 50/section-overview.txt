@@ -1,0 +1,6 @@
+Section 50: Multiprocessing
+
+ProcessPoolExecutor, serialization, process isolation, worker failures, task overhead, and Windows entry-point requirements.
+
+Practice project: Distribute a CPU-intensive analysis across worker processes and compare it with a sequential version.
+

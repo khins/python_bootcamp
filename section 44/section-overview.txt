@@ -1,0 +1,6 @@
+Section 44: SQL and SQLite
+
+Tables, primary and foreign keys, CRUD operations, joins, parameterized queries, transactions, constraints, and indexes.
+
+Practice project: Store and query a music catalog in SQLite.
+

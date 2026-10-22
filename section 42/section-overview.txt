@@ -1,0 +1,6 @@
+Section 42: Logging and configuration
+
+Log levels, handlers, formatting, exception logging, environment variables, and configuration files.
+
+Practice project: Add configurable settings and useful diagnostic logs to an existing application.
+

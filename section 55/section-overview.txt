@@ -1,0 +1,6 @@
+Section 55: Building web APIs with FastAPI
+
+Routes, request validation, response models, HTTP responses, dependency injection, database integration, and API tests.
+
+Practice project: Expose a music catalog through a tested FastAPI application.
+

@@ -1,0 +1,6 @@
+Section 36: Useful collection and functional tools
+
+Counter, defaultdict, deque, itertools, functools.partial, and caching with cache/lru_cache.
+
+Practice project: Build a listening-history analyzer.
+

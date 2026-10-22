@@ -1,0 +1,6 @@
+Section 56: Development and delivery workflow
+
+Formatting, linting, Git workflows, automated checks, continuous integration, documentation, and deployment fundamentals.
+
+Practice project: Create an automated quality-check workflow and document how to run and deploy a project.
+

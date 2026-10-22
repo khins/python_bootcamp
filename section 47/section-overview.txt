@@ -1,0 +1,6 @@
+Section 47: Algorithms and complexity
+
+Big O, searching, sorting, stacks, queues, trees, recursive traversal, and memoization.
+
+Practice project: Build a searchable catalog and compare the time and memory costs of different approaches.
+

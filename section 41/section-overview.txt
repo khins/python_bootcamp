@@ -1,0 +1,6 @@
+Section 41: Filesystem automation and command-line programs
+
+pathlib, directory traversal, shutil, temporary files, argparse, exit codes, and subprocess.run.
+
+Practice project: Build a command-line file organizer with a preview mode.
+

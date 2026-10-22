@@ -1,0 +1,6 @@
+Section 49: Threads and concurrent tasks
+
+I/O-bound versus CPU-bound work, ThreadPoolExecutor, futures, locks, queues, shared state, and race conditions.
+
+Practice project: Build a bounded concurrent downloader and collect results and failures.
+

@@ -1,0 +1,6 @@
+Section 38: Type hints and static checking
+
+Parameter and return annotations, collection types, unions, optional values, type aliases, Callable, and running a static type checker.
+
+Practice project: Add type hints to an existing project and resolve the reported type errors.
+

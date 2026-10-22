@@ -1,0 +1,6 @@
+Section 48: Profiling and optimization
+
+timeit, cProfile, tracemalloc, identifying bottlenecks, memory optimization, and memory-versus-speed tradeoffs.
+
+Practice project: Profile a listening-history analyzer, improve a measured bottleneck, and compare results.
+

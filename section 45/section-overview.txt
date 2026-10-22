@@ -1,0 +1,6 @@
+Section 45: Application structure and packaging
+
+Separating the user interface, business logic, and storage; src layout; pyproject.toml; dependencies; editable installs; command entry points; and building a wheel.
+
+Practice project: Turn a music catalog application into an installable command-line package.
+

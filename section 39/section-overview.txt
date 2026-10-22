@@ -1,0 +1,6 @@
+Section 39: Dataclasses and enums
+
+@dataclass, field(default_factory=...), frozen instances, generated comparisons, Enum, and choosing between dictionaries, named tuples, and classes.
+
+Practice project: Model albums and tracks with dataclasses and enums.
+

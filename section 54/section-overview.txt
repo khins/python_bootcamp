@@ -1,0 +1,6 @@
+Section 54: Metaprogramming and introspection
+
+inspect, callable objects, class decorators, __init_subclass__, metaclasses, and when simpler alternatives are preferable.
+
+Practice project: Build a small plugin registry and inspect the registered implementations.
+

@@ -1,0 +1,6 @@
+Section 46: Testing complete applications
+
+pytest, fixtures, parametrization, integration tests, coverage, and property-based testing, building on the earlier unittest and mocking sections.
+
+Practice project: Test a complete application's behavior and interactions with files or storage.
+

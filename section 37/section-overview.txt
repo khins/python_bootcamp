@@ -1,0 +1,6 @@
+Section 37: Context managers
+
+How with works; __enter__, __exit__, contextlib.contextmanager, and resource cleanup when exceptions occur.
+
+Practice project: Build a timing context manager and practice reliable resource cleanup.
+

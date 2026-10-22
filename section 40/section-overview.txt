@@ -1,0 +1,6 @@
+Section 40: Structured data and serialization
+
+JSON, CSV, nested records, validating imported data, serialization limits, text versus bytes, and character encoding.
+
+Practice project: Build a music catalog importer and exporter.
+
