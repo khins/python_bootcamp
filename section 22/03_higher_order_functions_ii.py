@@ -126,34 +126,48 @@ print(named_operations["times_ten"](4))  # 40
 
 # Exercise 1 — Function or result?
 # Predict all three outputs and identify what chosen holds.
-# chosen = calculator("add")
-# print(type(chosen))
-# print(chosen(8, 2))
-# print(chosen(1, 4))
+chosen = calculator("add")
+print(type(chosen))
+print(chosen(8, 2))
+print(chosen(1, 4))
 # ANSWER:
-
+# <class 'function'>
+# 10
+# 5
+# chosen holds a reference to the addition function returned by calculator("add")
 
 # Exercise 2 — Read two calls
 # Predict both outputs. Explain what each pair of parentheses does.
-# print(calculator("subtract")(20, 6))
-# print(calculator("add")(20, 6))
+print(calculator("subtract")(20, 6))
+print(calculator("add")(20, 6))
 # ANSWER:
+# 14
+# 26
+# Explain what each pair of parentheses does: provides the values to the function parameters
 
 
 # Exercise 3 — No matching branch
 # Predict the printed value and explain why the next line would fail.
-# chosen = calculator("divide")
-# print(chosen)
+chosen = calculator("divide")
+print(chosen)
 # chosen(8, 2)  # Intentional TypeError; keep commented out.
 # ANSWER:
+# None
+# since NoneType is not callable passing the parameters (8, 2) wont work
+# every Python function returns something, even if that something is None.
 
 
 # Exercise 4 — Trace a list of functions
 # Predict every output line. What does func hold on each iteration?
-# for func in [times_ten, square, cube]:
-#     print(func(2))
+for func in [times_ten, square, cube]:
+    print(func(2))
 # Does each call receive 2, or does it receive the previous function's result?
 # ANSWER:
+# 20
+# 4
+# 8
+# What does func hold on each iteration? each calls receives the parameter value 2 and func is 
+# cycling through the list of 3 operations
 
 
 # Exercise 5 — Diagnose stored results
@@ -166,27 +180,81 @@ print(named_operations["times_ten"](4))  # 40
 
 
 # Exercise 6 — Write your own function selector
+# Write your code below:
 # 1. Define choose_transform(name).
+def choose_transform(name):
+    
+    def double(number):
+        return number * 2
+
+    def triple(number):
+        return number * 3
+
+    if name == "double":
+        return double
+    elif name == "triple":
+        return triple
+
+
+print(choose_transform("triple")(6))
 # 2. Inside it, define double(number) and triple(number), each returning its result.
 # 3. Return double for "double" and triple for "triple", without calling either.
 # 4. Store choose_transform("double") in a variable and call it with 6.
 # 5. Use choose_transform("triple")(6) to select and call in one expression.
 # 6. Predict both results and explain what an unrecognized name returns if
 #    you leave the function without a fallback return or exception.
-# Write your code below:
+# 18
 
 
 # Optional challenge — Select an album formatter
+# Write your code below:
 # Work through this one together when you are ready.
 # Define choose_formatter(style) with two nested functions:
+def choose_formatter(style):
+    
+    def title_only(album):
+        return album["title"]
+
+    def full_label(album):
+        return f'{album["title"]} by {album["artist"]} ({album["year"]})'
+
+    if style == "short":
+        return title_only
+    elif style == "full":
+        return full_label
+    else:
+        return None
+
 # - title_only(album): returns the album's "title" value.
 # - full_label(album): returns "Hemispheres by Rush (1978)" for a matching record.
 # Return title_only for "short" and full_label for "full". For any other style,
 # explicitly return None. Do not call either formatter inside choose_formatter.
 # Create a list of three dictionaries containing "title", "artist", and "year".
+albums = [
+    {
+        "title": "Hemispheres",
+        "artist": "Rush",
+        "year": 1978,
+    },
+    {
+        "title": "Going for the One",
+        "artist": "Yes",
+        "year": 1977,
+    },
+    {
+        "title": "Wish You Were Here",
+        "artist": "Pink Floyd",
+        "year": 1975,
+    },
+]
+
+for album in albums:
+    print(choose_formatter("short")(album))
+
+# print(choose_formatter("full")(albums[1]))
 # Select the "full" formatter once, before a loop, and store it in formatter.
 # Loop over the albums and append formatter(album) to a NEW labels list.
 # Print labels after the loop. Preserve the original records and their order.
 # Repeat with the "short" formatter to compare the results.
 # Explain what choose_formatter returns versus what formatter(album) returns.
-# Write your code below:
+
