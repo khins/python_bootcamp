@@ -165,80 +165,168 @@ def missing_lookup():
 
 # Exercise 1 — Local wins
 # Predict both outputs. Which scope supplies artist inside show_artist?
-# artist = "Rush"
-# def show_artist():
-#     artist = "Yes"
-#     return artist
-# print(show_artist())
-# print(artist)
+artist = "Rush"
+def show_artist():
+    # artist = "Yes" # variable shadowing
+    return artist
+print(show_artist())
+print(artist)
 # ANSWER:
-
+# Yes
+# Rush
+# Which scope supplies artist inside show_artist? it would be the local sccope to the function where it sets to Yes
 
 # Exercise 2 — Enclosing beats global
 # Predict the output. Which scope supplies title to inner?
-# title = "Tarkus"
-# def outer():
-#     title = "Hemispheres"
-#     def inner():
-#         return title
-#     return inner()
-# print(outer())
+title = "Tarkus"
+def outer():
+    title = "Hemispheres" # Enclosing scope
+    def inner():
+        return title # Reads from enclosing scope
+    return inner()
+print(outer())
 # ANSWER:
+# Hemispheres
+# Which scope supplies title to inner? the outer func supplies the title
+# Python follows the LEGB rule when resolving variable names:
+# Scope	What Python finds
+# Local (L)	No title defined inside inner()
+# Enclosing (E)	Finds title = "Hemispheres" in outer()
+# Global (G)	"Tarkus" exists, but Python doesn't need it
+# Built-in (B)	Not searched because the name was found
 
 
 # Exercise 3 — A built-in as a return value
 # Predict both outputs. Explain when len is actually called.
-# selected = outer_builtin()
-# print(selected is len)
-# print(selected(["Rush", "Yes", "Genesis"]))
+selected = outer_builtin()
+print(selected is len)
+print(selected(["Rush", "Yes", "Genesis"]))
 # ANSWER:
+# True
+# 3
+# len is called when selected has a comparison
+def outer_builtin():
+    return len
 
+selected = outer_builtin()
+
+print(type(selected))
+print(selected("Hemispheres"))
+# function
+# 11
 
 # Exercise 4 — The calling function is not the enclosing function
 # Predict the output and explain why the local 1981 is not used.
-# year = 1978
-# def read_year():
-#     return year
-# def caller_year():
-#     year = 1981
-#     return read_year()
-# print(caller_year())
+year = 1978
+def read_year():
+    return year
+def caller_year():
+    year = 1981
+    return read_year()
+print(caller_year())
 # ANSWER:
-
+# 1978 
+# why the local 1981 is not used? the variable is set but not actually used and read year get year
+# from global year
 
 # Exercise 5 — Shadowing a built-in
 # Explain why this function raises TypeError rather than using the built-in sum.
-# def total_numbers():
-#     sum = 10
-#     return sum([1, 2, 3])
-# total_numbers()  # Intentional TypeError; keep commented out.
+def total_numbers():
+    sum = 10
+    return sum([1, 2, 3])
+# total_numbers()  # Intentional TypeError; keep commented out. 'int' object is not callable
 # Rename the local variable so the built-in call succeeds. Predict its result.
 # ANSWER:
+def total_numbers():
+    total = 10
+    return sum([1, 2, 3])
 
+print(total_numbers())
+
+sum = 100
+
+def total_numbers():
+    return sum([1, 2, 3])
+
+# print(total_numbers())
+# Key takeaway: Shadowing can occur in both local and global scopes. Avoid naming variables
+#  sum, list, str, dict, or len because these names belong to Python's built-in functions and types.
 
 # Exercise 6 — Write your own enclosing-scope example
-# 1. Define a global name message = "Global message".
-# 2. Define an outer function that assigns message = "Enclosing message".
-# 3. Inside it, define inner() to return message without assigning it locally.
-# 4. Have the outer function return inner() and print the outer call's result.
-# 5. Add message = "Local message" inside inner before its return, and predict
-#    how the result changes.
-# 6. Print the global message afterward and explain why it is unchanged.
 # Write your code below:
+# 1. Define a global name message = "Global message".
+message = "Global message"
+# 2. Define an outer function that assigns message = "Enclosing message".
+def outer():
+    message = "Enclosing message"
 
+    # 3. Inside it, define inner() to return message without assigning it locally.
+    # 5. Add message = "Local message" inside inner before its return, and predict
+#    how the result changes.
+    def inner():
+        message = "Local message" 
+        return message  
+
+    return inner()
+
+# 4. Have the outer function return inner() and print the outer call's result.
+print(outer())
+# 6. Print the global message afterward and explain why it is unchanged.
+print(message)
+# Local message
+# Global message
 
 # Optional challenge — Trace all four levels in an album formatter
+# Write your code below:
 # Work through this one together when you are ready.
 # Define a global constant LABEL_SEPARATOR = " | ".
+LABEL_SEPARATOR = " | "
+albums = [
+    {
+        "title": "Moving Pictures",
+        "artist": "Rush",
+        "year": 1981,
+    },
+    {
+        "title": "Fragile",
+        "artist": "Yes",
+        "year": 1971,
+    },
+    {
+        "title": "The Dark Side of the Moon",
+        "artist": "Pink Floyd",
+        "year": 1973,
+    },
+    {
+        "title": "Led Zeppelin IV",
+        "artist": "Led Zeppelin",
+        "year": 1971,
+    },
+    {
+        "title": "Master of Reality",
+        "artist": "Black Sabbath",
+        "year": 1971,
+    },
+]
 # Define make_formatter(prefix), with a nested function format_album(album).
-# Inside format_album, assign a local title from album["title"].
-# Return a string combining prefix, LABEL_SEPARATOR, title, and len(title),
-# such as "Favorite | Hemispheres (11 characters)".
-# Have make_formatter return format_album itself, without calling it.
+def make_formatter(prefix):
+    # Have make_formatter return format_album itself, without calling it.
+
+    # Inside format_album, assign a local title from album["title"].
+    # Return a string combining prefix, LABEL_SEPARATOR, title, and len(title),
+    # such as "Favorite | Hemispheres (11 characters)".
+    def format_album(album):
+        title = album["title"]
+        return f'{prefix}{LABEL_SEPARATOR}{title}{LABEL_SEPARATOR}({len(title)})'
+
+    return format_album
+
+formatter = make_formatter("Favorite")
+print(formatter(albums[0]))
 # Store make_formatter("Favorite") in formatter, then call formatter with
 # an album dictionary containing a "title" key. Print the returned string.
 # Explain the scope supplying each of these inside format_album:
 # title (local), prefix (enclosing), LABEL_SEPARATOR (global), len (built-in).
 # Explain why prefix remains available after make_formatter has returned.
 # This retained enclosing binding is a preview of closures.
-# Write your code below:
+
