@@ -28,14 +28,15 @@ def outer_immediate():
     def inner():
         return candy
 
-    return inner()
+    return inner() # Calls the function and returns its result
 
 
 print(outer_immediate())  # Snickers
 print(type(outer_immediate()))  # <class 'str'>
 # inner reads candy from the enclosing function. Here it is called immediately,
 # so the outer function returns a string, not the nested function.
-
+# saved = outer()
+# print(saved)
 
 # --- 2. Return the inner function for later use ---
 def outer():
@@ -144,69 +145,185 @@ print(read_artists() is artists)  # True
 
 # Exercise 1 — Function or string?
 # Predict all three outputs. Which outer function returns a function object?
-# print(type(outer_immediate()))
-# print(type(outer()))
-# saved = outer()
-# print(saved())
+print(type(outer_immediate()))
+print(type(outer()))
+saved = outer()
+print(saved())
 # ANSWER:
-
+# <class 'str'>
+# <class 'function'>
+# Snickers
 
 # Exercise 2 — Independent enclosing calls
 # Predict all three outputs and explain which value each reader retains access to.
-# first = make_candy_reader("Reese's Pieces")
-# second = make_candy_reader("Sour Patch Kids")
-# print(first())
-# print(second())
-# print(first())
+first = make_candy_reader("Reese's Pieces")
+second = make_candy_reader("Sour Patch Kids")
+print(first())
+print(second())
+print(first())
 # ANSWER:
+# Reese's Pieces
+# Sour Patch Kids
+# Reese's Pieces
+# explain which value each reader retains access to: reader retains access to the value that is passed into
+first = make_candy_reader("Reese's Pieces")
+second = make_candy_reader("Sour Patch Kids")
 
+third = first
+
+print(third())
+print(first is third)
+print(first is second)
+
+first = make_candy_reader("Reese's Pieces")
+third = first
+
+first = make_candy_reader("M&M's")
+
+print(first())
+print(third())
+print(first is third)
 
 # Exercise 3 — A retained binding
 # Predict the output. Why is the earlier value not returned?
-# def make_reader():
-#     message = "Before"
-#     def read():
-#         return message
-#     message = "After"
-#     return read
-# reader = make_reader()
-# print(reader())
+def make_reader():
+    message = "Before"
+    def read():
+        return message
+    message = "After"
+    return read
+reader = make_reader()
+print(reader())
 # ANSWER:
-
+# After
+# Why is the earlier value not returned? earlier message is not returned because it is changed later in the function thus Reassignment of the var
 
 # Exercise 4 — Local versus enclosing parameters
 # Predict both outputs. Identify where factor and number get their values.
-# times_four = make_multiplier(4)
-# print(times_four(3))
-# print(times_four(10))
-# Explain why make_multiplier does not need to remain running.
+times_four = make_multiplier(4)
+print(times_four(3))
+print(times_four(10))
+# Explain why make_multiplier does not need to remain running. make_multiplier() returns the nested function, not the multiplication result.
 # ANSWER:
-
+# 12
+# 40
 
 # Exercise 5 — Shared mutable data
 # Predict the output. Does make_list_reader copy its input list?
-# titles = ["Hemispheres"]
-# reader = make_list_reader(titles)
-# titles.append("Tarkus")
-# print(reader())
+titles = ["Hemispheres"]
+reader = make_list_reader(titles)
+titles.append("Tarkus")
+print(reader())
 # ANSWER:
+# ['Hemispheres', 'Tarkus']
+# does not copy the list
 
 
 # Exercise 6 — Write your own greeting factory
+# Write your code below:
 # 1. Define make_greeter(greeting).
-# 2. Inside it, define greet(name) to return a string such as "Hello, Kevin!".
+def make_greeter(greeting):
+
+    # 2. Inside it, define greet(name) to return a string such as "Hello, Kevin!".
+    def greet(name) -> str:
+        return f'{greeting}, {name}!'
+
+    return greet
+
 # 3. Have greet use greeting from the enclosing scope and name from its parameter.
 # 4. Return greet itself without calling it.
 # 5. Create two greeters with different greeting strings and call both with "Kevin".
+print(make_greeter("Hello")("Kevin"))
+print(make_greeter("Welcome")("Geddy"))
 # 6. Predict their output and explain why each retains its own greeting binding.
-# Write your code below:
+hello_greeter = make_greeter("Hello")
+welcome_greeter = make_greeter("Welcome")
 
+print(hello_greeter("Kevin"))
+print(welcome_greeter("Kevin"))
+greeter1 = make_greeter("Good morning")
+greeter2 = make_greeter("Good evening")
+
+greeter1 = greeter2
+
+print(greeter1("Kevin"))
+print(greeter1 is greeter2)
+
+def make_counter():
+    count = 0
+
+    def increment():
+        nonlocal count
+        count += 1
+        return count
+
+    return increment
+
+
+counter1 = make_counter()
+counter2 = make_counter()
+
+print(counter1())
+print(counter1())
+print(counter2())
+print(counter1())
+
+# def make_counter():
+#     count = 0
+
+#     def increment():
+#         count += 1
+#         return count
+
+#     return increment
+
+
+# counter = make_counter()
+# print(counter())
 
 # Optional challenge — Remember an album-label prefix
+# Write your code below:
 # Work through this one together when you are ready.
 # Define make_album_formatter(prefix).
-# Inside it, define format_album(album) to return a string such as:
-# "Favorite: Hemispheres by Rush (1978)"
+def make_album_formatter(prefix):
+
+    # Inside it, define format_album(album) to return a string such as:
+    # "Favorite: Hemispheres by Rush (1978)"
+    def format_album(album) -> str:
+        return f'{prefix} {album["title"]} by {album["artist"]} ({album["year"]})'
+
+    return format_album
+
+albums = [
+    {
+        "title": "Moving Pictures",
+        "artist": "Rush",
+        "year": 1981,
+    },
+    {
+        "title": "Fragile",
+        "artist": "Yes",
+        "year": 1971,
+    },
+    {
+        "title": "The Dark Side of the Moon",
+        "artist": "Pink Floyd",
+        "year": 1973,
+    },
+    {
+        "title": "Led Zeppelin IV",
+        "artist": "Led Zeppelin",
+        "year": 1971,
+    },
+    {
+        "title": "Master of Reality",
+        "artist": "Black Sabbath",
+        "year": 1971,
+    },
+]
+
+print(make_album_formatter("Favorite:")(albums[1]))
+
 # Use prefix from the enclosing scope and the dictionary's title, artist, and year.
 # Return format_album itself without calling it.
 # Create favorite_formatter with prefix "Favorite" and wishlist_formatter with
@@ -216,4 +333,4 @@ print(read_artists() is artists)  # True
 # Preserve the input dictionaries and their order.
 # Explain which binding is captured, which parameter changes with each inner call,
 # and why creating wishlist_formatter does not replace favorite_formatter's prefix.
-# Write your code below:
+
