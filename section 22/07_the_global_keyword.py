@@ -149,84 +149,212 @@ print(count)  # 1
 
 # Exercise 1 — Local assignment
 # Predict both outputs. Which score does reset_score assign?
-# score = 10
-# def reset_score():
-#     score = 0
-# print(score)
-# reset_score()
-# print(score)
+score = 10
+def reset_score():
+    score = 0
+print(score)
+reset_score()
+print(score)
 # ANSWER:
+# 10
+# 10
+# Which score does reset_score assign? reset_score() assigns a new local variable named score, not the global variable.
+score = 10
 
+def reset_score():
+    score = 0
+    print(score)
+
+reset_score()
+print(score)
+
+score = 10
+
+def reset_score():
+    print(score) # attempts to access a variable that has not been set yet
+    score = 0
+
+# reset_score() # unbounderror
+
+score = 10
+
+def reset_score():
+    global score
+    print(score)
+    score = 0
+
+reset_score()
+print(score)
+# the global keyword doesn't simply make score accessible. It tells Python that references and assignments
+# to score inside the function refer to the global variable.
+
+score = 25
+
+def show_score():
+    print(score)
+
+def change_score():
+    score = 50
+    print(score)
+
+show_score()
+change_score()
+print(score)
+
+print("-" * 65)
+score = 25
+
+def increase_score():
+    global score
+    score += 10
+
+def display_score():
+    print(score)
+
+increase_score()
+display_score()
+increase_score()
+print(score)
 
 # Exercise 2 — Global assignment
 # Predict both outputs. Explain what the declaration changes.
-# score = 10
-# def reset_global_score():
-#     global score
-#     score = 0
-# print(score)
-# reset_global_score()
-# print(score)
+print("-" * 65)
+score = 10
+def reset_global_score():
+    global score
+    score = 0
+print(score)
+reset_global_score()
+print(score)
 # ANSWER:
-
+# 10
+# 0
 
 # Exercise 3 — Creation depends on execution
 # In a fresh script, explain which line first creates the global message binding.
-# def prepare_message():
-#     global message
-#     message = "Ready"
-# prepare_message()
-# print(message)
+def prepare_message():
+    global message
+    message = "Ready"
+prepare_message()
+print(message)
 # What happens if the call to prepare_message() is removed?
 # ANSWER:
+# NameError: name 'message' is not defined
+# global message does not create the variable. It tells Python that assignments to message inside the function refer to the global scope.
+# The binding is created when this statement executes:
 
 
 # Exercise 4 — Read or rebind?
 # Explain why the first function works but calling the second raises
 # UnboundLocalError. Correct the second function to update the global total.
-# total = 5
-# def get_total():
-#     return total
-# def increase_total():
-#     total += 1
-# print(get_total())
-# increase_total()  # Intentional error; keep commented out until corrected.
+total = 5
+def get_total():
+    return total
+def increase_total():
+    global total 
+    total += 1
+print(get_total())
+increase_total()  # Intentional error; keep commented out until corrected.
+# UnboundLocalError: cannot access local variable 'total' where it is not associated with a value
 # ANSWER:
+# total in increase_total() does not have access to the variable
 
 
 # Exercise 5 — Mutate a list
 # Predict the final output. Why does add_title not require global titles?
-# titles = ["Hemispheres"]
-# def add_title():
-#     titles.append("Tarkus")
-# add_title()
-# print(titles)
+titles = ["Hemispheres"]
+def add_title():
+    titles.append("Tarkus")
+add_title()
+print(titles)
 # How would assigning titles = ["Tarkus"] inside the function differ?
 # ANSWER:
 
 
 # Exercise 6 — Write your own counter
+# Write your code below:
 # 1. Define a module-level variable songs_played = 0.
+songs_played = 0
 # 2. Define log_song() to increment it using global and return its new value.
+def log_song():
+    global songs_played
+    # Increase songs_played by 1 here
+    songs_played += 1
+
+    # Return the updated songs_played value here
+    return songs_played
+
 # 3. Call log_song() twice and print each returned value.
 # 4. Print songs_played afterward and predict all three outputs.
+print(log_song())
+print(log_song())
+print(songs_played)
 # 5. Explain why the result of a call depends on earlier calls.
 # 6. Write an alternative increment_count(count) that returns count + 1
 #    without accessing songs_played. Show the caller saving its result.
-# Write your code below:
+# 1
+# 2
+# 2
+
+def increment_count(count):
+    # Return count increased by 1
+    count += 1
+    return count  
+
+
+count = 10
+
+count = increment_count(count)
+print(count)
+
+count = increment_count(count)
+print(count)
 
 
 # Optional challenge — Track added albums
+# Write your code below:
 # Work through this one together when you are ready.
 # Define two module-level names: album_log = [] and albums_added = 0.
+album_log = [] 
+albums_added = 0
 # Define log_album(title) to append the title to album_log, increment
-# albums_added, and return the new count.
-# Use global for the name you reassign. Explain why appending to album_log
-# does not require a global declaration for that name.
-# Define reset_album_log() to clear the existing list with clear() and set
-# albums_added back to 0. Use the appropriate global declaration there too.
+def log_album(title) -> int:
+
+    # albums_added, and return the new count.
+    global albums_added
+
+    # 1. Append title to album_log
+    album_log.append(title)
+
+    # 2. Increment albums_added by 1
+    albums_added += 1
+
+    # 3. Return albums_added
+    return albums_added
+
+def reset_album_log():
+    global albums_added
+
+    # 1. Clear the existing album_log list
+    album_log.clear()
+
+    # 2. Set albums_added back to zero
+    albums_added = 0
+
+
+#  Use the appropriate global declaration there too.
 # Log three titles and print the list and count outside the functions.
 # Reset the log and print both again; expect [] and 0.
 # Finally explain how passing a list and returning a count could make the
 # functions' dependencies more explicit than relying on module state.
-# Write your code below:
+print(log_album("Moving Pictures"))
+print(log_album("Fragile"))
+print(log_album("Hemispheres"))
+
+print(album_log)
+print(albums_added)
+
+reset_album_log()
+
+print(album_log)
+print(albums_added)
