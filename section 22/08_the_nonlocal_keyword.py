@@ -155,12 +155,12 @@ print(collect_artists())  # ['Rush', 'Yes']
 
 # --- 8. Recognize missing declarations and missing bindings ---
 # Without nonlocal, this update tries to read an unassigned local count:
-# def broken_counter():
-#     count = 0
-#     def increment():
-#         count += 1
-#         return count
-#     return increment()
+def broken_counter():
+    count = 0
+    def increment():
+        count += 1
+        return count
+    return increment()
 # broken_counter()  # Intentional UnboundLocalError; keep commented out.
 #
 # A missing enclosing binding causes SyntaxError, before the function can run:
@@ -178,78 +178,194 @@ print(collect_artists())  # ['Rush', 'Yes']
 
 # Exercise 1 — Compare assignments
 # Predict both outputs and explain the difference between the two functions.
-# print(outer_local())
-# print(outer_nonlocal())
+print(outer_local())
+print(outer_nonlocal())
 # ANSWER:
+# Black
+# Taro
+# Key distinction: nonlocal doesn't simply retrieve "Taro". It allows the nested function 
+# to reassign the enclosing variable from "Black" to "Taro".
+print("-" * 65)
+def outer():
+    flavor = "Black"
 
+    def inner():
+        nonlocal flavor
+        flavor = "Taro"
+        flavor = "Matcha"
+
+    inner()
+    return flavor
+
+print(outer())
 
 # Exercise 2 — A function must be called
 # Predict the output. What line would you add to make it return "After"?
-# def outer():
-#     message = "Before"
-#     def update():
-#         nonlocal message
-#         message = "After"
-#     return message
-# print(outer())
+def outer():
+    message = "Before"
+    def update():
+        nonlocal message
+        message = "After"
+        return message
+    return update()
+print(outer())
 # ANSWER:
+# The nonlocal declaration allows update() to reassign the message variable belonging to outer().
+# Without nonlocal, assigning "After" would create a new local variable inside update() instead.
+print("-" * 65)
+def outer():
+    message = "Before"
 
+    def update():
+        nonlocal message
+        message = "After"
 
+    update()
+    return message
+
+print(outer())
+# nonlocal message allows the nested update() function to modify the message variable belonging to outer().
+
+def outer():
+    message = "Before"
+
+    def update():
+        message = "After"
+
+    update()
+    return message
+
+print(outer())
+#  key point: without nonlocal, the inner function does not modify the enclosing variable.
+
+def outer():
+    count = 5
+
+    def increment():
+        nonlocal count
+        count += 2
+
+    increment()
+    increment()
+
+    return count
+
+print(outer())
+# 9
+
+print('-' * 65)
 # Exercise 3 — Rebind a parameter
 # Predict all three outputs. Explain why supplied_name remains unchanged.
-# supplied_name = None
-# print(choose_name(supplied_name))
-# print(supplied_name)
-# print(choose_name("Tarkus"))
+supplied_name = None
+print(choose_name(supplied_name))
+print(supplied_name)
+print(choose_name("Tarkus"))
 # ANSWER:
-
-
+# Untitled
+# None
+# Tarkus
+# the second print of supplied_name is never set nor called in the function
+# reassigning a function parameter does not change the caller's variable.
+print('-' * 65)
 # Exercise 4 — Independent counters
 # Predict all four outputs. How many separate count bindings are created?
-# first = make_counter()
-# second = make_counter()
-# print(first())
-# print(first())
-# print(second())
-# print(first())
+first = make_counter()
+second = make_counter()
+print(first())
+print(first())
+print(second())
+print(first())
 # ANSWER:
+# 1
+# 2
+# 1
+# 3
+# two count bindings are created and incremented separartely
 
-
+print('-' * 65)
 # Exercise 5 — Diagnose the scope
 # Explain why the inner call raises UnboundLocalError and add the missing
 # declaration in the correct place.
-# def outer_total():
-#     total = 10
-#     def increase():
-#         total += 5
-#     increase()
-#     return total
-# print(outer_total())  # Keep commented out until the function is corrected.
+def outer_total():
+    total = 10
+    def increase():
+        nonlocal total 
+        total += 5
+    increase()
+    return total
+print(outer_total())  # Keep commented out until the function is corrected.
 # ANSWER:
-
+# 15
 
 # Exercise 6 — Write your own score tracker
-# 1. Define make_score_tracker(start), with a nested add_points(points) function.
-# 2. Use nonlocal to increase the enclosing start binding by points.
-# 3. Return the updated score from add_points.
-# 4. Return add_points itself from make_score_tracker.
-# 5. Create a tracker starting at 10, call it with 5 and then 3, and print results.
-# 6. Explain why the second call remembers the first update.
 # Write your code below:
+# 1. Define make_score_tracker(start), with a nested add_points(points) function.
+def make_score_tracker(start):
+    total = start
+
+    def add_points(points):
+        # 2. Use nonlocal to increase the enclosing start binding by points.
+        nonlocal total
+        # 3. Return the updated score from add_points.
+        total += points
+        return total
+
+     # 4. Return add_points itself from make_score_tracker.
+    return add_points
+
+
+# 5. Create a tracker starting at 10, call it with 5 and then 3, and print results.
+tracker = make_score_tracker(10)
+
+print(tracker(5))
+print(tracker(3))
+# 6. Explain why the second call remembers the first update.
+# 15
+# 15
+# 18
 
 
 # Optional challenge — A private album log with a running count
+# Write your code below:
 # Work through this one together when you are ready.
 # Define make_album_logger(). Inside it, initialize labels = [] and count = 0.
-# Define a nested log_album(album) accepting a dictionary with title, artist,
-# and year keys. Append a label such as "Hemispheres by Rush (1978)" to labels.
-# Increment the enclosing count using nonlocal and return the updated count.
-# Define a second nested function get_labels() that returns a shallow copy
-# of labels, so appending to that returned list does not change the stored log.
-# Return log_album and get_labels as a tuple of function objects.
+def make_album_logger():
+    labels = [] 
+    count = 0 
+    
+    # Define a nested log_album(album) accepting a dictionary with title, artist,
+    # and year keys. Append a label such as "Hemispheres by Rush (1978)" to labels.
+    def log_album(album):
+        nonlocal count
+        
+        label = f'{album["title"]} by {album["artist"]} ({album["year"]})'
+        # Append label to the existing labels list
+        labels.append(label)
+  
+        # Increment count by 1
+        count += 1
+  
+      # Return the updated count
+        return count
+
+    def get_labels():
+        # Return a shallow copy of labels
+        return labels.copy()
+
+    return log_album, get_labels
+    # Return log_album and get_labels as a tuple of function objects.
 # Unpack them into log_album, get_labels at the call site, log three albums,
 # and print the returned counts and the list supplied by get_labels().
 # Create a second logger and verify its initial label list is empty.
 # Explain why count needs nonlocal but labels.append(...) does not, and why
 # both returned functions from one factory call can access the same labels list.
-# Write your code below:
+
+album = {
+    "title": "Hemispheres",
+    "artist": "Rush",
+    "year": 1978
+}
+
+log_album, get_labels = make_album_logger()
+print(log_album(album))
+print(get_labels())
