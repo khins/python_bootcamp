@@ -156,68 +156,139 @@ print(another_fancy_function.__name__)  # inner
 # Write predictions in ANSWER comments before uncommenting each exercise.
 # Distinguish decoration time, wrapper execution, and the original function call.
 # Keep intentional-error examples commented out.
-
+print('-' * 65)
 # Exercise 1 — Creating is not calling
 # Predict which line first produces output and all the messages it produces.
-# def say_hello():
-#     print("Hello")
-# wrapped = be_nice(say_hello)
-# wrapped()
+def say_hello():
+    print("Hello")
+wrapped = be_nice(say_hello)
+wrapped()
 # ANSWER:
+# Nice to meet you. I am honored to execute your function for you.
+# Hello
+# It was my pleasure executing your function. Have a nice day.
 
+wrapped = be_nice(say_hello)
+
+print(type(wrapped))
+print(wrapped is say_hello)
+# wrapped references the new inner function returned by be_nice(), not the original say_hello() function.
+
+wrapped = be_nice(say_hello)
+
+wrapped()
+wrapped()
+# Hello
+# It was my pleasure executing your function. Have a nice day.
+# Nice to meet you. I am honored to execute your function for you.
+# Hello
+# It was my pleasure executing your function. Have a nice day.
+# For the second question, calling wrapped() again does not create a new wrapper. It executes the existing inner function again.
 
 # Exercise 2 — Follow the order
 # Predict every output line, including the outer print's output.
-# @announce_call
-# def answer():
-#     print("Calculating")
-#     return 7
-# print(answer())
+@announce_call
+def answer():
+    print("Calculating")
+    return 7
+print(answer())
 # ANSWER:
-
+# 7
 
 # Exercise 3 — Translate the syntax
 # Rewrite this example without @ syntax while keeping the same decorated behavior.
-# @be_nice
-# def show_song():
-#     print("YYZ")
-# show_song()
+@be_nice
+def show_song():
+    print("YYZ")
+show_song()
 # ANSWER:
+# The key concept is that a decorator takes a function as an argument and returns a wrapper function.
 
+def show_song():
+    print("YYZ")
+
+show_song = be_nice(show_song) # Focus on this statement
+# Here's how to interpret it, especially coming from your C# background:
+# 1. The original show_song function is passed to be_nice.
+# 2. be_nice creates its nested inner function, which remembers the original show_song.
+# 3. be_nice returns inner.
+# 4. The name show_song is reassigned to reference that wrapper function.
+# When you subsequently execute show_song(), you're actually executing inner(), which calls
+# the original function.
+print("-" * 65)
+show_song()
+
+def show_song():
+    print("YYZ")
+
+decorated_song = be_nice(show_song)
+
+show_song()
+decorated_song()
 
 # Exercise 4 — Original versus wrapped
 # Predict the messages from each call. Does creating decorated replace original?
-# def original():
-#     print("Original body")
-# decorated = announce_call(original)
-# original()
-# decorated()
+def original():
+    print("Original body")
+decorated = announce_call(original)
+original()
+decorated()
 # ANSWER:
-
+# Original body
+# Before
+# Original body
+# After
+# Does creating decorated replace original? No
 
 # Exercise 5 — Find the missing return
 # Explain why calling decorate_wrong(say_hello) returns None.
 # Correct the outer function without calling wrapper prematurely.
-# def decorate_wrong(fn):
-#     def wrapper():
-#         fn()
-#
+def decorate_wrong(fn):
+    def wrapper():
+        fn()
+
+    return wrapper
+#Python functions automatically return None when they reach the end without an explicit return statement.
+print(decorate_wrong(say_hello))
 # Assume say_hello is a defined no-argument function.
 # What error would occur if you stored the returned None and tried to call it?
 # ANSWER:
-
+# None
 
 # Exercise 6 — Write your own decorator
+# Write your code below:
 # 1. Define show_steps(fn) with a nested wrapper accepting no arguments.
-# 2. Have the wrapper print "Starting", call fn(), then print "Finished".
+print("-" * 65)
+def show_steps(fn):
+    # 2. Have the wrapper print "Starting", call fn(), then print "Finished".
+    def inner():
+        print("Starting")
+        result = fn()
+        print("Finished")
+        return result
+
+    return inner
+
+@show_steps
+def favorite_artist():
+    return "Rush"
+
 # 3. Preserve and return the original function's result from the wrapper.
 # 4. Return the wrapper from show_steps without calling it.
 # 5. Decorate a no-argument function favorite_artist() that returns "Rush".
 # 6. Print favorite_artist() and predict every output line in order.
-# Write your code below:
+print(favorite_artist())
+# The execution sequence is:
+# 1. print("Starting") displays Starting.
+# 2. fn() executes favorite_artist(), displaying Rush.
+# 3. print("Finished") displays Finished.
+# 4. The wrapper returns None, but nothing displays that value.
+# Key takeaway: print() displays a value immediately, while return sends a value back to the caller.
+# when working with decorators: the wrapper can preserve a function's return value without displaying it.
 
-
+print("-" *65 )
 # Optional challenge — Count calls with a decorator and a closure
+# Write your code below:
 # Work through this one together when you are ready.
 # Define count_calls(fn). Inside it, initialize count = 0 and define wrapper().
 # Use nonlocal count inside wrapper to increment the count and print a message
@@ -229,4 +300,38 @@ print(another_fancy_function.__name__)  # inner
 # Explain why the count initialization belongs outside wrapper, why nonlocal is
 # needed for the increment, and why the two decorated functions have separate counts.
 # Assume the original functions return normally. Do not use global state.
-# Write your code below:
+def count_calls(fn):
+    count = 0
+
+    def wrapper():
+        nonlocal count
+
+        # Increment count
+        count += 1
+
+        # Print "Call 1", "Call 2", etc.
+        print(f"Call {count}")
+
+        # Call fn() and save its return value
+        result = fn()
+
+        # Return the saved result
+        return result
+
+    return wrapper
+
+@count_calls
+def first_album():
+    return "Hemispheres"
+
+
+@count_calls
+def second_album():
+    return "Moving Pictures"
+
+
+print(first_album())
+print(first_album())
+print(second_album())
+# Notice how the counts are independent. Each time Python applies @count_calls,
+#  it calls the decorator and creates a new count variable inside a separate closure.
