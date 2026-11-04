@@ -109,10 +109,10 @@ print(saved_sum * 2)  # 28
 # - return result runs when that callable is invoked and supplies its result.
 #
 # Manual equivalent for a separate example:
-# def original_sum(a, b):
-#     return a + b
-# decorated_sum = be_nice(original_sum)
-# answer = decorated_sum(3, 5)
+def original_sum(a, b):
+    return a + b
+decorated_sum = be_nice(original_sum)
+answer = decorated_sum(3, 5)
 #
 # decorated_sum holds a function. answer holds the integer 8.
 # The wrapper retains access to original_sum through its enclosing fn binding.
@@ -137,20 +137,34 @@ def no_result():
 
 
 # Uncomment to see two courtesy messages followed by None:
-# print(no_result())
+print(no_result())
 # Here None is the ORIGINAL function's result and is correctly forwarded.
 # Seeing None alone is not proof that the wrapper lost a meaningful value.
 
-
+print("-" *65)
 # --- 7. Preserve the result without repeating the original call ---
-# This is the intended pattern:
-# result = fn(*args, **kwargs)
-# print("After")
-# return result
-#
-# Do not replace the last line with return fn(*args, **kwargs): that would call
-# the original function twice. Repeated calls could repeat side effects or return
-# different values. Return the result already saved by the first call.
+def announce(fn):
+    def wrapper(*args, **kwargs):
+        result = fn(*args, **kwargs)
+        print("After")
+        return result
+
+    return wrapper
+
+
+@announce
+def calculate():
+    print("Calculating")
+    return 42
+
+
+print(calculate())
+# Here's the execution sequence:
+# 1. fn() executes calculate(), printing "Calculating" and returning 42.
+# 2. The wrapper stores 42 in result.
+# 3. print("After") displays "After".
+# 4. return result sends 42 back to the caller.
+# 5. The outer print(calculate()) displays 42.
 
 
 # --- 8. Practice: predict, explain, then run ---
@@ -159,69 +173,158 @@ def no_result():
 
 # Exercise 1 — Identify the lost result
 # Predict all three output lines and explain where the value 7 is discarded.
-# print(sum_without_forwarded_result(3, 4))
+print(sum_without_forwarded_result(3, 4))
 # ANSWER:
+# None
 
 
 # Exercise 2 — Follow the corrected wrapper
 # Predict every output line in order.
-# print(complex_business_sum(6, b=7))
+print(complex_business_sum(6, b=7))
 # Explain which function returns the final number to print().
 # ANSWER:
-
-
+# Nice to meet you. I am honored to execute your function for you.
+# It was my pleasure executing your function. Have a nice day.
+# 13
+print("-" * 65)
 # Exercise 3 — Assignment is not printing
 # Predict the output from the call, then state the value stored in total.
-# total = complex_business_sum(2, 9)
+total = complex_business_sum(2, 9)
 # Does the assignment print 11 by itself? Explain.
 # ANSWER:
+# No the assignment does not print the result total since no print statement prints the total
 
 
 # Exercise 4 — Printing a result does not return it
 # Explain what the caller receives and correct the wrapper to preserve fn's result.
-# def print_only(fn):
-#     def wrapper(*args, **kwargs):
-#         result = fn(*args, **kwargs)
-#         print(result)
-#     return wrapper
+def print_only(fn):
+    def wrapper(*args, **kwargs):
+        result = fn(*args, **kwargs)
+        print(result)
+
+        return result
+    return wrapper
 # Keep the existing print behavior when correcting it.
 # ANSWER:
+@print_only
+def multiply(a, b):
+    return a * b
 
+answer = multiply(6, 7)
+print(answer)
 
 # Exercise 5 — Avoid a duplicate call
 # How many times does this wrapper invoke fn per wrapper call?
 # Rewrite its final line to return the already-computed result.
-# def duplicate_call(fn):
-#     def wrapper(*args, **kwargs):
-#         result = fn(*args, **kwargs)
-#         print("Finished")
-#         return fn(*args, **kwargs)
-#     return wrapper
+def duplicate_call(fn):
+    def wrapper(*args, **kwargs):
+        result = fn(*args, **kwargs)
+        print("Finished")
+        return result
+    return wrapper
 # Why could the original version be a problem for a function that appends to a list?
 # ANSWER:
 
+albums = []
+
+@duplicate_call
+def add_album(title):
+    albums.append(title)
+    return len(albums)
+
+print(add_album("Hemispheres"))
+print(add_album("Moving Pictures"))
+print(albums)
 
 # Exercise 6 — Write your own result-preserving decorator
+# Write your code below:
 # 1. Define announce_completion(fn) with a wrapper taking *args and **kwargs.
+def announce_completion(fn):
+    def wrapper(*args, **kwargs):
+        result = fn(*args, **kwargs)
+        print("Calculation complete")
+
+        return result
+
+    return wrapper
+
+@announce_completion
+def multiply(a, b):
+    return a * b
 # 2. Call fn exactly once, save its result, then print "Calculation complete".
 # 3. Return the saved result from the wrapper and the wrapper from the decorator.
 # 4. Decorate multiply(a, b), which returns a * b.
 # 5. Save multiply(6, b=7) in answer, then print answer + 1.
+answer = multiply(6, b=7) + 1
+print(answer)
 # 6. Predict all output lines and explain the roles of the two return statements.
-# Write your code below:
+# 43
 
-
+print("-" * 65)
 # Optional challenge — Report how many labels were produced
+# Write your code below:
 # Work through this one together when you are ready.
 # Define report_count(fn). Its wrapper must accept and forward *args and **kwargs,
+def report_count(fn):
+    def wrapper(*args, **kwargs):
+        result = fn(*args, **kwargs)
+        print(f'Produced {len(result)} labels')
+
+        return result
+
+    return wrapper
+
 # call fn exactly once, and assume fn returns a list.
 # Save that list, print "Produced N labels" with N replaced by len(result),
 # then return the SAME list object without rebuilding or copying it.
 # Decorate build_labels(albums), which creates and returns a NEW list of strings
+@report_count
+def build_labels(album):
+    labels = []
+
+    for album in albums:
+        # Create the formatted album label
+        label = f'{album["title"]} by {album["artist"]} ({album["year"]})'
+        # Append the label to labels
+        labels.append(label)
+
+    return labels
 # such as "Hemispheres by Rush (1978)" from album dictionaries.
 # Preserve input order and leave the original dictionaries unchanged.
 # Call build_labels with three albums, save its returned list, then print that list.
 # Also call it with an empty list: expect "Produced 0 labels" and a returned [].
 # Explain why returning the saved result avoids a second build_labels execution
 # and why the decorator's count message appears before the caller prints the list.
-# Write your code below:
+albums = [
+    {
+        "title": "Moving Pictures",
+        "artist": "Rush",
+        "year": 1981,
+    },
+    {
+        "title": "Fragile",
+        "artist": "Yes",
+        "year": 1971,
+    },
+    {
+        "title": "The Dark Side of the Moon",
+        "artist": "Pink Floyd",
+        "year": 1973,
+    },
+    {
+        "title": "Led Zeppelin IV",
+        "artist": "Led Zeppelin",
+        "year": 1971,
+    },
+    {
+        "title": "Master of Reality",
+        "artist": "Black Sabbath",
+        "year": 1971,
+    },
+]
+
+result = build_labels(albums[:3])
+print(result)
+
+result = build_labels([])
+print(result)
