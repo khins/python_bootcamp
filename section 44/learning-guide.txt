@@ -1,0 +1,47 @@
+Section 44: SQL and SQLite
+
+Tables, primary and foreign keys, CRUD operations, joins, parameterized queries, transactions, constraints, and indexes.
+
+Practice project: Store and query a music catalog in SQLite.
+
+LEARNING ORDER
+01_tables-and-keys.py
+02_crud-and-parameters.py
+03_foreign-keys-and-joins.py
+04_transactions-and-rollback.py
+05_constraints-and-indexes.py
+06_sqlite-catalog-project.py
+
+HOW TO STUDY
+Use Python 3.11 or newer. Work through the numbered files in order.
+Read the objectives and explanation, predict the output, then uncomment ONE
+example_*() call and run the file. Example calls are disabled initially, so
+running an untouched lesson usually prints nothing. Restore the comment when
+finished, and write your practice solutions beneath the ANSWER / CODE prompts.
+The project lesson is a worked reference plus independent extension tasks.
+
+ENVIRONMENT (PowerShell, from the repository root)
+Use your existing Python 3.11+ virtual environment if available. To create one
+with the interpreter currently installed on this machine:
+& "C:\Users\Kevin\anaconda3\python.exe" -m venv .venv
+Select .venv/Scripts/python.exe in your IDE. If you use a different interpreter,
+substitute its path; the Python launcher command py -3.11 is another option
+when that interpreter is registered. Do not create a venv inside another venv.
+
+RUN THE FIRST LESSON
+.\.venv\Scripts\python.exe "section 44/01_tables-and-keys.py"
+
+DEPENDENCIES
+The default examples use only the Python standard library.
+
+PROJECT
+06_sqlite-catalog-project.py
+Test the ordinary case, empty input, and the failure cases named in the lesson.
+Keep your own implementation separate if you want to compare it to the worked one.
+
+NOTES
+Example file writes use temporary directories that are cleaned up automatically.
+The organizer and packaged catalog also provide explicit CLI commands; those
+commands operate on the paths you supply. Timing and completion order vary.
+Installation/build commands can download packages; lesson examples do not
+install software or contact a real API automatically.

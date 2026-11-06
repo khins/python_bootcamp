@@ -1,0 +1,49 @@
+Section 43: HTTP and consuming APIs
+
+Requests and responses, status codes, headers, query parameters, JSON responses, timeouts, pagination, authentication, rate limits, and bounded retries.
+
+Practice project: Build an API client that retrieves and validates music-related records.
+
+LEARNING ORDER
+01_http-requests-and-responses.py
+02_requests-parameters-and-timeouts.py
+03_validate-api-records.py
+04_pagination.py
+05_authentication-and-rate-limits.py
+06_bounded-retries.py
+07_music-api-client-project.py
+
+HOW TO STUDY
+Use Python 3.11 or newer. Work through the numbered files in order.
+Read the objectives and explanation, predict the output, then uncomment ONE
+example_*() call and run the file. Example calls are disabled initially, so
+running an untouched lesson usually prints nothing. Restore the comment when
+finished, and write your practice solutions beneath the ANSWER / CODE prompts.
+The project lesson is a worked reference plus independent extension tasks.
+
+ENVIRONMENT (PowerShell, from the repository root)
+Use your existing Python 3.11+ virtual environment if available. To create one
+with the interpreter currently installed on this machine:
+& "C:\Users\Kevin\anaconda3\python.exe" -m venv .venv
+Select .venv/Scripts/python.exe in your IDE. If you use a different interpreter,
+substitute its path; the Python launcher command py -3.11 is another option
+when that interpreter is registered. Do not create a venv inside another venv.
+
+RUN THE FIRST LESSON
+.\.venv\Scripts\python.exe "section 43/01_http-requests-and-responses.py"
+
+.\.venv\Scripts\python.exe -m pip install -r "section 43/requirements.txt"
+Only request preparation requires Requests in the default examples. The API
+client uses offline fixtures; live helper calls are optional and never automatic.
+
+PROJECT
+07_music-api-client-project.py
+Test the ordinary case, empty input, and the failure cases named in the lesson.
+Keep your own implementation separate if you want to compare it to the worked one.
+
+NOTES
+Example file writes use temporary directories that are cleaned up automatically.
+The organizer and packaged catalog also provide explicit CLI commands; those
+commands operate on the paths you supply. Timing and completion order vary.
+Installation/build commands can download packages; lesson examples do not
+install software or contact a real API automatically.

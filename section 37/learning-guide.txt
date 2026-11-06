@@ -1,0 +1,46 @@
+Section 37: Context managers
+
+How with works; __enter__, __exit__, contextlib.contextmanager, and resource cleanup when exceptions occur.
+
+Practice project: Build a timing context manager and practice reliable resource cleanup.
+
+LEARNING ORDER
+01_with-and-cleanup.py
+02_enter-and-exit.py
+03_contextmanager.py
+04_exitstack-and-closing.py
+05_timing-and-cleanup-project.py
+
+HOW TO STUDY
+Use Python 3.11 or newer. Work through the numbered files in order.
+Read the objectives and explanation, predict the output, then uncomment ONE
+example_*() call and run the file. Example calls are disabled initially, so
+running an untouched lesson usually prints nothing. Restore the comment when
+finished, and write your practice solutions beneath the ANSWER / CODE prompts.
+The project lesson is a worked reference plus independent extension tasks.
+
+ENVIRONMENT (PowerShell, from the repository root)
+Use your existing Python 3.11+ virtual environment if available. To create one
+with the interpreter currently installed on this machine:
+& "C:\Users\Kevin\anaconda3\python.exe" -m venv .venv
+Select .venv/Scripts/python.exe in your IDE. If you use a different interpreter,
+substitute its path; the Python launcher command py -3.11 is another option
+when that interpreter is registered. Do not create a venv inside another venv.
+
+RUN THE FIRST LESSON
+.\.venv\Scripts\python.exe "section 37/01_with-and-cleanup.py"
+
+DEPENDENCIES
+The default examples use only the Python standard library.
+
+PROJECT
+05_timing-and-cleanup-project.py
+Test the ordinary case, empty input, and the failure cases named in the lesson.
+Keep your own implementation separate if you want to compare it to the worked one.
+
+NOTES
+Example file writes use temporary directories that are cleaned up automatically.
+The organizer and packaged catalog also provide explicit CLI commands; those
+commands operate on the paths you supply. Timing and completion order vary.
+Installation/build commands can download packages; lesson examples do not
+install software or contact a real API automatically.

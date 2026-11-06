@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bootcamp-music-catalog"
+version = "0.1.0"
+description = "Local teaching catalog for Python bootcamp"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.scripts]
+bootcamp-catalog = "bootcamp_catalog.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

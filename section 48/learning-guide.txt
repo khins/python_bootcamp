@@ -1,0 +1,47 @@
+Section 48: Profiling and optimization
+
+timeit, cProfile, tracemalloc, identifying bottlenecks, memory optimization, and memory-versus-speed tradeoffs.
+
+Practice project: Profile a listening-history analyzer, improve a measured bottleneck, and compare results.
+
+LEARNING ORDER
+01_measure-before-optimizing.py
+02_timeit.py
+03_cprofile.py
+04_tracemalloc.py
+05_streaming-and-space-tradeoffs.py
+06_profile-and-improve-project.py
+
+HOW TO STUDY
+Use Python 3.11 or newer. Work through the numbered files in order.
+Read the objectives and explanation, predict the output, then uncomment ONE
+example_*() call and run the file. Example calls are disabled initially, so
+running an untouched lesson usually prints nothing. Restore the comment when
+finished, and write your practice solutions beneath the ANSWER / CODE prompts.
+The project lesson is a worked reference plus independent extension tasks.
+
+ENVIRONMENT (PowerShell, from the repository root)
+Use your existing Python 3.11+ virtual environment if available. To create one
+with the interpreter currently installed on this machine:
+& "C:\Users\Kevin\anaconda3\python.exe" -m venv .venv
+Select .venv/Scripts/python.exe in your IDE. If you use a different interpreter,
+substitute its path; the Python launcher command py -3.11 is another option
+when that interpreter is registered. Do not create a venv inside another venv.
+
+RUN THE FIRST LESSON
+.\.venv\Scripts\python.exe "section 48/01_measure-before-optimizing.py"
+
+DEPENDENCIES
+The default examples use only the Python standard library.
+
+PROJECT
+06_profile-and-improve-project.py
+Test the ordinary case, empty input, and the failure cases named in the lesson.
+Keep your own implementation separate if you want to compare it to the worked one.
+
+NOTES
+Example file writes use temporary directories that are cleaned up automatically.
+The organizer and packaged catalog also provide explicit CLI commands; those
+commands operate on the paths you supply. Timing and completion order vary.
+Installation/build commands can download packages; lesson examples do not
+install software or contact a real API automatically.
