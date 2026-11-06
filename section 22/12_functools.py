@@ -37,8 +37,8 @@ print(plain_sum.__name__)  # plain_sum
 print(plain_sum.__doc__)  # Add two numbers together.
 print(plain_sum(3, 5))  # 8
 # Uncomment to view the function's documentation:
-# help(plain_sum)
-# help(len)
+help(plain_sum)
+help(len)
 # Pass the function itself, not plain_sum(3, 5), which would supply the result 8.
 # help() output formatting may vary by Python version and terminal.
 
@@ -87,7 +87,7 @@ print(complex_business_sum(a=3, b=5))
 # It was my pleasure executing your function. Have a nice day.
 # 8
 # Uncomment to inspect the preserved documentation:
-# help(complex_business_sum)
+help(complex_business_sum)
 # Inspecting this function with help does not execute its courtesy messages.
 
 
@@ -132,13 +132,13 @@ print(metadata_only_sum(3, 5))  # None
 
 # --- 7. An equivalent import style ---
 # In a separate script, this direct import is also valid:
-# from functools import wraps
-#
-# def decorator(fn):
-#     @wraps(fn)
-#     def wrapper(*args, **kwargs):
-#         return fn(*args, **kwargs)
-#     return wrapper
+from functools import wraps
+
+def decorator(fn):
+    @wraps(fn)
+    def wrapper(*args, **kwargs):
+        return fn(*args, **kwargs)
+    return wrapper
 #
 # Use @functools.wraps(fn) with import functools, or @wraps(fn) with the direct
 # import. Both refer to the same standard-library helper.
@@ -150,58 +150,124 @@ print(metadata_only_sum(3, 5))  # None
 
 # Exercise 1 — Read the docstring
 # Predict both outputs. Does either line call plain_sum's body?
-# print(plain_sum.__name__)
-# print(plain_sum.__doc__)
+print(plain_sum.__name__)
+print(plain_sum.__doc__)
 # ANSWER:
+# plain_sum
+# Add two numbers together.
 
-
+print("-" * 65)
 # Exercise 2 — Compare wrappers
 # Predict all four outputs and explain why the metadata differs.
-# print(unlabelled_sum.__name__)
-# print(unlabelled_sum.__doc__)
-# print(complex_business_sum.__name__)
-# print(complex_business_sum.__doc__)
+print(unlabelled_sum.__name__)
+print(unlabelled_sum.__doc__)
+print(complex_business_sum.__name__)
+print(complex_business_sum.__doc__)
 # ANSWER:
-
+# inner
+# None
+# complex_business_sum
+# Add two numbers together.
 
 # Exercise 3 — Inspect without calling
 # Explain the difference between these expressions:
-# help(complex_business_sum)
-# complex_business_sum(2, 4)
+help(complex_business_sum)
+complex_business_sum(2, 4)
 # Which displays documentation, and which executes the wrapper's messages?
 # What does help() return?
 # ANSWER:
+# Help on function complex_business_sum in module __main__:                                     
 
+# complex_business_sum(a, b)
+#     Add two numbers together.
 
 # Exercise 4 — Metadata is not behavior
 # Predict the result and explain why the correct docstring does not guarantee
 # that a wrapper correctly forwards the original return value.
-# print(metadata_only_sum(10, 4))
+print(metadata_only_sum(10, 4))
 # Correct the relevant line in the loses_result wrapper on paper or below.
 # ANSWER:
+# None
 
 
 # Exercise 5 — Access the original
 # Predict the output and state whether either courtesy message appears.
-# print(complex_business_sum.__wrapped__(10, 4))
+print(complex_business_sum.__wrapped__(10, 4))
 # Explain how this differs from an ordinary complex_business_sum(10, 4) call.
 # ANSWER:
+# 14
 
 
 # Exercise 6 — Write a documented decorated function
+# Write your code below:
 # 1. Define announce_completion(fn) with a nested wrapper.
+from functools import wraps
+
+def announce_completion(fn):
+
+    @wraps(fn)
+    def wrapper(*args, **kwargs):
+
+        # Call fn exactly once and save its result
+        result = fn(*args, **kwargs)
+
+        # Print "Finished"
+        print("Finished")
+
+        # Return the saved result
+        return result
+
+    return wrapper
+
+
+@announce_completion
+def multiply(a, b): # define the function's docstring
+    """Return the product of two numbers."""
+    return a * b
+
+print(multiply.__name__)
+print(multiply.__doc__)
+print(multiply(6, b=7))
+
 # 2. Apply @functools.wraps(fn) to that wrapper.
 # 3. Forward *args and **kwargs to fn exactly once and save its result.
 # 4. Print "Finished", then return the saved result.
 # 5. Decorate multiply(a, b), with docstring "Return the product of two numbers."
 # 6. Print multiply.__name__, multiply.__doc__, and multiply(6, b=7).
 # 7. Predict all output lines and explain why the name is not wrapper.
-# Write your code below:
+# Answer:
+# Return the product of two numbers.
+# Finished
+# 42
 
 
 # Optional challenge — Preserve an album formatter's documentation
+# Write your code below:
 # Work through this one together when you are ready.
 # Define count_calls(fn), retaining count = 0 in its enclosing scope.
+def count_calls(fn):
+    count = 0
+
+    @wraps(fn)
+    def wrapper(*args, **kwargs):
+        nonlocal count
+
+        count += 1
+        print(f'Call {count}')
+
+        # Call fn exactly once and save its result
+        result = fn(*args, **kwargs)
+
+        # Return the saved result
+        return result
+
+    return wrapper
+
+@count_calls
+def album_label(title, artist, year):
+    """Return a formatted album label."""
+    return f'{title} by {artist} ({year})'
+
 # Its nested wrapper must use @functools.wraps(fn), accept *args and **kwargs,
 # increment count with nonlocal, print "Call N", and return fn's result.
 # Decorate album_label(title, artist, year), which returns a string such as
@@ -211,4 +277,18 @@ print(metadata_only_sum(3, 5))  # None
 # Print each returned label and predict the output order, including call counts.
 # Explain separately how wraps preserves metadata, the closure retains count,
 # and the wrapper forwards arguments and the returned string.
-# Write your code below:
+print(album_label.__name__)
+print(album_label.__doc__)
+print(album_label("Hemispheres", "Rush", 1978))
+# album_label
+# Return a formatted album label.
+# Call 1
+# Hemispheres by Rush (1978)
+
+album = {
+    "title": "Moving Pictures",
+    "artist": "Rush",
+    "year": 1981
+}
+
+print(album_label(**album))
