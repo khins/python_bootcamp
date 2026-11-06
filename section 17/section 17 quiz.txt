@@ -1,0 +1,95 @@
+SECTION 17 QUIZ - Dictionary Fundamentals
+
+Choose ONE answer (A, B, C, or D) per question. Assume Python 3.
+Treat each snippet independently. Fill in the answer sheet at the bottom.
+Scoring: 1 point per question, 10 points total. No answer key is included.
+
+1. What is printed?
+       drinks = {"tea": 3, "coffee": 4, "tea": 5}
+       print(len(drinks), drinks["tea"])
+   A. 3 3
+   B. 3 5
+   C. 2 5
+   D. 2 3
+
+2. What does "guitar" in {"Alex": "guitar"} return?
+   A. False, because dictionary membership checks keys.
+   B. True, because it checks values.
+   C. "Alex"
+   D. None
+
+3. What is printed?
+       profile = {"nickname": None}
+       print(profile.get("nickname", "Guest"))
+   A. Guest
+   B. nickname
+   C. A KeyError occurs.
+   D. None
+
+4. What is menu after this code?
+       menu = {"tea": 3}
+       price = menu.get("coffee", 4)
+   A. {"tea": 3, "coffee": 4}
+   B. {"tea": 3}
+   C. {"coffee": 4}
+   D. {}
+
+5. What is printed?
+       scores = {"Kevin": 7}
+       print(scores.setdefault("Kevin", 10))
+   A. 7
+   B. 10
+   C. None
+   D. True
+
+6. What is printed?
+       menu = {"tea": 3, "cake": 5}
+       result = menu.update({"tea": 4, "coffee": 6})
+       print(menu["tea"], len(menu), result)
+   A. 3 3 None
+   B. 4 4 True
+   C. 4 3 None
+   D. 4 3 {"tea": 4, "coffee": 6}
+
+7. What are the two output lines?
+       menu = {"tea": 3}
+       print(menu.pop("tea", 0))
+       print(menu.pop("tea", 0))
+   A. 3, then KeyError
+   B. tea, then 0
+   C. 0, then 0
+   D. 3, then 0
+
+8. What is shared after this code?
+       playlist = {"YYZ": "Rush"}
+       shared = playlist
+       playlist.clear()
+   A. {"YYZ": "Rush"}
+   B. {}
+   C. None
+   D. shared is no longer defined.
+
+9. What is dict([("volume", 5), ("subtitles", True), ("volume", 9)])?
+   A. {"volume": 9, "subtitles": True}
+   B. {"volume": 5, "subtitles": True}
+   C. {"volume": [5, 9], "subtitles": True}
+   D. A ValueError occurs because a key appears twice.
+
+10. Which expression retrieves "YYZ"?
+        library = {"Rush": {"Moving Pictures": {"songs": ["Tom Sawyer", "YYZ"]}}}
+    A. library["songs"][1]
+    B. library["Rush"]["Moving Pictures"][1]
+    C. library["Rush"]["Moving Pictures"]["songs"][1]
+    D. library["Rush"]["Moving Pictures"]["songs"][0]
+
+ANSWER SHEET - Enter one letter after each colon.
+1:
+2:
+3:
+4:
+5:
+6:
+7:
+8:
+9:
+10:

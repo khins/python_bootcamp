@@ -1,0 +1,92 @@
+SECTION 20 QUIZ - Modules, Imports, and Packages
+
+Choose ONE answer (A, B, C, or D) per question. Assume Python 3.
+Treat each snippet independently, with no prior imports unless shown.
+Assume named example modules are available on the import path.
+Scoring: 1 point per question, 10 points total. No answer key is included.
+
+1. After import math, which expression correctly calculates the square root of 81?
+   A. math.sqrt(81)
+   B. sqrt(81)
+   C. math(81).sqrt()
+   D. import.sqrt(81)
+
+2. What does maths.__name__ contain after import math as maths?
+   A. "maths"
+   B. "__main__"
+   C. "math"
+   D. "sqrt"
+
+3. After from math import sqrt as root, which call uses the imported alias?
+   A. math.sqrt(49)
+   B. root.sqrt(49)
+   C. sqrt.root(49)
+   D. root(49)
+
+4. In a Python file executed directly as a script, what is __name__?
+   A. The full path to the file
+   B. "__main__"
+   C. "main.py"
+   D. None
+
+5. On its first import in a fresh process, demo.py contains only this code:
+       print("A")
+       if __name__ == "__main__":
+           print("B")
+       print("C")
+   What does import demo print?
+   A. A, then C
+   B. A, then B, then C
+   C. B only
+   D. Nothing
+
+6. greeting_tools.py prints "Loading greetings" at module level and defines greet.
+   What happens on the first from greeting_tools import greet in a fresh process?
+   A. Only greet's body executes.
+   B. No module-level code executes.
+   C. "Loading greetings" prints, and greet is bound in the importing module.
+   D. Every function in greeting_tools executes.
+
+7. What is true after this code?
+       import math
+       from math import pi
+       pi = 3
+   A. math.pi is also changed to 3.
+   B. math is no longer imported.
+   C. Reassigning pi raises TypeError.
+   D. Local pi is 3; math.pi retains its original value.
+
+8. A module defines public_name and _hidden, with no __all__. What does
+   from that_module import * normally import from these two names?
+   A. Both names
+   B. public_name only
+   C. _hidden only
+   D. Neither name
+
+9. A module defines __all__ = ["creator", "_year"], and also defines description.
+   Which of those three data names does a star import bring in?
+   A. creator and _year
+   B. creator and description
+   C. creator only
+   D. creator, _year, and description
+
+10. In the completed music package example, music/__init__.py contains
+        from .labels import album_label
+        from .totals import total_tracks
+    What does this enable?
+    A. Importing album_label without importing any part of music
+    B. Calling music as a function
+    C. Using from music import album_label, total_tracks
+    D. Preventing labels.py and totals.py from loading
+
+ANSWER SHEET - Enter one letter after each colon.
+1:
+2:
+3:
+4:
+5:
+6:
+7:
+8:
+9:
+10:

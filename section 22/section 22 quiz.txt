@@ -1,0 +1,111 @@
+SECTION 22 QUIZ - Higher-order Functions, Scope, Closures, and Decorators
+
+Choose ONE answer (A, B, C, or D) per question. Assume Python 3.
+Treat each snippet independently. Fill in the answer sheet at the bottom.
+Scoring: 1 point per question, 10 points total. No answer key is included.
+
+1. What makes a function a higher-order function?
+   A. It must contain more than one loop.
+   B. It accepts a function as an argument and/or returns a function.
+   C. It always returns a larger number than its input.
+   D. It must use global variables.
+
+2. What is the normal LEGB name lookup order?
+   A. Local, External, Global, Base
+   B. Global, Enclosing, Local, Built-in
+   C. Built-in, Global, Enclosing, Local
+   D. Local, Enclosing, Global, Built-in
+
+3. What is printed?
+       year = 1978
+       def read_year():
+           return year
+       def caller():
+           year = 1981
+           return read_year()
+       print(caller())
+   A. 1978
+   B. 1981
+   C. None
+   D. A NameError occurs.
+
+4. What is printed?
+       def make_multiplier(factor):
+           def multiply(number):
+               return number * factor
+           return multiply
+       triple = make_multiplier(3)
+       print(triple(5))
+   A. 3
+   B. 5
+   C. 15
+   D. A NameError occurs because make_multiplier has already returned.
+
+5. Which statement accurately distinguishes global from nonlocal?
+   A. Both always rebind a variable in the immediately enclosing function.
+   B. global targets the module scope; nonlocal targets an existing binding
+      in an enclosing function scope.
+   C. nonlocal creates a new module-level variable.
+   D. global is required whenever a function reads a module-level variable.
+
+6. What is printed?
+       def make_counter():
+           count = 0
+           def increment():
+               nonlocal count
+               count += 1
+               return count
+           return increment
+       first = make_counter()
+       second = make_counter()
+       print(first(), first(), second())
+   A. 1 1 1
+   B. 1 2 3
+   C. 0 1 0
+   D. 1 2 1
+
+7. Which assignment is equivalent to applying @decorate above a function
+   definition named show_album, immediately after defining that function?
+   A. show_album = decorate(show_album)
+   B. show_album = decorate(show_album())
+   C. decorate = show_album(decorate)
+   D. show_album = decorate()
+
+8. What does the final print display?
+       def decorate(fn):
+           def wrapper(*args, **kwargs):
+               fn(*args, **kwargs)
+           return wrapper
+       @decorate
+       def add(a, b):
+           return a + b
+       print(add(3, b=5))
+   A. 8
+   B. (3, 5)
+   C. None
+   D. A TypeError occurs because keyword arguments cannot be forwarded.
+
+9. What does @functools.wraps(fn) on a wrapper do?
+   A. It automatically forwards arguments and return values.
+   B. It preserves metadata such as name and docstring and adds __wrapped__.
+   C. It makes the wrapper and fn the same object.
+   D. It executes fn as soon as its docstring is inspected.
+
+10. In the completed login simulation, a wrapper returns {"redirect": "/login"}
+    immediately when user is None, before the call to view(...). What follows?
+    A. The original view still runs after the dictionary is returned.
+    B. The wrapper directly calls the login view.
+    C. functools.wraps performs the login check.
+    D. The original view is skipped, and the caller receives the redirect dictionary.
+
+ANSWER SHEET - Enter one letter after each colon.
+1:
+2:
+3:
+4:
+5:
+6:
+7:
+8:
+9:
+10:

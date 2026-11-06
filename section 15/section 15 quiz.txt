@@ -1,0 +1,92 @@
+SECTION 15 QUIZ - Tuples, Unpacking, and Variable Arguments
+
+Choose ONE answer (A, B, C, or D) per question. Assume Python 3.
+Treat each snippet independently. Fill in the answer sheet at the bottom.
+Scoring: 1 point per question, 10 points total. No answer key is included.
+
+1. Which expression creates a tuple containing only the integer 7?
+   A. (7)
+   B. [7]
+   C. tuple(7)
+   D. (7,)
+
+2. What happens when foods[0] = "pizza" runs after foods = ("sushi", "steak")?
+   A. The first element changes.
+   B. A TypeError occurs because tuple items cannot be reassigned.
+   C. A new element is appended.
+   D. foods becomes a list automatically.
+
+3. What is printed?
+       addresses = (["Hudson", "New York"],)
+       addresses[0].append("USA")
+       print(addresses[0][-1])
+   A. USA
+   B. New York
+   C. Hudson
+   D. A TypeError occurs because all objects inside a tuple are immutable.
+
+4. What is age after this unpacking?
+       first, last, position, age = ("Bob", "Johnson", "Manager", 50)
+   A. "Manager"
+   B. (50,)
+   C. 50
+   D. [50]
+
+5. What is details after this unpacking?
+       first, last, *details = ("Bob", "Johnson", "Manager", 50)
+   A. ("Manager", 50)
+   B. ["Manager", 50]
+   C. "Manager"
+   D. {"Manager": 50}
+
+6. What happens when a, b = (10, 20, 30) runs?
+   A. a is 10 and b is (20, 30).
+   B. The final item is ignored.
+   C. a is (10, 20) and b is 30.
+   D. A ValueError occurs.
+
+7. What is printed?
+       a, b = 10, 20
+       a, b = b, a
+       print(a, b)
+   A. 20 10
+   B. 10 20
+   C. 20 20
+   D. 10 10
+
+8. What does capture() return?
+       def capture(*args):
+           return args
+   A. None
+   B. []
+   C. ()
+   D. {}
+
+9. What does capture(*values) return?
+       def capture(*args):
+           return args
+       values = (3, 5)
+   A. ((3, 5),)
+   B. (3, 5)
+   C. 8
+   D. [3, 5]
+
+10. Which call correctly supplies message for this function?
+        def announce(*numbers, message):
+            return message, numbers
+    A. announce("Hello", 10, 20)
+    B. announce(10, 20, "Hello")
+    C. announce(10, 20)
+    D. announce(10, 20, message="Hello")
+
+ANSWER SHEET - Enter one letter after each colon.
+1:
+2:
+3:
+4:
+5:
+6:
+7:
+8:
+9:
+10:

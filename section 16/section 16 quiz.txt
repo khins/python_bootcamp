@@ -1,0 +1,101 @@
+SECTION 16 QUIZ - Objects, References, and Copies
+
+Choose ONE answer (A, B, C, or D) per question. Assume Python 3.
+Treat each snippet independently. Fill in the answer sheet at the bottom.
+Scoring: 1 point per question, 10 points total. No answer key is included.
+
+1. Which statement describes == and is for lists?
+   A. == compares contents; is checks whether references identify the same object.
+   B. == checks identity; is compares contents.
+   C. Both only compare list lengths.
+   D. Both always give the same result.
+
+2. What is printed?
+       left = [1, 2]
+       right = [1, 2]
+       print(left == right, left is right)
+   A. False False
+   B. False True
+   C. True True
+   D. True False
+
+3. What is band after this code?
+       band = ["Alex", "Geddy"]
+       rush = band
+       rush.append("Neil")
+   A. ["Alex", "Geddy"]
+   B. ["Alex", "Geddy", "Neil"]
+   C. ["Neil"]
+   D. None
+
+4. What is backup after this code?
+       songs = ["YYZ", "Limelight"]
+       backup = songs
+       songs = ["Subdivisions"]
+   A. ["Subdivisions"]
+   B. []
+   C. ["YYZ", "Limelight"]
+   D. ["YYZ", "Limelight", "Subdivisions"]
+
+5. What is printed?
+       score = 10
+       saved_score = score
+       score = 20
+       print(saved_score)
+   A. 10
+   B. 20
+   C. 30
+   D. None
+
+6. Which operation creates another name for the SAME list?
+   A. backup = original[:]
+   B. backup = original.copy()
+   C. backup = copy.copy(original), after importing copy
+   D. backup = original
+
+7. What is printed?
+       original = [[1, 2], [3]]
+       copied = original.copy()
+       print(original is copied, original[0] is copied[0])
+   A. True True
+   B. False True
+   C. False False
+   D. True False
+
+8. What is original after this code?
+       original = [[1, 2], [3]]
+       copied = original.copy()
+       copied[0] = [99]
+       copied[1].append(4)
+   A. [[99], [3, 4]]
+   B. [[1, 2], [3]]
+   C. [[1, 2], [3, 4]]
+   D. [[99], [3]]
+
+9. What is original after this code?
+       import copy
+       original = [[1, 2], [3]]
+       copied = copy.deepcopy(original)
+       copied[0].append(99)
+   A. [[1, 2], [3]]
+   B. [[1, 2, 99], [3]]
+   C. [[99], [3]]
+   D. []
+
+10. Which expression is the standard identity check for a missing result?
+    A. result = None
+    B. result is "None"
+    C. result == "None"
+    D. result is None
+
+ANSWER SHEET - Enter one letter after each colon.
+1:
+2:
+3:
+4:
+5:
+6:
+7:
+8:
+9:
+10:

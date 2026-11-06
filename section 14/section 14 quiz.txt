@@ -1,0 +1,79 @@
+SECTION 14 QUIZ - Built-in Functions
+
+Choose ONE answer (A, B, C, or D) per question. Assume Python 3.
+Treat each snippet independently. Fill in the answer sheet at the bottom.
+Scoring: 1 point per question, 10 points total. No answer key is included.
+
+1. What is list(map(lambda number: number ** 3, [2, 3, 4]))?
+   A. [2, 3, 4]
+   B. [6, 9, 12]
+   C. [8, 27, 64]
+   D. [True, True, True]
+
+2. What is list(filter(lambda word: len(word) >= 5, ["dog", "tiger", "elephant"]))?
+   A. ["tiger", "elephant"]
+   B. [False, True, True]
+   C. [5, 8]
+   D. ["elephant"]
+
+3. Why does map(cube, numbers) use cube rather than cube()?
+   A. Parentheses are never allowed inside map().
+   B. cube is a string containing Python code.
+   C. map() requires the result of calling cube with no arguments.
+   D. It passes the function so map() can call it for each number.
+
+4. What does list(map(lambda word: word.count("a"), ["banana", "plywood"])) return?
+   A. ["banana"]
+   B. [3, 0]
+   C. [True, False]
+   D. 3
+
+5. What is printed by print(all([]), any([]))?
+   A. False False
+   B. True True
+   C. True False
+   D. False True
+
+6. What is all(map(lambda number: number > 0, [2, 0, 4]))?
+   A. False
+   B. True
+   C. [True, False, True]
+   D. 6
+
+7. What is the result?
+       evens = filter(lambda n: n % 2 == 0, [1, 2, 3, 4])
+       result = sum(map(lambda n: n ** 2, evens))
+   A. 6
+   B. 10
+   C. 30
+   D. 20
+
+8. What is max(["Rush", "Yes", "Asia"], key=len, default="")?
+   A. "Yes"
+   B. "Rush"
+   C. "Asia"
+   D. 4
+
+9. What does format(1234.5, ",.2f") return?
+   A. The float 1234.50
+   B. The string "1234.5"
+   C. The string "1,234.50"
+   D. The string "1.234,50"
+
+10. Which statement correctly describes help() and dir()?
+    A. help() displays documentation; dir() lists names such as attributes and methods.
+    B. help() executes every method; dir() deletes unused methods.
+    C. Both always return the length of an object.
+    D. dir() displays only numerical values.
+
+ANSWER SHEET - Enter one letter after each colon.
+1:
+2:
+3:
+4:
+5:
+6:
+7:
+8:
+9:
+10:

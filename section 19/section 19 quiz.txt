@@ -1,0 +1,83 @@
+SECTION 19 QUIZ - Sets and Frozensets
+
+Choose ONE answer (A, B, C, or D) per question. Assume Python 3.
+Treat each snippet independently. Fill in the answer sheet at the bottom.
+Scoring: 1 point per question, 10 points total. No answer key is included.
+
+1. Which expression creates an empty set?
+   A. {}
+   B. []
+   C. ()
+   D. set()
+
+2. What is len(set(["Rush", "Yes", "Rush"]))?
+   A. 3
+   B. 2
+   C. 1
+   D. 0
+
+3. What is sorted(artists) after this code?
+       artists = {"Rush"}
+       artists.add("Yes")
+       artists.update(["Genesis", "Yes"])
+   A. ["Genesis", "Rush", "Yes"]
+   B. ["Rush", "Yes", "Genesis", "Yes"]
+   C. ["Rush", ["Genesis", "Yes"]]
+   D. ["Rush"]
+
+4. Which statement about removing an absent element is correct?
+   A. Both remove() and discard() raise KeyError.
+   B. Both return the absent element.
+   C. remove() raises KeyError; discard() leaves the set unchanged without that error.
+   D. discard() raises KeyError; remove() silently succeeds.
+
+5. What is sorted({1, 2, 3} & {3, 4, 5})?
+   A. [1, 2, 3, 4, 5]
+   B. [1, 2]
+   C. [1, 2, 4, 5]
+   D. [3]
+
+6. What is sorted({1, 2, 3} | {3, 4})?
+   A. [3]
+   B. [1, 2, 3, 4]
+   C. [1, 2, 3, 3, 4]
+   D. [1, 2, 4]
+
+7. What is sorted({1, 2, 3} - {3, 4})?
+   A. [1, 2]
+   B. [4]
+   C. [1, 2, 4]
+   D. [3]
+
+8. What is sorted({1, 2, 3} ^ {3, 4})?
+   A. [3]
+   B. [1, 2, 3, 4]
+   C. [1, 2, 4]
+   D. [1, 2]
+
+9. What is printed?
+       first = {2, 4, 6}
+       second = {6, 4, 2}
+       print(first <= second, first < second)
+   A. False False
+   B. True True
+   C. False True
+   D. True False
+
+10. Which statement about frozenset([1, 2, 3]) is correct?
+    A. It supports add() but not remove().
+    B. It is immutable and can be used as a dictionary key.
+    C. It preserves duplicate elements.
+    D. Its elements can be accessed by index.
+
+ANSWER SHEET - Enter one letter after each colon.
+1:
+2:
+3:
+4:
+5:
+6:
+7:
+8:
+9:
+10:

@@ -1,0 +1,91 @@
+SECTION 18 QUIZ - Dictionary Iteration and Advanced Operations
+
+Choose ONE answer (A, B, C, or D) per question. Assume Python 3.7 or later.
+Treat each snippet independently. Fill in the answer sheet at the bottom.
+Scoring: 1 point per question, 10 points total. No answer key is included.
+
+1. What does a loop over menu directly yield for menu = {"tea": 3, "cake": 5}?
+   A. 3, then 5
+   B. "tea", then "cake"
+   C. ("tea", 3), then ("cake", 5)
+   D. The keys in alphabetical order
+
+2. Which loop correctly retrieves each key and its associated value?
+   A. for key, value in menu.keys():
+   B. for key, value in menu.values():
+   C. for key, value in menu:
+   D. for key, value in menu.items():
+
+3. What is printed?
+       menu = {"tea": 3}
+       keys = menu.keys()
+       saved = list(keys)
+       menu["coffee"] = 4
+       print(len(keys), len(saved))
+   A. 2 1
+   B. 1 1
+   C. 2 2
+   D. 1 2
+
+4. What is sorted({"Zoe": 2, "Alex": 9, "Sam": 5})?
+   A. [2, 5, 9]
+   B. ["Zoe", "Sam", "Alex"]
+   C. ["Alex", "Sam", "Zoe"]
+   D. {"Alex": 9, "Sam": 5, "Zoe": 2}
+
+5. Which expression sorts dictionary items by their VALUES in ascending order?
+   A. sorted(scores.items(), key=lambda pair: pair[0])
+   B. sorted(scores.items(), key=lambda pair: pair[1])
+   C. scores.sort()
+   D. sorted(scores.keys())
+
+6. What is records[1]["year"]?
+       records = [{"title": "Hemispheres", "year": 1978},
+                  {"title": "Tarkus", "year": 1971}]
+   A. "Tarkus"
+   B. 1978
+   C. [1978, 1971]
+   D. 1971
+
+7. What does make_record(title="YYZ", artist="Rush") return?
+       def make_record(title, **details):
+           return details
+   A. {"artist": "Rush"}
+   B. {"title": "YYZ", "artist": "Rush"}
+   C. ("YYZ", "Rush")
+   D. {}
+
+8. What is subtract(**numbers)?
+       def subtract(first, second):
+           return first - second
+       numbers = {"second": 3, "first": 10}
+   A. -7
+   B. 13
+   C. 7
+   D. A TypeError occurs because the dictionary order differs from the parameters.
+
+9. What is {word: len(word) for word in ["Rush", "Yes", "Genesis"] if len(word) >= 4}?
+   A. {"Rush": 4, "Yes": 3, "Genesis": 7}
+   B. {"Rush": 4, "Genesis": 7}
+   C. [4, 7]
+   D. {4: "Rush", 7: "Genesis"}
+
+10. What is inverted["Rush"] after this code?
+        songs = {"YYZ": "Rush", "Roundabout": "Yes", "Limelight": "Rush"}
+        inverted = {artist: title for title, artist in songs.items()}
+    A. "YYZ"
+    B. ["YYZ", "Limelight"]
+    C. A KeyError occurs.
+    D. "Limelight"
+
+ANSWER SHEET - Enter one letter after each colon.
+1:
+2:
+3:
+4:
+5:
+6:
+7:
+8:
+9:
+10:

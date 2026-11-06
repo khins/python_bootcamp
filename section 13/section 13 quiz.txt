@@ -1,0 +1,88 @@
+SECTION 13 QUIZ - List Operations and Comprehensions
+
+Choose ONE answer (A, B, C, or D) per question. Assume Python 3.
+Treat each snippet independently. Fill in the answer sheet at the bottom.
+Scoring: 1 point per question, 10 points total. No answer key is included.
+
+1. What does ["Rush", "Yes", "Rush"].index("Rush") return?
+   A. 1
+   B. 0
+   C. [0, 2]
+   D. 2
+
+2. What happens when list.index() searches for an item that is absent?
+   A. It returns -1.
+   B. It returns None.
+   C. It raises ValueError.
+   D. It adds the item.
+
+3. The encryption exercise shifts lowercase letters two positions, using
+   (alphabet.index(letter) + 2) % 26. What does "yz" become?
+   A. "ab"
+   B. "za"
+   C. "wx"
+   D. An IndexError occurs.
+
+4. What is backup after this code?
+       songs = ["YYZ", "Limelight"]
+       backup = songs.copy()
+       songs.remove("YYZ")
+   A. []
+   B. ["Limelight"]
+   C. ["YYZ"]
+   D. ["YYZ", "Limelight"]
+
+5. What is " | ".join(["Rush", "Yes", "Genesis"])?
+   A. ["Rush | Yes | Genesis"]
+   B. "Rush | Yes | Genesis"
+   C. " | RushYesGenesis"
+   D. "RushYesGenesis | "
+
+6. What is [len(word) for word in "Rock and roll".split(" ")]?
+   A. [4, 3, 4]
+   B. [13]
+   C. [4, 1, 3, 1, 4]
+   D. ["Rock", "and", "roll"]
+
+7. A cleanup function skips strings that are empty or whose isspace() is True,
+   then joins the remaining strings with a single space. What does it return
+   for ["cat", " ", "er", "", "pillar"]?
+   A. "caterpillar"
+   B. "cat  er  pillar"
+   C. "cat er pillar"
+   D. ["cat", "er", "pillar"]
+
+8. How many pairs does list(zip(["Rush", "Yes", "Genesis"], [1978, 1971])) contain?
+   A. 0
+   B. 3
+   C. 5
+   D. 2
+
+9. What is printed?
+       total = 0
+       for group in [[1, 2], [], [3, 4]]:
+           for number in group:
+               total += number
+       print(total)
+   A. 10
+   B. 3
+   C. [3, 0, 7]
+   D. An error occurs at the empty list.
+
+10. Which comprehension keeps values from first that are NOT in second?
+    A. [value for value in second if value in first]
+    B. [value for value in first if value not in second]
+    C. [value not in second for value in first]
+    D. [value for value in first if value in second]
+
+ANSWER SHEET - Enter one letter after each colon.
+1:
+2:
+3:
+4:
+5:
+6:
+7:
+8:
+9:
+10:

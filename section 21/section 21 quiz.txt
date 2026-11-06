@@ -1,0 +1,88 @@
+SECTION 21 QUIZ - Reading, Writing, and Appending Files
+
+Choose ONE answer (A, B, C, or D) per question. Assume Python 3.
+Treat each snippet independently. Assume parent directories exist and file
+operations succeed unless the question explicitly describes a failure.
+Quoted file contents use \n to represent a newline character.
+Scoring: 1 point per question, 10 points total. No answer key is included.
+
+1. What does a text file object's read() return?
+   A. A list of words
+   B. A dictionary
+   C. A string
+   D. The file path
+
+2. What happens to file_object when this with block ends normally?
+       with open(path, "r", encoding="utf-8") as file_object:
+           content = file_object.read()
+   A. It closes; content remains available as a string.
+   B. It stays open until content is printed.
+   C. Both file_object and content are deleted.
+   D. The source file is deleted.
+
+3. What is second after these two reads of the same open, nonempty file?
+       first = file_object.read()
+       second = file_object.read()
+   A. The same text as first
+   B. None
+   C. A list of remaining line numbers
+   D. ""
+
+4. What does Path(__file__).resolve().parent / "favorite_albums.txt" identify?
+   A. A file in whichever folder the terminal currently uses
+   B. A file beside the current script
+   C. A file in Python's installation directory
+   D. A file that is automatically created by evaluating the expression
+
+5. What does "  Rush  \n".rstrip("\n") return?
+   A. "Rush"
+   B. "  Rush"
+   C. "  Rush  "
+   D. "Rush\n"
+
+6. If an existing file contains "Rush\n", what happens when it is opened in
+   "w" mode and closed without any write calls?
+   A. It becomes empty.
+   B. It still contains "Rush\n".
+   C. It contains "None".
+   D. A FileExistsError occurs.
+
+7. An existing file contains "Rush" with NO trailing newline. What are its
+   contents after appending "Yes\n" in "a" mode?
+   A. "Rush\nYes\n"
+   B. "Yes\n"
+   C. "Rush Yes\n"
+   D. "RushYes\n"
+
+8. What does file_object.write("Yes\n") return for an open text file?
+   A. None
+   B. 4
+   C. 1
+   D. "Yes\n"
+
+9. Why should write_album_report open its destination in "w" mode ONCE,
+   outside the loop over albums?
+   A. Files cannot be opened inside loops.
+   B. write() automatically inserts a newline outside loops.
+   C. Reopening in "w" on each iteration would erase previously written albums.
+   D. Each dictionary can only be read once.
+
+10. An append_album_log function opens a file in "a" mode, writes one line per
+    album, and returns a count initialized to 0. What happens for an empty album
+    list when the destination does not yet exist?
+    A. It creates an empty file and returns 0.
+    B. It raises FileNotFoundError because append mode cannot create files.
+    C. It writes "0" and returns 1.
+    D. It does not create a file and returns None.
+
+ANSWER SHEET - Enter one letter after each colon.
+1:
+2:
+3:
+4:
+5:
+6:
+7:
+8:
+9:
+10:
