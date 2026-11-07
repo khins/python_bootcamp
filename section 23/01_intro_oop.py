@@ -113,7 +113,54 @@ print(artist)            # => Rush
 # Identify the class and the two instances.
 # What is the act of creating an instance called?
 # ANSWER:
+# the act of creating an instance called - instantion
+# the Playlist class and the two instances are road trip and study time
+class Playlist:
+    def __init__(self, name):
+        self.name = name
 
+
+road_trip = Playlist("Road Trip")
+study_time = Playlist("Study Time")
+
+playlist1 = Playlist("Rock Classics")
+playlist2 = Playlist("Jazz Favorites")
+playlist3 = playlist1
+
+print(playlist1)
+print(playlist2)
+print(playlist3)
+
+class Playlist:
+    def __init__(self, name):
+        self.name = name
+
+
+playlist1 = Playlist("Rock Classics")
+playlist2 = Playlist("Jazz Favorites")
+playlist3 = playlist1
+
+playlist3.name = "Classic Rock"
+
+print(playlist1.name)
+print(playlist2.name)
+print(playlist3.name)
+
+class Playlist:
+    def __init__(self, name):
+        self.name = name
+
+    def rename(self, new_name):
+        self.name = new_name
+
+
+playlist1 = Playlist("Rock Classics")
+playlist2 = Playlist("Jazz Favorites")
+
+playlist1.rename("Classic Rock")
+
+print(playlist1.name)
+print(playlist2.name)
 
 # Exercise 2 — Data or behavior?
 # A proposed Song object has title, artist, duration_seconds, play(),
@@ -121,39 +168,48 @@ print(artist)            # => Rush
 # Which names describe data attributes, and which describe methods?
 # Must describe() change the object's state? Explain.
 # ANSWER:
+# attributes: title, artist, duration_seconds methods: , play(), describe()
 
 
 # Exercise 3 — Same class, different state
 # Predict all four outputs. Explain why only one list changes.
-# first = ["Rush"]
-# second = ["Yes"]
-# first.append("Genesis")
-# print(first)
-# print(second)
-# print(type(first))
-# print(type(second))
+first = ["Rush"]
+second = ["Yes"]
+first.append("Genesis")
+print(first)
+print(second)
+print(type(first))
+print(type(second))
 # ANSWER:
-
+# ['Rush', 'Genesis']
+# ['Yes']
+# <class 'list'>
+# <class 'list'>
 
 # Exercise 4 — Does every method change state?
 # Predict all three outputs. Identify the method call and explain whether
 # it changes the original string.
-# title = "Limelight"
-# loud_title = title.upper()
-# print(loud_title)
-# print(title)
-# print(len(title))
+title = "Limelight"
+loud_title = title.upper()
+print(loud_title)
+print(title)
+print(len(title))
 # ANSWER:
-
+# LIMELIGHT
+# Limelight
+# 9
 
 # Exercise 5 — Another name or another instance?
 # Predict both outputs. Explain whether assigning backup creates a new list.
-# songs = ["YYZ"]
-# backup = songs
-# backup.append("Limelight")
-# print(songs)
-# print(backup is songs)
+songs = ["YYZ"]
+backup = songs
+backup.append("Limelight")
+print(songs)
+print(backup is songs)
 # ANSWER:
+# ['YYZ', 'Limelight']
+# True
+# assigning backup creates a new list
 
 
 # Exercise 6 — Design your own object
@@ -165,21 +221,40 @@ print(artist)            # => Rush
 # 5. Explain which method would change state and what data it would change.
 # This is a design exercise: write comments, not a class definition yet.
 # ANSWER:
+# GameCharacter is proposed class a name
+# three data attributes: character_name, character_color, and strength level
+# List two methods: roll dice (to move), strike opponent (to fight attacker)
+# Describe two instances with different attribute values: 
+# blue_legion = GameCharacter("Blue Legion")
+# red_legion = GameCharacter("Red Legion")
+# when creating a new GameCharacter it changes state because the object is now an instance
+
 
 
 # Optional challenge — Describe a playlist without changing it
+# Write your code below:
 # Work through this one together when you are ready.
 # Define describe_playlist(titles), where titles is a list of song-title strings.
+def describe_playlist(titles) -> dict:
+    song_count = len(titles)
+    yyz_count = titles.count("YYZ")
+
+    new_dict = {
+        "song_count": song_count,
+        "yyz_count": yyz_count
+    }
+
+    return new_dict   
+
+
 # Return a dictionary with two entries:
 # - "song_count": the number of titles
 # - "yyz_count": the number of exact "YYZ" strings (case-sensitive)
 # Use len() and the list's count() method. Leave titles unchanged.
 # Explain which operation is a function call and which is a method call.
 # This is a regular function using an existing object, not a custom class.
-# Write your code below:
-
 
 # Uncomment these checks after defining your function:
-# print(describe_playlist(["YYZ", "Limelight", "YYZ"])) # => {'song_count': 3, 'yyz_count': 2}
-# print(describe_playlist(["yyz", "Roundabout"])) # => {'song_count': 2, 'yyz_count': 0}
-# print(describe_playlist([])) # => {'song_count': 0, 'yyz_count': 0}
+print(describe_playlist(["YYZ", "Limelight", "YYZ"])) # => {'song_count': 3, 'yyz_count': 2}
+print(describe_playlist(["yyz", "Roundabout"])) # => {'song_count': 2, 'yyz_count': 0}
+print(describe_playlist([])) # => {'song_count': 0, 'yyz_count': 0}

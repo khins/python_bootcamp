@@ -4,14 +4,14 @@
       "type": "stdio",
       "command": "C:\\Users\\Kevin\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe",
       "args": [
-        "c:\\Users\\Kevin\\.vscode\\extensions\\altimateai.vscode-altimate-mcp-server-0.14.0-win32-x64\\dist\\datamate-cli.js",
+        "c:\\Users\\Kevin\\.vscode\\extensions\\altimateai.vscode-altimate-mcp-server-0.15.0-win32-x64\\dist\\datamate-cli.js",
         "start-stdio"
       ],
       "env": {
-        "ALTIMATE_EXTENSION_RPC": "\\\\.\\pipe\\altimate-mcp-15140",
+        "ALTIMATE_EXTENSION_RPC": "\\\\.\\pipe\\altimate-mcp-34044",
         "ELECTRON_RUN_AS_NODE": "1"
       },
-      "updatedAt": "2026-10-31T17:32:48.899Z"
+      "updatedAt": "2026-11-07T03:09:50.782Z"
     }
   }
 }
