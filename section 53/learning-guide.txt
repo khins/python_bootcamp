@@ -1,0 +1,33 @@
+Section 53: Advanced object model
+
+Descriptors, attribute lookup, __getattr__, __getattribute__, __slots__, and the relationship between equality and hashing.
+
+Practice project: Build a validating descriptor and explore the behavior of custom data objects.
+
+LEARNING ORDER
+01_descriptors.py
+02_attribute-lookup.py
+03_getattr-and-getattribute.py
+04_slots.py
+05_equality-and-hashing.py
+06_descriptor-project.py
+
+HOW TO STUDY
+Use Python 3.11 or newer. Read each numbered file, predict the output, then
+uncomment its example() call INSIDE the __main__ guard and run the script.
+Restore the comment afterward. The numbered lessons are quiet by default.
+Write your own practice code separately from the worked examples.
+Helper project modules are runnable references, not unfinished exercises.
+
+ENVIRONMENT (PowerShell from repository root)
+& "C:/Users/Kevin/anaconda3/python.exe" -m venv .venv
+# Or use another installed Python 3.11+ interpreter to create your environment.
+.venv/Scripts/python.exe "section 53/01_descriptors.py"
+
+VERIFICATION
+Syntax/import checks are not behavior tests. Compare results, exercise empty
+inputs and failures, and do not require fixed timings or completion order.
+Standard-library examples use synthetic data and temporary/in-memory resources.
+
+PROJECT
+.venv/Scripts/python.exe "section 53/validated_album.py"

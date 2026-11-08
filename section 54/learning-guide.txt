@@ -1,0 +1,32 @@
+Section 54: Metaprogramming and introspection
+
+inspect, callable objects, class decorators, __init_subclass__, metaclasses, and when simpler alternatives are preferable.
+
+Practice project: Build a small plugin registry and inspect the registered implementations.
+
+LEARNING ORDER
+01_inspect-and-signatures.py
+02_callable-objects.py
+03_class-decorators.py
+04_init-subclass-and-metaclasses.py
+05_plugin-registry-project.py
+
+HOW TO STUDY
+Use Python 3.11 or newer. Read each numbered file, predict the output, then
+uncomment its example() call INSIDE the __main__ guard and run the script.
+Restore the comment afterward. The numbered lessons are quiet by default.
+Write your own practice code separately from the worked examples.
+Helper project modules are runnable references, not unfinished exercises.
+
+ENVIRONMENT (PowerShell from repository root)
+& "C:/Users/Kevin/anaconda3/python.exe" -m venv .venv
+# Or use another installed Python 3.11+ interpreter to create your environment.
+.venv/Scripts/python.exe "section 54/01_inspect-and-signatures.py"
+
+VERIFICATION
+Syntax/import checks are not behavior tests. Compare results, exercise empty
+inputs and failures, and do not require fixed timings or completion order.
+Standard-library examples use synthetic data and temporary/in-memory resources.
+
+PROJECT
+.venv/Scripts/python.exe "section 54/plugin_registry.py"

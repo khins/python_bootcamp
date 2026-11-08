@@ -1,0 +1,47 @@
+Section 55: Building web APIs with FastAPI
+
+Routes, request validation, response models, HTTP responses, dependency injection, database integration, and API tests.
+
+Practice project: Expose a music catalog through a tested FastAPI application.
+
+LEARNING ORDER
+01_routes-and-http.py
+02_request-validation.py
+03_response-models-and-errors.py
+04_dependencies-and-database-lifetime.py
+05_api-tests-and-catalog-project.py
+
+HOW TO STUDY
+Use Python 3.11 or newer. Read each numbered file, predict the output, then
+uncomment its example() call INSIDE the __main__ guard and run the script.
+Restore the comment afterward. The numbered lessons are quiet by default.
+Write your own practice code separately from the worked examples.
+Helper project modules are runnable references, not unfinished exercises.
+
+ENVIRONMENT (PowerShell from repository root)
+& "C:/Users/Kevin/anaconda3/python.exe" -m venv .venv
+# Or use another installed Python 3.11+ interpreter to create your environment.
+.venv/Scripts/python.exe "section 55/01_routes-and-http.py"
+
+VERIFICATION
+Syntax/import checks are not behavior tests. Compare results, exercise empty
+inputs and failures, and do not require fixed timings or completion order.
+Standard-library examples use synthetic data and temporary/in-memory resources.
+
+DEPENDENCIES
+.venv/Scripts/python.exe -m pip install -r "section 55/requirements.txt"
+.venv/Scripts/python.exe -m unittest discover -s "section 55" -p "test_*.py" -v
+Installation downloads packages. Tests do not require a listening HTTP server.
+The requirements specify compatible ranges, not a complete transitive lock.
+Record your tested environment for repeatable installations.
+
+LOCAL SERVER (explicitly opens a local listening socket)
+.venv/Scripts/python.exe -m uvicorn catalog_api:app --app-dir "section 55" --host 127.0.0.1 --port 8000
+Visit http://127.0.0.1:8000/docs for the interactive schema.
+The SQLite database is in memory: all records disappear at shutdown.
+Do not use multiple workers and expect them to share that database.
+This demo is unauthenticated; it is not a ready-to-publish service.
+
+REFERENCES
+https://fastapi.tiangolo.com/tutorial/testing/
+https://fastapi.tiangolo.com/advanced/events/

@@ -1,0 +1,40 @@
+SECTIONS 50–58: STUDY INDEX
+
+50 — Multiprocessing: 5 lessons; cpu_analysis.py
+51 — Asynchronous Python: 6 lessons; async_pipeline.py
+52 — Interfaces and advanced typing: 5 lessons; storage_project.py
+53 — Advanced object model: 6 lessons; validated_album.py
+54 — Metaprogramming and introspection: 5 lessons; plugin_registry.py
+55 — Building web APIs with FastAPI: 5 lessons; catalog_api.py
+56 — Development and delivery workflow: 5 lessons; quality_check.py
+57 — Advanced exception handling: 6 lessons; batch_processor.py
+58 — PostgreSQL and asynchronous database access: 7 lessons; postgres_catalog.py
+
+Start with each section's learning-guide.txt, then follow its numbered files.
+Examples are disabled initially. Uncomment example() within the __main__ guard.
+Worked project implementations are separate from the independent practice tasks.
+Existing section-overview.txt files are preserved.
+
+VERIFICATION — November 8, 2026
+Python 3.11.5: all 50 numbered worked examples executed successfully.
+All new Python files passed parsing and focused Ruff error checks.
+The standalone CPU, async pipeline, storage, descriptor, registry, and batch
+projects ran successfully. Small CPU tasks were slower with processes, as expected.
+API tests: 9 passed; 1 real PostgreSQL integration test skipped because no
+STUDY_TEST_DATABASE_URL was configured. No real database was contacted.
+The actual PostgreSQL schema migration and live catalog adapter remain unverified
+against a server. Section 58 explains how to configure an isolated study database.
+
+Dependencies were checked in an isolated temporary environment, not installed
+into the repository or the base Anaconda environment. Tested versions included:
+FastAPI 0.162.2, Pydantic 2.14.3, HTTPX 0.28.1, Psycopg 3.3.8,
+psycopg-pool 3.3.3, Uvicorn 0.54.0, and Ruff 0.17.4.
+The installed Starlette emitted a deprecation warning about its HTTPX adapter;
+all offline API tests passed. Recheck dependency compatibility when upgrading.
+
+SETUP
+Use the Python 3.11+ environment instructions in each learning guide.
+Sections 50–54 and 57 use the standard library for their worked examples.
+Section 55 and Section 58 include requirements.txt and API test commands.
+Section 56's quality project checks Section 55, so it needs those dependencies.
+No CI workflow was activated, no API was published, and no migration was run.

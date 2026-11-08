@@ -1,0 +1,39 @@
+Section 56: Development and delivery workflow
+
+Formatting, linting, Git workflows, automated checks, continuous integration, documentation, and deployment fundamentals.
+
+Practice project: Create an automated quality-check workflow and document how to run and deploy a project.
+
+LEARNING ORDER
+01_formatting-and-linting.py
+02_git-workflows.py
+03_automated-checks-and-ci.py
+04_documentation-and-deployment.py
+05_quality-workflow-project.py
+
+HOW TO STUDY
+Use Python 3.11 or newer. Read each numbered file, predict the output, then
+uncomment its example() call INSIDE the __main__ guard and run the script.
+Restore the comment afterward. The numbered lessons are quiet by default.
+Write your own practice code separately from the worked examples.
+Helper project modules are runnable references, not unfinished exercises.
+
+ENVIRONMENT (PowerShell from repository root)
+& "C:/Users/Kevin/anaconda3/python.exe" -m venv .venv
+# Or use another installed Python 3.11+ interpreter to create your environment.
+.venv/Scripts/python.exe "section 56/01_formatting-and-linting.py"
+
+VERIFICATION
+Syntax/import checks are not behavior tests. Compare results, exercise empty
+inputs and failures, and do not require fixed timings or completion order.
+Standard-library examples use synthetic data and temporary/in-memory resources.
+
+PROJECT AND OPTIONAL TOOLS
+Install the section-55 requirements before running the quality script.
+.venv/Scripts/python.exe "section 56/quality_check.py"
+.venv/Scripts/python.exe -m pip install ruff
+.venv/Scripts/python.exe -m ruff check --select E9,F63,F7,F82 "section 55"
+.venv/Scripts/python.exe -m ruff format --check "section 55"
+Formatting may report changes without indicating a behavioral bug.
+workflow-demo.yml is a reference, not an activated GitHub Actions workflow.
+The quality script does not install, commit, push, or deploy anything.

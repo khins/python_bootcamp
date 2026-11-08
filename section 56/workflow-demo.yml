@@ -1,0 +1,18 @@
+# Reference only: copy into .github/workflows/study-quality.yml when ready.
+name: Study quality
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install -r "section 55/requirements.txt" ruff
+      - run: python -m ruff check --select E9,F63,F7,F82 "section 55"
+      - run: python -m unittest discover -s "section 55" -p "test_*.py" -v
+# For stronger supply-chain reproducibility, pin actions to reviewed commit SHAs
+# and lock transitive Python dependencies after testing your chosen versions.

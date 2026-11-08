@@ -1,0 +1,69 @@
+Section 58: PostgreSQL and asynchronous database access
+
+PostgreSQL connections and configuration, parameterized queries, transactions and rollback, relationships, constraints, schema migrations, connection pools, asynchronous queries, connection lifetimes, and database testing.
+
+Practice project: Extend the FastAPI music catalog with PostgreSQL storage and asynchronous database access.
+
+LEARNING ORDER
+01_connections-and-configuration.py
+02_parameterized-queries.py
+03_transactions-and-rollback.py
+04_relationships-constraints-and-migrations.py
+05_async-queries-and-connection-pools.py
+06_database-testing.py
+07_async-postgres-catalog-project.py
+
+HOW TO STUDY
+Use Python 3.11 or newer. Read each numbered file, predict the output, then
+uncomment its example() call INSIDE the __main__ guard and run the script.
+Restore the comment afterward. The numbered lessons are quiet by default.
+Write your own practice code separately from the worked examples.
+Helper project modules are runnable references, not unfinished exercises.
+
+ENVIRONMENT (PowerShell from repository root)
+& "C:/Users/Kevin/anaconda3/python.exe" -m venv .venv
+# Or use another installed Python 3.11+ interpreter to create your environment.
+.venv/Scripts/python.exe "section 58/01_connections-and-configuration.py"
+
+VERIFICATION
+Syntax/import checks are not behavior tests. Compare results, exercise empty
+inputs and failures, and do not require fixed timings or completion order.
+Standard-library examples use synthetic data and temporary/in-memory resources.
+
+DEPENDENCIES
+.venv/Scripts/python.exe -m pip install -r "section 58/requirements.txt"
+.venv/Scripts/python.exe -m unittest discover -s "section 58" -p "test_*.py" -v
+Installation downloads packages. Tests do not require a listening HTTP server.
+The requirements specify compatible ranges, not a complete transitive lock.
+Record your tested environment for repeatable installations.
+
+OPTIONAL LIVE POSTGRESQL SETUP
+Install/run PostgreSQL separately. Create your own dedicated study database
+and restricted role using your database administration tools.
+Set $env:STUDY_DATABASE_URL to its connection URL in your local shell; do not
+commit it, print it in logs, or reuse a production database.
+Apply the migration once using psql (installed with PostgreSQL tooling):
+psql "$env:STUDY_DATABASE_URL" -v ON_ERROR_STOP=1 -f "section 58/001_catalog.sql"
+This intentionally creates tables and a version record in the chosen database.
+Do not rerun migration 001 on an already migrated database. Create a new numbered
+migration for later changes. Do not have every server worker race to migrate.
+Start the local API explicitly:
+.venv/Scripts/python.exe "section 58/serve_catalog.py"
+On Windows this entry point selects the Python 3.11 selector event loop needed
+by Psycopg async I/O. A generic Uvicorn launcher may choose an incompatible loop.
+Visit http://127.0.0.1:8000/docs after startup succeeds.
+
+OPTIONAL DATABASE TEST
+Set $env:STUDY_TEST_DATABASE_URL to a dedicated test database URL, then rerun
+unittest discovery. With no test URL the integration test is reported skipped.
+The integration test uses a temporary table and rollback; offline fake tests
+cannot establish that the migrated production adapter SQL is correct.
+Full-schema adapter integration coverage remains an extension exercise.
+Each server process owns its own pool; budget total connections across workers.
+The health endpoint reports app liveness, not a fresh database readiness query.
+
+REFERENCES
+https://www.psycopg.org/psycopg3/docs/basic/params.html
+https://www.psycopg.org/psycopg3/docs/basic/transactions.html
+https://www.psycopg.org/psycopg3/docs/advanced/async.html
+https://www.psycopg.org/psycopg3/docs/advanced/pool.html

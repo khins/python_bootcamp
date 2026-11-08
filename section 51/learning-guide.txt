@@ -1,0 +1,34 @@
+Section 51: Asynchronous Python
+
+Coroutines, async/await, tasks, structured concurrency with TaskGroup, cancellation, timeouts, semaphores, asynchronous context managers, and asynchronous iteration.
+
+Practice project: Build an asynchronous data-fetching pipeline with bounded concurrency and cancellation.
+
+LEARNING ORDER
+01_coroutines-and-await.py
+02_tasks-and-taskgroup.py
+03_cancellation-and-timeouts.py
+04_semaphores-and-bounded-work.py
+05_async-contexts-and-iteration.py
+06_async-pipeline-project.py
+
+HOW TO STUDY
+Use Python 3.11 or newer. Read each numbered file, predict the output, then
+uncomment its example() call INSIDE the __main__ guard and run the script.
+Restore the comment afterward. The numbered lessons are quiet by default.
+Write your own practice code separately from the worked examples.
+Helper project modules are runnable references, not unfinished exercises.
+
+ENVIRONMENT (PowerShell from repository root)
+& "C:/Users/Kevin/anaconda3/python.exe" -m venv .venv
+# Or use another installed Python 3.11+ interpreter to create your environment.
+.venv/Scripts/python.exe "section 51/01_coroutines-and-await.py"
+
+VERIFICATION
+Syntax/import checks are not behavior tests. Compare results, exercise empty
+inputs and failures, and do not require fixed timings or completion order.
+Standard-library examples use synthetic data and temporary/in-memory resources.
+
+PROJECT
+.venv/Scripts/python.exe "section 51/async_pipeline.py"
+The fetcher is simulated; no URLs are contacted. TaskGroup requires Python 3.11+.
