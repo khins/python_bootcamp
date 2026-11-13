@@ -124,44 +124,59 @@ print(acoustic.wood)       # => spruce
 
 # Exercise 1 — A consistent initial value
 # Predict all three outputs. How often does __init__ run?
-# class Player:
-#     def __init__(self):
-#         self.volume = 5
-#
-# first = Player()
-# second = Player()
-# print(first.volume)
-# print(second.volume)
-# print(first is second)
+class Player:
+    def __init__(self):
+        self.volume = 5
+
+first = Player()
+second = Player()
+print(first.volume)
+print(second.volume)
+print(first is second)
 # ANSWER:
+# 5
+# 5
+# False
+# How often does __init__ run? every time the instance is created in this case twice
 
 
 # Exercise 2 — Customize each instance
 # Predict both outputs. Explain which value self refers to in each call
 # and why each Album call needs only one explicit argument.
-# class Album:
-#     def __init__(self, title):
-#         self.title = title
-#
-# first = Album("Moving Pictures")
-# second = Album("Paranoid")
-# print(first.title)
-# print(second.title)
-# ANSWER:
+class Album:
+    def __init__(self, title):
+        self.title = title
 
+first = Album("Moving Pictures")
+second = Album("Paranoid")
+print(first.title)
+print(second.title)
+# ANSWER:
+# Moving Pictures
+# Paranoid
+# each album instance needs only the 1 argument which is the title of the album
 
 # Exercise 3 — A parameter is not automatically an attribute
 # The final line is an intentional error; keep it commented out.
 # Explain why title = name does not store a title attribute on the instance.
 # Write the corrected assignment inside __init__.
-# class Song:
-#     def __init__(self, name):
-#         title = name
-#
-# song = Song("YYZ")
+class Song:
+    def __init__(self, name):
+        title = name
+
+song = Song("YYZ")
 # print(song.title)  # AttributeError
 # ANSWER:
+# title name needs to be self.title because it refers to "this" instance object
 
+# corrected assignment inside __init__
+class Song:
+    def __init__(self, name):
+        self.title = name
+
+song = Song("YYZ")
+print(song.title)
+# YYZ
 
 # Exercise 4 — Required arguments and self
 # Consider each proposed call separately using this class:
@@ -172,29 +187,36 @@ print(acoustic.wood)       # => spruce
 # A. Guitar()
 # B. Guitar("alder")
 # C. Guitar(wood="maple")
-# D. Guitar("alder", "mahogany")
+# D. Guitar("alder", "mahogany") # Too many positional arguments
 # Which calls succeed? Explain each failure and who supplies self.
 # Keep the invalid calls commented out.
 # ANSWER:
+# A and D fail 
 
+print("-" * 65)
 
 # Exercise 5 — Equal attribute values and aliases
 # Predict all five outputs. How many Guitar instances are created?
-# class Guitar:
-#     def __init__(self, wood):
-#         self.wood = wood
-#
-# first = Guitar("alder")
-# second = Guitar("alder")
-# alias = first
-# print(first.wood == second.wood)
-# print(first is second)
-# print(first == second)
-# alias.wood = "maple"
-# print(first.wood)
-# print(second.wood)
-# ANSWER:
+class Guitar:
+    def __init__(self, wood):
+        self.wood = wood
 
+first = Guitar("alder")
+second = Guitar("alder")
+alias = first
+print(first.wood == second.wood)
+print(first is second)
+print(first == second)
+alias.wood = "maple"
+print(first.wood)
+print(second.wood)
+# ANSWER:
+# True
+# False
+# False
+# maple
+# alder
+# How many Guitar instances are created? Two
 
 # Exercise 6 — Write your own initializer with an attribute
 # 1. Define a class named MusicPlayer.
@@ -207,7 +229,22 @@ print(acoustic.wood)       # => spruce
 # Write your code below:
 
 # ANSWER:
+class MusicPlayer:
+    def __init__(self, brand):
+        self.brand = brand
 
+first = MusicPlayer("Panasonic")
+second = MusicPlayer("LonPoo")
+third = MusicPlayer("Panasonic")
+print(first.brand)
+print(second.brand)
+print(first.brand == third.brand)
+print(first is third)
+# Panasonic
+# LonPoo
+# True
+# False
+# first and third have equal brand values and are same object
 
 # Optional challenge — Initialize several attributes
 # Work through this one together when you are ready.
@@ -219,18 +256,37 @@ print(acoustic.wood)       # => spruce
 # Use the initializer for attribute setup, rather than assigning attributes
 # manually after each instance is created.
 # Write your code below:
+class CustomGuitar:
+    def __init__(self, wood, strings, year):
+        self.wood = wood
+        self.strings = strings
+        self.year = year
 
+def make_guitar_pair(wood, strings, year) -> list[CustomGuitar]:
+    guitar_list = []
+
+    first = CustomGuitar(wood, strings, year)
+
+    # TODO: Create a SECOND independent CustomGuitar instance
+    second = CustomGuitar(wood, strings, year)
+
+    guitar_list.append(first)
+
+    # TODO: Append the second guitar to the list
+    guitar_list.append(second)
+
+    return guitar_list
 
 # Uncomment these checks after defining your class and function:
-# pair = make_guitar_pair("mahogany", 6, 1990)
-# print(len(pair))              # => 2
-# print(pair[0].wood)           # => mahogany
-# print(pair[0].strings)        # => 6
-# print(pair[0].year)           # => 1990
-# print(pair[1].year)           # => 1990
-# print(pair[0] is pair[1])     # => False
-# pair[0].year = 2005
-# print(pair[1].year)           # => 1990
+pair = make_guitar_pair("mahogany", 6, 1990)
+print(len(pair))              # => 2
+print(pair[0].wood)           # => mahogany
+print(pair[0].strings)        # => 6
+print(pair[0].year)           # => 1990
+print(pair[1].year)           # => 1990
+print(pair[0] is pair[1])     # => False
+pair[0].year = 2005
+print(pair[1].year)           # => 1990
 # Explain why __init__ has four parameters but each CustomGuitar call needs
 # only three explicit arguments. Why would creating one guitar and putting
 # it into the list twice fail this challenge?
