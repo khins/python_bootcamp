@@ -108,76 +108,223 @@ third_guitar = Guitar()
 
 # Exercise 1 — Assign and read attributes
 # Predict both outputs. Identify the instance and its two attribute names.
-# class Album:
-#     pass
-#
-# album = Album()
-# album.title = "Moving Pictures"
-# album.year = 1981
-# print(album.title)
-# print(album.year)
+class Album:
+    pass
+
+album = Album() # the instance
+album.title = "Moving Pictures" # attribute names
+album.year = 1981 # attribute names
+print(album.title)
+print(album.year)
 # ANSWER:
+# Moving Pictures
+# 1981
+# Python allows you to dynamically add attributes to instances of ordinary classes
+
+class Album:
+    pass
+
+first = Album()
+second = Album()
+
+first.title = "Moving Pictures"
+second.title = "Fragile"
+
+first.year = 1981
+second.year = 1971
+
+print(first.title)
+print(second.year)
+print(first is second)
 
 
 # Exercise 2 — Same attribute name, different instances
 # Predict all three outputs. Explain why changing first does not change second.
-# class Guitar:
-#     pass
-#
-# first = Guitar()
-# second = Guitar()
-# first.strings = 6
-# second.strings = 12
-# first.strings = 7
-# print(first.strings)
-# print(second.strings)
-# print(first is second)
+class Guitar:
+    pass
+
+first = Guitar()
+second = Guitar()
+first.strings = 6
+second.strings = 12
+first.strings = 7
+print(first.strings)
+print(second.strings)
+print(first is second)
 # ANSWER:
+# 7
+# 12
+# False
+# first does not change second because they are different instances of Guitar
+# Key OOP concept: Two objects can belong to the same class and have attributes with identical names while storing different values.
+
 
 
 # Exercise 3 — Attribute or standalone variable?
 # Predict both outputs. Explain why assigning nickname does not change
 # player.nickname, even though they use the same name.
-# class Player:
-#     pass
-#
-# player = Player()
-# player.nickname = "Roadrunner"
-# nickname = "Viking"
-# print(nickname)
-# print(player.nickname)
-# ANSWER:
+class Player:
+    pass
 
+player = Player()
+player.nickname = "Roadrunner"
+nickname = "Viking"
+print(nickname)
+print(player.nickname)
+# ANSWER:
+# Viking
+# Roadrunner
+# assigning nickname does not change player.nickname because nickname is not part of the Player instances because of the dot notation
+
+# Attribute reassignment
+class Player:
+    pass
+
+player = Player()
+player.nickname = "Roadrunner"
+
+nickname = player.nickname
+nickname = "Viking"
+
+print(nickname)
+print(player.nickname)
+# Viking
+# Roadrunner
 
 # Exercise 4 — Diagnose a missing attribute
 # Explain why the final line would raise AttributeError.
 # Write an assignment that would let second.year be read successfully.
 # Does assigning first.year also create an attribute on the class itself?
-# class Guitar:
-#     pass
-#
-# first = Guitar()
-# second = Guitar()
-# first.year = 1990
+class Guitar:
+    pass
+
+first = Guitar()
+second = Guitar()
+first.year = 1990
+print(first.year)
 # print(second.year)  # Intentional error: keep this line commented out.
 # ANSWER:
+# second.year has not been created yet hence you cannot print a value that does not exist
 
+# The key concept here is instance attribute shadowing:
+class Guitar:
+    year = 1990
+
+first = Guitar()
+second = Guitar()
+
+first.year = 2005
+
+print(first.year)
+print(second.year)
+print(Guitar.year)
+# 2005
+# 1990
+# 1990
+
+print("-" * 65)
+# Changing a class attribute:
+class Guitar:
+    year = 1990
+
+first = Guitar()
+second = Guitar()
+
+first.year = 2005
+Guitar.year = 2020
+
+print(first.year)
+print(second.year)
+print(Guitar.year)
+# 2005
+# 2020
+# 2020
+
+class Guitar:
+    strings = 6
+
+first = Guitar()
+second = Guitar()
+
+second.strings = 10
+Guitar.strings = 7
+
+print(first.strings)
+print(second.strings)
+print(Guitar.strings)
+
+# Removing an instance attribute:
+class Guitar:
+    strings = 6
+
+first = Guitar()
+second = Guitar()
+
+first.strings = 12
+
+del first.strings
+
+print(first.strings)
+print(second.strings)
+print(Guitar.strings)
 
 # Exercise 5 — Two names for one instance
 # Predict all three outputs. How many Song instances are created?
 # Explain why the title read through song changes.
-# class Song:
-#     pass
-#
-# song = Song()
-# song.title = "YYZ"
-# favorite = song
-# favorite.title = "Limelight"
-# print(song.title)
-# print(favorite.title)
-# print(song is favorite)
-# ANSWER:
+class Song:
+    pass
 
+song = Song()
+song.title = "YYZ"
+favorite = song
+favorite.title = "Limelight"
+print(song.title)
+print(favorite.title)
+print(song is favorite)
+# ANSWER:
+# Limelight
+# Limelight
+# True
+# How many Song instances are created? One
+# Explain why the title read through song changes: 
+# It does not create a new Song instance. Instead, both variables reference the same object.
+# The title read through song changes because favorite and song reference the same Song instance. Changing
+#  the title through either variable modifies the same object's attribute.
+
+# Reassignment versus modification
+class Song:
+    pass
+
+song = Song()
+song.title = "YYZ"
+
+favorite = song
+favorite = Song()
+favorite.title = "Limelight"
+
+print(song.title)
+print(favorite.title)
+print(song is favorite)
+# YYZ
+# Limelight
+# False
+
+class Song:
+    pass
+
+first = Song()
+first.title = "YYZ"
+
+second = first
+second.title = "Limelight"
+
+third = Song()
+third.title = "Tom Sawyer"
+
+print(first.title)
+print(second.title)
+print(third.title)
+print(first is second)
 
 # Exercise 6 — Describe your own objects
 # 1. Define an empty class named MusicPlayer using pass.
@@ -191,7 +338,55 @@ third_guitar = Guitar()
 # Write your code below:
 
 # ANSWER:
+class MusicPlayer:
+    pass
 
+my_music_player = MusicPlayer()
+my_music_player.brand = "Sony"
+my_music_player.volume = 10
+
+second = MusicPlayer() # creating two separate instances
+second.volume = 8
+second.brand = "Yamaha"
+
+print(f'Volume 1: {my_music_player.volume}')
+print(f'Volume 2: {second.volume}')
+print(my_music_player.brand)
+# Volume 1: 10
+# Volume 2: 8
+# Sony
+
+first = MusicPlayer()
+second = MusicPlayer()
+third = first
+
+first.volume = 10
+second.volume = 20
+third.volume = 5
+
+print(first.volume)
+print(second.volume)
+print(third.volume)
+
+# — Initializing attributes with __init__()
+class MusicPlayer:
+    def __init__(self, brand, volume):
+        self.brand = brand
+        self.volume = volume
+
+
+first = MusicPlayer("Sony", 10)
+second = MusicPlayer("Yamaha", 20)
+
+first.volume = 15
+
+print(first.brand)
+print(first.volume)
+print(second.volume)
+# Sony
+# 15
+# 20
+# The statement self.volume = volume takes the value received through the volume parameter and stores it as an instance attribute.
 
 # Optional challenge — Build an object in a function
 # Work through this one together when you are ready.
@@ -202,19 +397,67 @@ third_guitar = Guitar()
 # Keep the class empty; the next lesson will move setup into __init__.
 # Each function call must return a separate guitar.
 # Write your code below:
+class Guitar:
+    pass
+
+def make_guitar(wood, strings, year) -> Guitar:
+    new_guitar = Guitar()
+    new_guitar.wood = wood
+    new_guitar.strings = strings
+    new_guitar.year = year
+
+    return new_guitar
 
 
 # Uncomment these checks after defining your class and function:
-# first = make_guitar("mahogany", 6, 1990)
-# second = make_guitar("maple", 12, 2005)
-# print(type(first) is Guitar)  # => True
-# print(first.wood)            # => mahogany
-# print(first.strings)         # => 6
-# print(first.year)            # => 1990
-# print(second.wood)           # => maple
-# print(first is second)       # => False
-# first.year = 1992
-# print(second.year)           # => 2005
+first = make_guitar("mahogany", 6, 1990)
+second = make_guitar("maple", 12, 2005)
+print(type(first) is Guitar)  # => True
+print(first.wood)            # => mahogany
+print(first.strings)         # => 6
+print(first.year)            # => 1990
+print(second.wood)           # => maple
+print(first is second)       # => False
+first.year = 1992
+print(second.year)           # => 2005
 # Explain why returning the instance is different from printing it.
 # Would calling Guitar() directly guarantee these three attributes exist
 # with your empty class? Explain how this motivates using __init__ next.
+
+print("-" * 65)
+# — Move initialization into the class
+class Guitar:
+    def __init__(self, wood, strings, year): # constructor parameters.
+        # Assign the three instance attributes here
+        self.wood = wood
+        self.strings = strings # instance attributes.
+        self.year = year
+
+
+first = Guitar("mahogany", 6, 1990)
+second = Guitar("maple", 12, 2005)
+
+print(first.wood)
+print(second.strings)
+print(first is second)
+# mahogany
+# 12
+# False
+
+# — Default constructor parameters
+class Guitar:
+    def __init__(self, wood, year, strings=6):
+        self.wood = wood
+        self.year = year
+        self.strings = strings
+
+
+first = Guitar("mahogany", 1990)
+second = Guitar("maple", 2005, 12)
+
+print(first.strings)
+print(second.strings)
+print(first.year)
+# 6
+# 12
+# 1990
